@@ -10,7 +10,7 @@ See AUTHORS file for details.
 
 libmediawiki is an interface for MediaWiki based web service as wikipedia.org
 
-This library is used by kipi-plugins, digiKam and other kipi host programs.
+This library is used by kipi-plugins and digiKam.
 
 The library documentation is available in the header and cpp files in doxygen style. You can use doxygen ( http://www.doxygen.org ) to generate documentation in HTML format:
 
