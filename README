@@ -8,7 +8,7 @@ See AUTHORS file for details.
 
 -- ABOUT --------------------------------------------------------------
 
-libmediawiki is an interface for MediaWiki based web service as wikipedia.org
+libmediawiki is a KDE C++ interface for MediaWiki based web service as wikipedia.org
 
 This library is used by kipi-plugins and digiKam.
 
