@@ -1,0 +1,3 @@
+Use KUrl instead QUrl in whole library to be more compatible with KDELibs API.
+Check UTF-8 encoding in mediawiki request. Grep TODO in source code for details.
+Check compilation under MacOSX.

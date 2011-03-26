@@ -1,0 +1,66 @@
+MEDIAWIKI C++ INTERFACE FOR KDE.
+
+This library is a part of digiKam project (http://www.digikam.org)
+
+-- AUTHORS ------------------------------------------------------------
+
+See AUTHORS file for details.
+
+-- ABOUT --------------------------------------------------------------
+
+libmediawiki is an interface for MediaWiki based web service as wikipedia.org
+
+This library is used by kipi-plugins, digiKam and other kipi host programs.
+
+The library documentation is available in the header and cpp files in doxygen style. You can use doxygen ( http://www.doxygen.org ) to generate documentation in HTML format:
+
+# cd libkmap
+# doxygen Doxyfile
+
+-- DEPENDENCIES -------------------------------------------------------
+
+CMake      >= 2.8.x                     http://www.cmake.org
+libqt      >= 4.6.x                     http://www.qtsoftware.com
+libkde     >= 4.4.x                     http://www.kde.org
+
+-- INSTALL ------------------------------------------------------------
+
+In order to compile, especially when QT3/Qt4 are installed at the same time, 
+just use something like that:
+
+# export VERBOSE=1
+# export QTDIR=/usr/lib/qt4/  
+# export PATH=$QTDIR/bin:$PATH 
+# cmake .
+# make
+
+Common CMake options:
+
+-DCMAKE_INSTALL_PREFIX : cmake . -DCMAKE_INSTALL_PREFIX=/usr is the equivalent to ./configure --prefix=/usr 
+-DCMAKE_BUILD_TYPE     : decide which type of build you want. You can chose between "debugfull", "debug", "profile", "relwithdebinfo" and "release". 
+The default is "relwithdebinfo" (-O2 -g). 
+
+More details can be found ata this url: http://techbase.kde.org/Development/Tutorials/CMake#Environment_Variables
+
+-- CONTACT ------------------------------------------------------------
+
+If you have questions, comments, suggestions to make do email at:
+
+kde-imaging@kde.org
+
+IRC channel from freenode.net server: 
+
+#kde-imaging 
+
+-- BUGS ---------------------------------------------------------------
+
+IMPORTANT : the bugreports and wishlist are hosted by the KDE bugs report 
+system who can be contacted by the standard Kde help menu of plugins dialog. 
+A mail will be automatically sent to the Kipi mailing list.
+There is no need to contact directly the Kipi mailing list for a bug report 
+or a devel wish.
+
+The current libmediawiki bugs and devel wishes reported to the KDE bugzilla can be see
+at this url:
+
+http://bugs.kde.org/buglist.cgi?product=digikam&component=libmediawiki&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED
