@@ -46,28 +46,28 @@ SET(mediawiki_LIB_SRCS image.cpp
                        upload.cpp
    )
 
-SET(mediawiki_HRCS image.h
-                   imageinfo.h
-                   mediawiki.h
-                   login.h
-                   logout.h
-                   queryimageinfo.h
-                   queryimages.h
-                   querysiteinfogeneral.h
-                   generalinfo.h
-                   querysiteinfousergroups.h
-                   queryrevision.h
-                   queryinfo.h
-                   edit.h
-                   job.h
-                   usergroup.h
-                   revision.h
-                   page.h
-                   parse.h
-                   protection.h
-                   upload.h
-                   mediawiki_export.h
-                   version.h
+SET(mediawiki_HRCS ${CMAKE_CURRENT_BINARY_DIR}/image.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/imageinfo.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/mediawiki.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/login.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/logout.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/queryimageinfo.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/queryimages.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/querysiteinfogeneral.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/generalinfo.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/querysiteinfousergroups.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/queryrevision.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/queryinfo.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/edit.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/job.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/usergroup.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/revision.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/page.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/parse.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/protection.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/upload.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/mediawiki_export.h
+                   ${CMAKE_CURRENT_BINARY_DIR}/version.h
    )
 
 KDE4_ADD_LIBRARY(mediawiki SHARED ${mediawiki_LIB_SRCS})
