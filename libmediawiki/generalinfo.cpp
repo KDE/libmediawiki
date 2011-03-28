@@ -81,9 +81,9 @@ Generalinfo::~Generalinfo()
     delete d;
 }
 
-Generalinfo& Generalinfo::operator=(Generalinfo& other)
+Generalinfo& Generalinfo::operator=(const Generalinfo& other)
 {
-    std::swap(d, other.d);
+    *d = *other.d;
     return *this;
 }
 

@@ -70,7 +70,7 @@ public:
      * @brief Assingning an image from an other image.
      * @param other an other image
      */
-    Generalinfo& operator=(Generalinfo& other);
+    Generalinfo& operator=(const Generalinfo& other);
 
     /**
      * @brief Get the name of the main page.
