@@ -24,7 +24,7 @@
 #include <QtTest/QtTest>
 
 #include <KJob>
-#include <kdebug.h>
+#include <KDebug>
 
 #include "mediawiki.h"
 #include "queryinfo.h"
