@@ -77,7 +77,7 @@ Imageinfo::~Imageinfo()
 
 Imageinfo& Imageinfo::operator=(Imageinfo other)
 {
-    std::swap(d, other.d);
+    *d = *other.d;
     return *this;
 }
 

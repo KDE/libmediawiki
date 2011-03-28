@@ -65,7 +65,7 @@ UserGroup::~UserGroup()
 
 UserGroup& UserGroup::operator=(UserGroup other)
 {
-    std::swap(d, other.d);
+    *d = *other.d;
     return *this;
 }
 

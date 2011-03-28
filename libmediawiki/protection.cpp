@@ -62,7 +62,7 @@ Protection::Protection(const Protection& other)
 
 Protection& Protection::operator=(Protection other)
 {
-    std::swap(d, other.d);
+    *d = *other.d;
     return *this;
 }
 

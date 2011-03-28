@@ -77,7 +77,7 @@ Page::Page( const Page& other)
 
 Page& Page::operator=(Page other)
 {
-    std::swap(d, other.d);
+    *d = *other.d;
     return *this;
 }
 

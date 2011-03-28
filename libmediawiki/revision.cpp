@@ -73,7 +73,7 @@ Revision::Revision( const Revision& other)
 
 Revision & Revision::operator=(Revision other)
 {
-    std::swap(d, other.d);
+    *d = *other.d;
     return *this;
 }
 

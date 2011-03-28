@@ -63,7 +63,7 @@ Image::~Image()
 
 Image& Image::operator=(Image other)
 {
-    std::swap(d, other.d);
+    *d = *other.d;
     return *this;
 }
 
