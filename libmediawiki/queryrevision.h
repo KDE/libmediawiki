@@ -42,14 +42,12 @@
 #include "revision.h"
 #include "mediawiki_export.h"
 
-class QNetworkReply;
 
 namespace mediawiki
 {
 
 class MediaWiki;
 class QueryRevisionPrivate;
-
 /**
  * @brief QueryRevision job.
  *

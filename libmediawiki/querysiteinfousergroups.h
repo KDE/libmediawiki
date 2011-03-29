@@ -34,14 +34,12 @@
 #include "mediawiki_export.h"
 #include "usergroup.h"
 
-class QNetworkReply;
 
 namespace mediawiki
 {
 
 class MediaWiki;
 class QuerySiteinfoUsergroupsPrivate;
-
 /**
  * @brief UserGroups job.
  *

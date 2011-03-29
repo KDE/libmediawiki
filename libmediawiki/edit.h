@@ -46,14 +46,12 @@
 #include "queryinfo.h"
 #include "mediawiki_export.h"
 
-class QNetworkReply;
 
 namespace mediawiki
 {
 
 class MediaWiki;
 class EditPrivate;
-
 /**
  * @brief Edit job.
  *

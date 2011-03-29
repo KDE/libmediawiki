@@ -41,14 +41,12 @@
 #include "job.h"
 #include "generalinfo.h"
 
-class QNetworkReply;
 
 namespace mediawiki
 {
 
 class MediaWiki;
 class QuerySiteInfoGeneralPrivate;
-
 /**
  * @brief QuerySiteInfoGeneral job.
  *

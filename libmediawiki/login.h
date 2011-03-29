@@ -40,14 +40,12 @@
 #include "job.h"
 #include "mediawiki_export.h"
 
-class QNetworkReply;
 
 namespace mediawiki
 {
 
 class MediaWiki;
 class LoginPrivate;
-
 /**
  * @brief Login job.
  *

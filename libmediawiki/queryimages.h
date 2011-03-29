@@ -40,14 +40,12 @@
 #include "mediawiki_export.h"
 #include "image.h"
 
-class QNetworkReply;
 
 namespace mediawiki
 {
 
 class MediaWiki;
 class QueryImagesPrivate;
-
 /**
  * @brief Query images job.
  *

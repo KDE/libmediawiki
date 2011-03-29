@@ -33,14 +33,12 @@
 #include "job.h"
 #include "mediawiki_export.h"
 
-class QNetworkReply;
 
 namespace mediawiki
 {
 
 class MediaWiki;
 class LogoutPrivate;
-
 /**
  * @brief Logout job.
  *
