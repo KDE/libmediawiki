@@ -216,7 +216,7 @@ void Login::doWorkProcessReply()
                     return;
                 }
             }
-            else if (reader.name() == QString("error"))
+            else if (reader.name() == QLatin1String("error"))
             {
                 this->setError(LoginPrivate::error(attrs.value(QString("code")).toString()));
                 d->reply->close();

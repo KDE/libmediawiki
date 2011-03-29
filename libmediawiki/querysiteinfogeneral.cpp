@@ -144,7 +144,7 @@ void QuerySiteInfoGeneral::doWorkProcessReply()
                 generalinfo.setWikiId(reader.attributes().value("wikiid").toString());
                 generalinfo.setTime(QDateTime::fromString(reader.attributes().value("time").toString(), "yyyy-MM-dd'T'hh:mm:ss'Z'"));
             }
-            else if(reader.name() == "error")
+            else if(reader.name() == QLatin1String("error"))
             {
                 this->setError(QuerySiteInfoGeneral::IncludeAllDenied);
                 d->reply->close();

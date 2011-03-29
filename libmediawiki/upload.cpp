@@ -259,14 +259,14 @@ void Upload::doWorkProcessReply()
         {
             QXmlStreamAttributes attrs = reader.attributes();
 
-            if ( reader.name() == QString( "upload" ) )
+            if ( reader.name() == QLatin1String( "upload" ) )
             {
                 if ( attrs.value( QString( "result" ) ).toString() == "Success" )
                 {
                     this->setError(KJob::NoError);
                 }
             }
-            else if ( reader.name() == QString( "error" ) )
+            else if ( reader.name() == QLatin1String( "error" ) )
             {
                 this->setErrorText(attrs.value( QString( "info" )).toString());
                 this->setError(UploadPrivate::error(attrs.value("code" ).toString()));
