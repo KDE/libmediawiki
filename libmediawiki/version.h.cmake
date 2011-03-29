@@ -1,7 +1,7 @@
 /** ===========================================================
  *
- * This file is a part of digiKam project
- * <a href="http://www.digikam.org">http://www.digikam.org</a>
+ * This file is a part of KDE project
+ * <a href="https://projects.kde.org/projects/kdereview/libmediawiki">libmediawiki</a>
  *
  * @date   2011-03-24
  * @brief  MEDIAWIKI release ID header

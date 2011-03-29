@@ -16,8 +16,8 @@ Author:         caulier dot gilles at gmail dot com (Gilles Caulier)
                 xavier dot vincent dot garcia at gmail dot com (Vincent Garcia)
                 bussenot dot robin at gmail dot com (Robin Bussenot)
 Maintained-by:
-Primary-site:   http://www.digikam.org
-Alternate-site: http://www.kipi-plugins.org
+Primary-site:   https://projects.kde.org/projects/kdereview/libmediawiki
+Alternate-site: 
 Original-site:
 Platforms:      Linux and other Unices, MacOs-X, Win32. Needs KDE 4.x
 Copying-policy: LGPL

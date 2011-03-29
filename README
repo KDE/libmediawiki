@@ -1,6 +1,6 @@
 MEDIAWIKI C++ INTERFACE FOR KDE.
 
-This library is a part of digiKam project (http://www.digikam.org)
+This library is a part of KDE project (https://projects.kde.org/projects/kdereview/libmediawiki)
 
 -- AUTHORS ------------------------------------------------------------
 
@@ -63,4 +63,4 @@ or a devel wish.
 The current libmediawiki bugs and devel wishes reported to the KDE bugzilla can be see
 at this url:
 
-http://bugs.kde.org/buglist.cgi?product=digikam&component=libmediawiki&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED
+http://bugs.kde.org/buglist.cgi?product=libmediawiki&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED

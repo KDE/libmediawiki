@@ -5,7 +5,7 @@ includedir=${INCLUDE_INSTALL_DIR}
 
 Name: libmediawiki
 Description: a MediaWiki C++ interface for KDE.
-URL: http://www.digikam.org
+URL: https://projects.kde.org/projects/kdereview/libmediawiki
 Requires:
 Version: ${MEDIAWIKI_LIB_VERSION_STRING}
 Libs: -L${LIB_INSTALL_DIR} -lmediawiki
