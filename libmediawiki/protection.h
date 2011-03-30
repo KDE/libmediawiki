@@ -123,7 +123,7 @@ public:
 
 private:
 
-    class ProtectionInfo* d;
+    class ProtectionInfo* const d;
 };
 
 } // namespace mediawiki

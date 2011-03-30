@@ -33,12 +33,12 @@
 #include "job.h"
 #include "mediawiki_export.h"
 
-
 namespace mediawiki
 {
 
 class MediaWiki;
 class LogoutPrivate;
+
 /**
  * @brief Logout job.
  *

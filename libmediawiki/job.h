@@ -96,6 +96,6 @@ private Q_SLOTS:
     void processUploadProgress(qint64 bytesReceived, qint64 bytesTotal);
 };
 
-}
+} // namespace mediawiki
 
 #endif // MEDIAWIKIJOB_H

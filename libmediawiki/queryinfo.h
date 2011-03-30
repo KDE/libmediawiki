@@ -42,12 +42,12 @@
 #include "mediawiki_export.h"
 #include "job.h"
 
-
 namespace mediawiki
 {
 
 class MediaWiki;
 class QueryInfoPrivate;
+
 /**
  * @brief QueryInfo job.
  *

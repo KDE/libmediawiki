@@ -41,12 +41,12 @@
 #include "job.h"
 #include "generalinfo.h"
 
-
 namespace mediawiki
 {
 
 class MediaWiki;
 class QuerySiteInfoGeneralPrivate;
+
 /**
  * @brief QuerySiteInfoGeneral job.
  *

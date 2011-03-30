@@ -240,7 +240,7 @@ public:
 
 private:
 
-    class PagePrivate* d;
+    class PagePrivate* const d;
 };
 
 } // namespace mediawiki

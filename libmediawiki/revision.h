@@ -190,7 +190,7 @@ public:
 
 private:
 
-    class RevisionPrivate* d;
+    class RevisionPrivate* const d;
 };
 
 } // namespace mediawiki

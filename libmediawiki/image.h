@@ -97,7 +97,7 @@ public:
 
 private:
 
-    class ImagePrivate* d;
+    class ImagePrivate* const d;
 };
 
 } // namespace mediawiki

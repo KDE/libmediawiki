@@ -114,7 +114,7 @@ public:
 
 private:
 
-    class UserGroupPrivate* d;
+    class UserGroupPrivate* const d;
 };
 
 } // namespace mediawiki

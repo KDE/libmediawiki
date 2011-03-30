@@ -46,6 +46,7 @@ namespace mediawiki
 
 class MediaWiki;
 class QueryImagesPrivate;
+
 /**
  * @brief Query images job.
  *

@@ -41,7 +41,6 @@
 #include "job.h"
 #include "queryinfo.h"
 
-
 namespace mediawiki
 {
 

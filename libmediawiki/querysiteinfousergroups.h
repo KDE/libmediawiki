@@ -34,12 +34,12 @@
 #include "mediawiki_export.h"
 #include "usergroup.h"
 
-
 namespace mediawiki
 {
 
 class MediaWiki;
 class QuerySiteinfoUsergroupsPrivate;
+
 /**
  * @brief UserGroups job.
  *
