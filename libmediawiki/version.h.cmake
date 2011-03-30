@@ -25,8 +25,8 @@
 #ifndef MEDIAWIKI_VERSION_H
 #define MEDIAWIKI_VERSION_H
 
-static const char kipi_version[]     = "${MEDIAWIKI_LIB_VERSION_STRING}";
-static const int kipi_binary_version =  ${MEDIAWIKI_LIB_SO_CUR_VERSION};
+static const char mediawiki_version[]     = "${MEDIAWIKI_LIB_VERSION_STRING}";
+static const int mediawiki_binary_version =  ${MEDIAWIKI_LIB_SO_CUR_VERSION};
 #define MEDIAWIKI_VERSION ${MEDIAWIKI_LIB_VERSION_ID}
 
 #endif // MEDIAWIKI_VERSION_H
