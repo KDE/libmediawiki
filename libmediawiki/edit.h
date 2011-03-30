@@ -52,6 +52,7 @@ namespace mediawiki
 
 class MediaWiki;
 class EditPrivate;
+
 /**
  * @brief Edit job.
  *
@@ -313,7 +314,6 @@ Q_SIGNALS:
 private Q_SLOTS:
 
     void doWorkSendRequest(Page page);
-
     void finishedEdit();
 
 public Q_SLOTS:

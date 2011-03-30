@@ -49,8 +49,10 @@
 namespace mediawiki
 {
 
-struct Result
+class Result
 {
+public:
+
     unsigned int m_captchaId;
     QVariant     m_captchaQuestion;
     QString      m_captchaAnswer;
@@ -62,7 +64,8 @@ public:
 
     EditPrivate(MediaWiki& mediawiki)
         : JobPrivate(mediawiki)
-    {}
+    {
+    }
 
     static int error(const QString& error)
     {
@@ -100,10 +103,6 @@ public:
     QMap<QString, QString> requestParameter;
     Result                 result;
 };
-
-} // namespace mediawiki
-
-using namespace mediawiki;
 
 Edit::Edit(MediaWiki& media, QObject* parent)
     : Job(*new EditPrivate(media), parent)
@@ -443,3 +442,5 @@ void Edit::finishedCaptcha(const QString& captcha)
     connect( d->reply, SIGNAL( finished() ),
              this, SLOT( finishedEdit() ) );
 }
+
+} // namespace mediawiki
