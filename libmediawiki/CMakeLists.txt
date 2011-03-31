@@ -46,30 +46,6 @@ SET(mediawiki_LIB_SRCS image.cpp
                        upload.cpp
    )
 
-SET(mediawiki_HRCS image.h
-                   imageinfo.h
-                   mediawiki.h
-                   login.h
-                   logout.h
-                   queryimageinfo.h
-                   queryimages.h
-                   querysiteinfogeneral.h
-                   generalinfo.h
-                   querysiteinfousergroups.h
-                   queryrevision.h
-                   queryinfo.h
-                   edit.h
-                   job.h
-                   usergroup.h
-                   revision.h
-                   page.h
-                   parse.h
-                   protection.h
-                   upload.h
-                   mediawiki_export.h
-                   ${CMAKE_CURRENT_BINARY_DIR}/version.h
-   )
-
 KDE4_ADD_LIBRARY(mediawiki SHARED ${mediawiki_LIB_SRCS})
 
 TARGET_LINK_LIBRARIES(mediawiki
@@ -77,8 +53,31 @@ TARGET_LINK_LIBRARIES(mediawiki
                       ${QT_QTCORE_LIBRARY}
                      )
 
-SET_TARGET_PROPERTIES(mediawiki PROPERTIES VERSION ${MEDIAWIKI_LIB_SO_VERSION_STRING} SOVERSION ${MEDIAWIKI_LIB_SO_CUR_VERSION})
+SET_TARGET_PROPERTIES(mediawiki PROPERTIES VERSION ${MEDIAWIKI_LIB_SO_VERSION_STRING}
+                                SOVERSION ${MEDIAWIKI_LIB_SO_CUR_VERSION})
 
 INSTALL(TARGETS mediawiki ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-INSTALL(FILES ${mediawiki_HRCS} DESTINATION ${INCLUDE_INSTALL_DIR}/libmediawiki COMPONENT Devel)
+INSTALL(FILES image.h
+              imageinfo.h
+              mediawiki.h
+              login.h
+              logout.h
+              queryimageinfo.h
+              queryimages.h
+              querysiteinfogeneral.h
+              generalinfo.h
+              querysiteinfousergroups.h
+              queryrevision.h
+              queryinfo.h
+              edit.h
+              job.h
+              usergroup.h
+              revision.h
+              page.h
+              parse.h
+              protection.h
+              upload.h
+              mediawiki_export.h
+              ${CMAKE_CURRENT_BINARY_DIR}/version.h
+        DESTINATION ${INCLUDE_INSTALL_DIR}/libmediawiki COMPONENT Devel)
