@@ -40,7 +40,7 @@
 namespace mediawiki
 {
 
-class PagePrivate
+class Page::PagePrivate
 {
 public:
 

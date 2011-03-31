@@ -36,7 +36,7 @@
 namespace mediawiki
 {
 
-class RevisionPrivate
+class Revision::RevisionPrivate
 {
 public:
 

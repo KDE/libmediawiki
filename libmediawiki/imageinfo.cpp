@@ -36,7 +36,7 @@
 namespace mediawiki
 {
 
-class ImageinfoPrivate
+class Imageinfo::ImageinfoPrivate
 {
 public:
 

@@ -34,7 +34,7 @@
 
 #include <QtCore/QString>
 
-// Locla includes
+// Local includes
 
 #include "mediawiki_export.h"
 
@@ -97,7 +97,8 @@ public:
 
 private:
 
-    class ImagePrivate* const d;
+    class ImagePrivate;
+    ImagePrivate* const d;
 };
 
 } // namespace mediawiki

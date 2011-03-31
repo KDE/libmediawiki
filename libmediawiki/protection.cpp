@@ -31,7 +31,7 @@
 namespace mediawiki
 {
 
-class ProtectionInfo
+class Protection::ProtectionPrivate
 {
 public:
 
@@ -42,7 +42,7 @@ public:
 };
 
 Protection::Protection()
-    : d(new ProtectionInfo())
+    : d(new ProtectionPrivate())
 {
     d->type   = "";
     d->level  = "";
@@ -56,7 +56,7 @@ Protection::~Protection()
 }
 
 Protection::Protection(const Protection& other)
-    : d(new ProtectionInfo(*(other.d)))
+    : d(new ProtectionPrivate(*(other.d)))
 {
 }
 

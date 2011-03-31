@@ -40,7 +40,6 @@
 #include "job.h"
 #include "mediawiki_export.h"
 
-
 namespace mediawiki
 {
 

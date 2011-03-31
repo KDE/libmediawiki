@@ -40,7 +40,6 @@
 #include "mediawiki_export.h"
 #include "image.h"
 
-
 namespace mediawiki
 {
 

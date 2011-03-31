@@ -46,7 +46,6 @@
 #include "queryinfo.h"
 #include "mediawiki_export.h"
 
-
 namespace mediawiki
 {
 
