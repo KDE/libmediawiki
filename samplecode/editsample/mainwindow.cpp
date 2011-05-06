@@ -53,7 +53,7 @@ MainWindow::~MainWindow()
 //Load page
 void MainWindow::on_pushButton2_clicked()
 {
-    mediawiki = new MediaWiki(QUrl("http://test.wikipedia.org/w/api.php"));
+    mediawiki = new MediaWiki(QUrl(this->ui->mWikiEdit->text()));
     QueryRevision* const queryrevision(new QueryRevision(*mediawiki));
     queryrevision->setPageName(this->ui->mPageEdit->text());
     queryrevision->setProperties(QueryRevision::Content);
@@ -78,7 +78,7 @@ void MainWindow::revisionHandle(const QList<Revision>& revisions)
         popup.exec();
         return;
     }
-    this->ui->plainTextEdit->setPlainText(revisions[0].content());
+    this->ui->plainTextEdit->setPlainText(revisions[0].content().toUtf8());
 }
 
 //Send page
