@@ -11,6 +11,8 @@
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2010 by Alexandre Mendes
  *         <a href="mailto:alex dot mendes1988 at gmail dot com">alex dot mendes1988 at gmail dot com</a>
+ * @author Copyright (C) 2011 by Guillaume Hormiere
+ *         <a href="mailto:hormiere dot guillaume at gmail dot com">hormiere dot guillaume at gmail dot com</a>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -61,6 +63,7 @@ private Q_SLOTS:
 
     void on_plainTextEdit_textChanged();
     void on_mPageEdit_textChanged(QString);
+    void on_mWikiEdit_textChanged(QString);
     void on_pushButton1_clicked();
     void on_pushButton2_clicked();
     void loginHandle(KJob* login);
@@ -71,7 +74,7 @@ private Q_SLOTS:
 private:
 
     Ui::MainWindow* ui;
-    MediaWiki       mediawiki;
+    MediaWiki*      mediawiki;
 };
 
 #endif // MAINWINDOW_H

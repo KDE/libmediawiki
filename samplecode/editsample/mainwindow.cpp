@@ -11,6 +11,8 @@
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2010 by Alexandre Mendes
  *         <a href="mailto:alex dot mendes1988 at gmail dot com">alex dot mendes1988 at gmail dot com</a>
+ * @author Copyright (C) 2011 by Guillaume Hormiere
+ *         <a href="mailto:hormiere dot guillaume at gmail dot com">hormiere dot guillaume at gmail dot com</a>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -37,8 +39,8 @@
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
-      ui(new Ui::MainWindow),
-      mediawiki(QUrl("http://test.wikipedia.org/w/api.php"))
+      ui(new Ui::MainWindow)
+
 {
     ui->setupUi(this);
 }
@@ -51,7 +53,8 @@ MainWindow::~MainWindow()
 //Load page
 void MainWindow::on_pushButton2_clicked()
 {
-    QueryRevision* const queryrevision(new QueryRevision(mediawiki));
+    mediawiki = new MediaWiki(QUrl("http://test.wikipedia.org/w/api.php"));
+    QueryRevision* const queryrevision(new QueryRevision(*mediawiki));
     queryrevision->setPageName(this->ui->mPageEdit->text());
     queryrevision->setProperties(QueryRevision::Content);
     queryrevision->setExpandTemplates(true);
@@ -81,7 +84,7 @@ void MainWindow::revisionHandle(const QList<Revision>& revisions)
 //Send page
 void MainWindow::on_pushButton1_clicked()
 {
-    Login* login = new Login(mediawiki, this->ui->mLoginEdit->text(), this->ui->mMdpEdit->text());
+    Login* login = new Login(*mediawiki, this->ui->mLoginEdit->text(), this->ui->mMdpEdit->text());
     connect(login, SIGNAL(result(KJob* )),
             this, SLOT(loginHandle(KJob*)));
     login->start();
@@ -97,7 +100,7 @@ void MainWindow::loginHandle(KJob* login)
     }
     else
     {
-        Edit* job = new Edit( mediawiki,NULL);
+        Edit* job = new Edit(*mediawiki,NULL);
         job->setPageName(this->ui->mPageEdit->text());
         job->setText(this->ui->plainTextEdit->toPlainText());
         connect(job, SIGNAL(result(KJob *)),
@@ -128,7 +131,12 @@ void MainWindow::revisionError(KJob* job)
 
 void MainWindow::on_mPageEdit_textChanged(QString text)
 {
-    this->ui->pushButton2->setEnabled(!text.isEmpty() && !text.isNull());
+    this->ui->pushButton2->setEnabled(!text.isEmpty() && !text.isNull() && !this->ui->mWikiEdit->text().isEmpty());
+}
+
+void MainWindow::on_mWikiEdit_textChanged(QString text)
+{
+    this->ui->pushButton2->setEnabled(!text.isEmpty() && !text.isNull() && !this->ui->mPageEdit->text().isEmpty());
 }
 
 void MainWindow::on_plainTextEdit_textChanged()
