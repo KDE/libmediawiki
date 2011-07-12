@@ -9,7 +9,7 @@ IF( KDE4_BUILD_TESTS )
         ADD_DEFINITIONS( -DTEST_DATA="\"${CMAKE_CURRENT_SOURCE_DIR}\"" )
         KDE4_ADD_UNIT_TEST( ${_testname} TESTNAME mediawiki-${_testname}
                                          NOGUI ${_testname}.cpp libmediawikitest/fakeserver.cpp )
-        TARGET_LINK_LIBRARIES( ${_testname} ${KDE4_KIO_LIBS} ${QT_QTTEST_LIBRARY} mediawiki -fprofile-arcs)
+        TARGET_LINK_LIBRARIES( ${_testname} ${KDE4_KIO_LIBS} ${QT_QTTEST_LIBRARY} mediawiki -fprofile-arcs -ftest-coverage)
         SET_PROPERTY(TEST mediawiki-${_testname} PROPERTY LABELS library)
 
     ENDFOREACH( _testname )

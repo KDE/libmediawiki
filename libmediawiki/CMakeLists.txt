@@ -23,7 +23,9 @@
 # ============================================================
 
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
-
+IF( KDE4_BUILD_TESTS )
+	set( CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage")
+ENDIF( KDE4_BUILD_TESTS )
 SET(mediawiki_LIB_SRCS image.cpp
                        imageinfo.cpp
                        mediawiki.cpp
