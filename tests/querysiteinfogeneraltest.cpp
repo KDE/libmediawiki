@@ -23,7 +23,8 @@
 
 #include <QObject>
 #include <QtTest/QtTest>
-#include <KJob>
+
+#include <kjob.h>
 
 #include "libmediawikitest/fakeserver.h"
 

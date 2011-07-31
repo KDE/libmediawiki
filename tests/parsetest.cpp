@@ -22,8 +22,9 @@
 
 #include <QObject>
 #include <QtTest/QtTest>
-#include <KJob>
 #include <QDebug>
+
+#include <kjob.h>
 
 #include "mediawiki.h"
 #include "parse.h"

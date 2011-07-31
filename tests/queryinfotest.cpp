@@ -23,8 +23,8 @@
 #include <QObject>
 #include <QtTest/QtTest>
 
-#include <KJob>
-#include <KDebug>
+#include <kjob.h>
+#include <kdebug.h>
 
 #include "mediawiki.h"
 #include "queryinfo.h"

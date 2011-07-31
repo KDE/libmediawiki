@@ -22,7 +22,8 @@
 
 #include <QObject>
 #include <QtTest/QtTest>
-#include <KJob>
+
+#include <kjob.h>
 
 #include "mediawiki.h"
 #include "logout.h"

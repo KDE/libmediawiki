@@ -23,6 +23,7 @@
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtTest/QTest>
+
 #include <KDE/KJob>
 
 #include "libmediawikitest/fakeserver.h"
