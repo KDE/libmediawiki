@@ -38,6 +38,7 @@ class LogoutTest : public QObject
 public slots:
 
     void logoutHandle(KJob* job) {
+        Q_UNUSED(job)
         logoutCount++;
     }
 
@@ -89,7 +90,7 @@ private:
 };
 
 
-QTEST_MAIN(LogoutTest);
+QTEST_MAIN(LogoutTest)
 #include "logouttest.moc"
 #endif // TEST_LOGOUT_H
 

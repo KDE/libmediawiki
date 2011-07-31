@@ -108,7 +108,7 @@ public:
         /**
         * @brief Either you did not provide the login token or the sessionid cookie. Request again with the token and cookie given in this response
         */
-        TokenNeeded,
+        TokenNeeded
     };
 
 public:

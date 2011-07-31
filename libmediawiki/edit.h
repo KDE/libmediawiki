@@ -162,7 +162,7 @@ public:
         /**
          * @brief The undo failed.
          */
-        UndoFailed,
+        UndoFailed
     };
 
     /**

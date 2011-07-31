@@ -59,7 +59,7 @@ public:
     {
         NetworkError            = KJob::UserDefinedError + 1,
         XmlError,
-        UserRequestDefinedError = KJob::UserDefinedError + 100,
+        UserRequestDefinedError = KJob::UserDefinedError + 100
     };
 
 public:

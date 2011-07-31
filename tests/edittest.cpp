@@ -420,7 +420,7 @@ private:
 };
 
 
-QTEST_MAIN(EditTest);
+QTEST_MAIN(EditTest)
 #include "edittest.moc"
 #endif // TEST_EDIT_H
 

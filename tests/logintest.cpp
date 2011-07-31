@@ -40,6 +40,7 @@ class LoginTest : public QObject
 public slots:
 
     void loginHandle(KJob* job) {
+        Q_UNUSED(job)
         loginCount++;
     }
 
@@ -541,6 +542,6 @@ private:
 };
 
 
-QTEST_MAIN(LoginTest);
+QTEST_MAIN(LoginTest)
 #include "logintest.moc"
 #endif // TEST_LOGIN_H

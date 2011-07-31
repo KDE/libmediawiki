@@ -58,6 +58,6 @@ private slots:
 
 };
 
-QTEST_MAIN(MediaWikiTest);
+QTEST_MAIN(MediaWikiTest)
 
 #include "mediawikitest.moc"
