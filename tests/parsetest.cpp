@@ -60,6 +60,7 @@ class ParseTest : public QObject
 public slots:
 
     void parseHandle(KJob* job) {
+        Q_UNUSED(job)
         parseCount++;
     }
 
