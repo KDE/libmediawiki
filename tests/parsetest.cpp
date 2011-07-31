@@ -219,7 +219,7 @@ private:
 };
 
 
-QTEST_MAIN(ParseTest);
+QTEST_MAIN(ParseTest)
 #include "parsetest.moc"
 #endif // TEST_PARSE_H
 

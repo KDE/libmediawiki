@@ -171,7 +171,7 @@ private:
     Generalinfo generalResult;
     QString request;
 };
-QTEST_MAIN(QuerySiteInfoGeneralTest);
+QTEST_MAIN(QuerySiteInfoGeneralTest)
 #include "QuerySiteInfoGeneralTest.moc"
 
 #endif // TEST_GENERAL_H

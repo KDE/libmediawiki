@@ -252,6 +252,6 @@ private:
 
 };
 
-QTEST_MAIN(QuerySiteinfoUsergroupsTest);
+QTEST_MAIN(QuerySiteinfoUsergroupsTest)
 
 #include "querysiteinfousergroupstest.moc"

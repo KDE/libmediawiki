@@ -202,7 +202,7 @@ private:
 };
 
 
-QTEST_MAIN(UploadTest);
+QTEST_MAIN(UploadTest)
 #include "uploadtest.moc"
 #endif // TEST_UPLOAD_H
 

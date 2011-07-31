@@ -242,7 +242,7 @@ private:
 };
 
 
-QTEST_MAIN(QueryInfoTest);
+QTEST_MAIN(QueryInfoTest)
 #include "queryinfotest.moc"
 #endif // TEST_QUERYINFO_H
 

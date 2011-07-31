@@ -135,6 +135,6 @@ private:
 
 };
 
-QTEST_MAIN(QueryImageinfoTest);
+QTEST_MAIN(QueryImageinfoTest)
 
 #include "queryimageinfotest.moc"

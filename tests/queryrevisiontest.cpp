@@ -702,6 +702,6 @@ private:
 
 };
 
-QTEST_MAIN(QueryRevisionTest);
+QTEST_MAIN(QueryRevisionTest)
 
 #include "queryrevisiontest.moc"

@@ -30,9 +30,9 @@ using mediawiki::MediaWiki;
 using mediawiki::QueryImages;
 using mediawiki::Image;
 
-Q_DECLARE_METATYPE(QList<QString>);
-Q_DECLARE_METATYPE(QList<Image>);
-Q_DECLARE_METATYPE(QList<QList<Image> >);
+Q_DECLARE_METATYPE(QList<QString>)
+Q_DECLARE_METATYPE(QList<Image>)
+Q_DECLARE_METATYPE(QList<QList<Image> >)
 
 
 class QueryImagesTest : public QObject {
@@ -159,6 +159,6 @@ private:
 
 };
 
-QTEST_MAIN(QueryImagesTest);
+QTEST_MAIN(QueryImagesTest)
 
 #include "queryimagestest.moc"

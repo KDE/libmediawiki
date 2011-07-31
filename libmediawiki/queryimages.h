@@ -71,7 +71,7 @@ public:
         /**
          * @brief A XML error has occurred.
          */
-        XmlError,
+        XmlError
     };
 
 public:

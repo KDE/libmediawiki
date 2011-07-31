@@ -61,7 +61,7 @@ public:
 
     enum
     {
-        IncludeAllDenied = Job::UserDefinedError + 1,
+        IncludeAllDenied = Job::UserDefinedError + 1
     };
 
 public:

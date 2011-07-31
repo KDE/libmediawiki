@@ -123,7 +123,7 @@ public:
         /**
          * @brief Stashing temporary file failed.
          */
-        StashFailed,
+        StashFailed
     };
 
 public:
