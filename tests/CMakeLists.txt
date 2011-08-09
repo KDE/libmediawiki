@@ -42,6 +42,4 @@ IF( KDE4_BUILD_TESTS )
         parsetest.rc
        )
 
-    INSTALL(FILES ${ressources_RC} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
 ENDIF( KDE4_BUILD_TESTS )
