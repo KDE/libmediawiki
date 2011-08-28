@@ -67,7 +67,7 @@ private slots:
         fakeserver.setScenario(m_infoScenario);
         fakeserver.addScenario(senario);
         fakeserver.startAndWait();
-        connect(job, SIGNAL(result(KJob* )),this, SLOT(uploadHandle(KJob*)));
+        connect(job, SIGNAL(result(KJob*)),this, SLOT(uploadHandle(KJob*)));
         job->exec();
         FakeServer::Request serverrequest = fakeserver.getRequest()[1];
         QCOMPARE(serverrequest.type, QString("POST"));
@@ -112,7 +112,7 @@ private slots:
         job->setFilename("Test.jpeg");
         job->setComment("Test");
         job->setText("{{Information|Description=Ajout du logo de l'IUP ISI, Toulouse.|Source=http://www.iupisi.ups-tlse.fr/|Date=1992-01-01|Author=iup|Permission={{PD-EEA}}|other_versions=}}");
-        connect(job,  SIGNAL(result(KJob* )),this, SLOT(uploadHandle(KJob*)));
+        connect(job,  SIGNAL(result(KJob*)),this, SLOT(uploadHandle(KJob*)));
 
         job->exec();
 

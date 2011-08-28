@@ -67,7 +67,7 @@ private slots:
         job->setEndTimestamp(QDateTime(QDate(2007, 06, 06), QTime(22, 27, 45, 0)));
         job->setWidthScale(78u);
         job->setHeightScale(102u);
-        connect(job, SIGNAL(result(const QList<Imageinfo> &)), this, SLOT(resultHandle(const QList<Imageinfo> &)));
+        connect(job, SIGNAL(result(QList<Imageinfo>)), this, SLOT(resultHandle(QList<Imageinfo>)));
         job->exec();
 
         // Test job

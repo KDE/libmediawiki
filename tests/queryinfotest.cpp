@@ -162,8 +162,8 @@ private slots:
         FakeServer fakeserver;
         fakeserver.addScenario(scenario);
         fakeserver.startAndWait();
-        connect(&job, SIGNAL(page(const Page &)),this,SLOT(queryInfoHandlePages(const Page&)));
-        connect(&job, SIGNAL(protection(const QVector <Protection> &)),this,SLOT(queryInfoHandleProtection(const QVector<Protection> &)));
+        connect(&job, SIGNAL(page(Page)),this,SLOT(queryInfoHandlePages(Page)));
+        connect(&job, SIGNAL(protection(QVector<Protection>)),this,SLOT(queryInfoHandleProtection(QVector<Protection>)));
 
         job.exec();
 

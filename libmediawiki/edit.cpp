@@ -245,8 +245,8 @@ void Edit::start()
     QueryInfo* info = new QueryInfo(d->mediawiki,this);
     info->setPageName(d->requestParameter["title"]);
     info->setToken("edit");
-    connect(info, SIGNAL(page(Page )),
-            this, SLOT(doWorkSendRequest(Page )));
+    connect(info, SIGNAL(page(Page)),
+            this, SLOT(doWorkSendRequest(Page)));
     info->start();
 
 }
@@ -347,8 +347,8 @@ void Edit::doWorkSendRequest(Page page)
     // Send the request
     d->reply = d->manager->post( request, url.toString().toUtf8() );
     connectReply();
-    connect( d->reply, SIGNAL( finished() ),
-             this, SLOT( finishedEdit() ) );
+    connect( d->reply, SIGNAL(finished()),
+             this, SLOT(finishedEdit()) );
 }
 
 void Edit::finishedEdit()
@@ -439,8 +439,8 @@ void Edit::finishedCaptcha(const QString& captcha)
     request.setRawHeader( "Cookie", cookie );
     // Send the request
     d->reply = d->manager->post( request, data.toUtf8() );
-    connect( d->reply, SIGNAL( finished() ),
-             this, SLOT( finishedEdit() ) );
+    connect( d->reply, SIGNAL(finished()),
+             this, SLOT(finishedEdit()) );
 }
 
 } // namespace mediawiki

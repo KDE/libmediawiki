@@ -86,8 +86,8 @@ private slots:
         FakeServer fakeserver;
         fakeserver.setScenario(scenario);
         fakeserver.startAndWait();
-        connect(job, SIGNAL(result(QString )),this, SLOT(resultHandle(QString)));
-        connect(job, SIGNAL(result(KJob* )),this, SLOT(parseHandle(KJob*)));
+        connect(job, SIGNAL(result(QString)),this, SLOT(resultHandle(QString)));
+        connect(job, SIGNAL(result(KJob*)),this, SLOT(parseHandle(KJob*)));
         job->exec();
         QCOMPARE(parseResult, result);
         QCOMPARE(this->parseCount, 1);
@@ -105,7 +105,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.setScenario(scenario);
         fakeserver.startAndWait();
-        connect(job, SIGNAL(result(KJob* )),this, SLOT(parseHandle(KJob*)));
+        connect(job, SIGNAL(result(KJob*)),this, SLOT(parseHandle(KJob*)));
         job->exec();
         FakeServer::Request serverrequest = fakeserver.getRequest()[0];
         QCOMPARE(serverrequest.type, QString("GET"));

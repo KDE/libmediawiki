@@ -73,7 +73,7 @@ private slots:
         QueryImages * job = new QueryImages(mediawiki);
         job->setTitle(title);
         job->setLimit(limit);
-        connect(job, SIGNAL(images(const QList<Image> &)), this, SLOT(imagesHandle(const QList<Image> &)));
+        connect(job, SIGNAL(images(QList<Image>)), this, SLOT(imagesHandle(QList<Image>)));
         job->exec();
 
         // Test job

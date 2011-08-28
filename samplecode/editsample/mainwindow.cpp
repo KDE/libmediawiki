@@ -60,10 +60,10 @@ void MainWindow::on_pushButton2_clicked()
     queryrevision->setExpandTemplates(true);
     queryrevision->setLimit(1);
 
-    connect(queryrevision, SIGNAL(revision(const QList<Revision>&)),
-            this, SLOT(revisionHandle(const QList<Revision>&)));
+    connect(queryrevision, SIGNAL(revision(QList<Revision>)),
+            this, SLOT(revisionHandle(QList<Revision>)));
 
-    connect(queryrevision, SIGNAL(result(KJob* )),
+    connect(queryrevision, SIGNAL(result(KJob*)),
             this, SLOT(revisionError(KJob*)));
 
     queryrevision->start();
@@ -85,7 +85,7 @@ void MainWindow::revisionHandle(const QList<Revision>& revisions)
 void MainWindow::on_pushButton1_clicked()
 {
     Login* login = new Login(*mediawiki, this->ui->mLoginEdit->text(), this->ui->mMdpEdit->text());
-    connect(login, SIGNAL(result(KJob* )),
+    connect(login, SIGNAL(result(KJob*)),
             this, SLOT(loginHandle(KJob*)));
     login->start();
 }
@@ -103,7 +103,7 @@ void MainWindow::loginHandle(KJob* login)
         Edit* job = new Edit(*mediawiki,NULL);
         job->setPageName(this->ui->mPageEdit->text());
         job->setText(this->ui->plainTextEdit->toPlainText());
-        connect(job, SIGNAL(result(KJob *)),
+        connect(job, SIGNAL(result(KJob*)),
                 this, SLOT(editError(KJob*)));
         job->start();
     }

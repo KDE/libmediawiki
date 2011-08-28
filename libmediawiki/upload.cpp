@@ -132,8 +132,8 @@ void Upload::start()
     info->setPageName("File:" + d->filename);
     info->setToken("edit");
 
-    connect(info, SIGNAL(page(Page )),
-            this, SLOT(doWorkSendRequest(Page )));
+    connect(info, SIGNAL(page(Page)),
+            this, SLOT(doWorkSendRequest(Page)));
 
     info->start();
 }
@@ -229,16 +229,16 @@ void Upload::doWorkSendRequest(Page page)
 
     d->reply = d->manager->post( request, out );
     connectReply();
-    connect( d->reply, SIGNAL( finished() ),
-             this, SLOT( doWorkProcessReply() ) );
+    connect( d->reply, SIGNAL(finished()),
+             this, SLOT(doWorkProcessReply()) );
 }
 
 void Upload::doWorkProcessReply()
 {
     Q_D(Upload);
 
-    disconnect( d->reply, SIGNAL( finished() ),
-                this, SLOT( doWorkProcessReply() ) );
+    disconnect( d->reply, SIGNAL(finished()),
+                this, SLOT(doWorkProcessReply()) );
 
     if ( d->reply->error() != QNetworkReply::NoError )
     {

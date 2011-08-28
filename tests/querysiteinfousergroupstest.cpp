@@ -71,7 +71,7 @@ private slots:
 
         job->setIncludeNumber(includeNumber);
 
-        connect(job, SIGNAL(usergroups(const QList<UserGroup> &)), this, SLOT(usergroupsHandle(const QList<UserGroup> &)));
+        connect(job, SIGNAL(usergroups(QList<UserGroup>)), this, SLOT(usergroupsHandle(QList<UserGroup>)));
 
         job->exec();
 

@@ -101,28 +101,28 @@ void MainWindow::loginHandle(KJob* login)
         text.append(this->ui->comboBox->itemData(this->ui->comboBox->currentIndex()).toString());
 
         e1->setText(text);
-        connect(e1, SIGNAL(result(KJob* )),
+        connect(e1, SIGNAL(result(KJob*)),
                 this, SLOT(uploadHandle(KJob*)));
 
-        connect(e1,SIGNAL(processedSize(KJob*, qulonglong)),
-                this, SLOT(processedUploadSize(KJob*, qulonglong)));
+        connect(e1,SIGNAL(processedSize(KJob*,qulonglong)),
+                this, SLOT(processedUploadSize(KJob*,qulonglong)));
 
-        connect(e1,SIGNAL(totalSize(KJob*, qulonglong)),
-                this,SLOT(TotalUploadSize(KJob*, qulonglong)));
+        connect(e1,SIGNAL(totalSize(KJob*,qulonglong)),
+                this,SLOT(TotalUploadSize(KJob*,qulonglong)));
         e1->start();
     }
 }
 
 void MainWindow::uploadHandle(KJob* job)
 {
-    disconnect(this, SIGNAL(result(KJob* )),
+    disconnect(this, SIGNAL(result(KJob*)),
                this, SLOT(uploadHandle(KJob*)));
 
-    disconnect(this, SIGNAL(processedSize(KJob *, qulonglong)),
-               this, SLOT(processedUploadSize(KJob*, qulonglong)));
+    disconnect(this, SIGNAL(processedSize(KJob*,qulonglong)),
+               this, SLOT(processedUploadSize(KJob*,qulonglong)));
 
-    disconnect(this, SIGNAL(totalSize(KJob*, qulonglong)),
-               this, SLOT(TotalUploadSize(KJob*, qulonglong)));
+    disconnect(this, SIGNAL(totalSize(KJob*,qulonglong)),
+               this, SLOT(TotalUploadSize(KJob*,qulonglong)));
 
     QString errorMessage;
     if(job->error() == 0) errorMessage = "Image uploaded successfully.";

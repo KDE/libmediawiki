@@ -67,7 +67,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -88,7 +88,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
 
         FakeServer::Request serverrequest = m_server->getRequest()[0];
@@ -109,7 +109,7 @@ private slots:
         m_server->startAndWait();
 
         Login login(*m_mediaWiki, "alexTest", "test");
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(login.error(), (int)Login::NoError);
@@ -127,7 +127,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -146,7 +146,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -165,7 +165,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -184,7 +184,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -203,7 +203,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -222,7 +222,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -241,7 +241,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -260,7 +260,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -279,7 +279,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -298,7 +298,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -320,7 +320,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -342,7 +342,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -364,7 +364,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -386,7 +386,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -408,7 +408,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -430,7 +430,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -452,7 +452,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -474,7 +474,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -496,7 +496,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
@@ -518,7 +518,7 @@ private slots:
 
         Login login(*m_mediaWiki, "alexTest", "test");
 
-        connect(&login, SIGNAL(result(KJob* )),this, SLOT(loginHandle(KJob*)));
+        connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);

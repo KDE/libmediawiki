@@ -78,7 +78,7 @@ private slots:
         fakeserver.setScenario(m_infoScenario);
         fakeserver.addScenario(senario);
         fakeserver.startAndWait();
-        connect(job, SIGNAL(result(KJob* )),this, SLOT(editHandle(KJob*)));
+        connect(job, SIGNAL(result(KJob*)),this, SLOT(editHandle(KJob*)));
         job->exec();
         FakeServer::Request serverrequest = fakeserver.getRequest()[1];
         QCOMPARE(serverrequest.type, QString("POST"));
@@ -284,7 +284,7 @@ private slots:
         job->setBaseTimestamp( QDateTime::fromString("2008-03-20T17:26:39Z","yyyy-MM-ddThh:mm:ssZ") );
         job->setStartTimestamp( QDateTime::fromString("2008-03-27T21:15:39Z","yyyy-MM-ddThh:mm:ssZ") );
         job->setText( "Hello everyone!" );
-        connect(job,  SIGNAL(result(KJob* )),this, SLOT(editHandle(KJob*)));
+        connect(job,  SIGNAL(result(KJob*)),this, SLOT(editHandle(KJob*)));
 
         job->exec();
 
@@ -394,8 +394,8 @@ private slots:
         edit.setStartTimestamp( QDateTime::fromString("2008-03-27T21:15:39Z","yyyy-MM-ddThh:mm:ssZ") );
         edit.setText( "Hello everyone!" );
 
-        connect(&edit, SIGNAL( resultCaptcha(const QVariant &) ), this, SLOT( editHandle(const QVariant &) ));
-        connect(this, SIGNAL( captchaSignal(const QString &) ), &edit, SLOT( finishedCaptcha(const QString &) ));
+        connect(&edit, SIGNAL(resultCaptcha(QVariant)), this, SLOT(editHandle(QVariant)));
+        connect(this, SIGNAL(captchaSignal(QString)), &edit, SLOT(finishedCaptcha(QString)));
         edit.exec();
 
         FakeServer::Request serverrequest = fakeserver.getRequest()[1];

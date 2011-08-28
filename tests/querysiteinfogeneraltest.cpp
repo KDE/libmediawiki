@@ -66,7 +66,7 @@ void QuerySiteInfoGeneralTestConnectTrue()
 
     QuerySiteInfoGeneral * general = new QuerySiteInfoGeneral(mediaWiki);
 
-    connect(general, SIGNAL(result(const Generalinfo &)), this, SLOT(resultHandle(const Generalinfo &)));
+    connect(general, SIGNAL(result(Generalinfo)), this, SLOT(resultHandle(Generalinfo)));
     general->exec();
     FakeServer::Request serverrequest = server.getRequest()[0];
     QCOMPARE(this->generalCount, 1);
@@ -88,7 +88,7 @@ void QuerySiteInfoGeneralTestAttribute()
 
     QuerySiteInfoGeneral * general = new QuerySiteInfoGeneral(mediaWiki);
 
-    connect(general, SIGNAL(result(const Generalinfo &)), this, SLOT(resultHandle(const Generalinfo &)));
+    connect(general, SIGNAL(result(Generalinfo)), this, SLOT(resultHandle(Generalinfo)));
     general->exec();
     FakeServer::Request serverrequest = server.getRequest()[0];
     QCOMPARE(this->generalCount, 1);
@@ -134,7 +134,7 @@ void QuerySiteInfoGeneralTestConnectFalseXML()
 
     QuerySiteInfoGeneral * general = new QuerySiteInfoGeneral(mediaWiki);
 
-    connect(general, SIGNAL(result(const Generalinfo &)), this, SLOT(resultHandle(const Generalinfo &)));
+    connect(general, SIGNAL(result(Generalinfo)), this, SLOT(resultHandle(Generalinfo)));
     general->exec();
     FakeServer::Request serverrequest = server.getRequest()[0];
     QCOMPARE(this->generalCount, 0);
@@ -157,7 +157,7 @@ void QuerySiteInfoGeneralTestErrortIncludeAllDenied()
 
     QuerySiteInfoGeneral * general = new QuerySiteInfoGeneral(mediaWiki);
 
-    connect(general, SIGNAL(result(const Generalinfo &)), this, SLOT(resultHandle(const Generalinfo &)));
+    connect(general, SIGNAL(result(Generalinfo)), this, SLOT(resultHandle(Generalinfo)));
     general->exec();
     FakeServer::Request serverrequest = server.getRequest()[0];
     QCOMPARE(this->generalCount, 0);

@@ -131,7 +131,7 @@ private slots:
         job->setProperties( rvprop );
         job->setPageName(title);
 
-        connect(job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job->exec();
 
@@ -241,7 +241,7 @@ private slots:
         job->setProperties( QueryRevision::Size | QueryRevision::Content );
         job->setPageName("title");
 
-        connect(job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job->exec();
 
@@ -304,7 +304,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -325,7 +325,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -346,7 +346,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -368,7 +368,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -390,7 +390,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -412,7 +412,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -434,7 +434,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -456,7 +456,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -478,7 +478,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -523,7 +523,7 @@ private slots:
         job->setPageName(title);
         job->setGenerateXML(true);
 
-        connect(job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job->exec();
 
@@ -556,7 +556,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -593,7 +593,7 @@ private slots:
 
         job->setToken(QueryRevision::Rollback);
 
-        connect(job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job->exec();
 
@@ -622,7 +622,7 @@ private slots:
         FakeServer fakeserver;
         fakeserver.startAndWait();
 
-        connect(&job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(&job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job.exec();
 
@@ -647,7 +647,7 @@ private slots:
         job->setProperties( rvprop );
         job->setPageId(id);
 
-        connect(job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job->exec();
 
@@ -678,7 +678,7 @@ private slots:
         job->setProperties( rvprop );
         job->setRevisionId(id);
 
-        connect(job, SIGNAL(revision(const QList<Revision> &)), this, SLOT(revisionHandle(const QList<Revision> &)));
+        connect(job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job->exec();
 
