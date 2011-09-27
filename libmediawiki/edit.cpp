@@ -330,7 +330,7 @@ void Edit::doWorkSendRequest(Page page)
     for(int i = 0 ; i < mediawikiCookies.size(); ++i)
     {
         cookie += mediawikiCookies.at(i).toRawForm(QNetworkCookie::NameAndValueOnly);
-        cookie += ";";
+        cookie += ';';
     }
     // Add the token
     QString token = d->requestParameter["token"];
@@ -430,7 +430,7 @@ void Edit::finishedCaptcha(const QString& captcha)
     for(int i = 0 ; i < mediawikiCookies.size(); ++i)
     {
         cookie += mediawikiCookies.at(i).toRawForm(QNetworkCookie::NameAndValueOnly);
-        cookie += ";";
+        cookie += ';';
     }
 
     // Set the request

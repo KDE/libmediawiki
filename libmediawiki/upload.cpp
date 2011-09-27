@@ -146,7 +146,7 @@ void Upload::doWorkSendRequest(Page page)
     d->token      = token;
 
     // Get the extension
-    QStringList filename = d->filename.split(".");
+    QStringList filename = d->filename.split('.');
     QString extension    = filename.at(filename.size()-1);
 
     if (extension == "jpg")
@@ -167,7 +167,7 @@ void Upload::doWorkSendRequest(Page page)
     for(int i = 0; i < mediawikiCookies.size(); ++i)
     {
         cookie += mediawikiCookies.at(i).toRawForm(QNetworkCookie::NameAndValueOnly);
-        cookie += ";";
+        cookie += ';';
     }
 
     // Set the request

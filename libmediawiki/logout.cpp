@@ -81,7 +81,7 @@ void Logout::doWorkSendRequest()
     for(int i = 0 ; i < mediawikiCookies.size(); ++i)
     {
         cookie += mediawikiCookies.at(i).toRawForm(QNetworkCookie::NameAndValueOnly);
-        cookie += ";";
+        cookie += ';';
     }
 
     // Set the request
