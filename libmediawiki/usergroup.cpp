@@ -25,13 +25,11 @@
  *
  * ============================================================ */
 
+#include "usergroup.h"
+
 // C++ includes
 
 #include <algorithm>
-
-// Local includes
-
-#include "usergroup.h"
 
 namespace mediawiki
 {

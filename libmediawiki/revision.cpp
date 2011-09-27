@@ -25,13 +25,11 @@
  *
  * ============================================================ */
 
+#include "revision.h"
+
 // C++ includes
 
 #include <algorithm>
-
-// Local includes.
-
-#include "revision.h"
 
 namespace mediawiki
 {

@@ -25,6 +25,8 @@
  *
  * ============================================================ */
 
+#include "generalinfo.h"
+
 // C++ includes
 
 #include <algorithm>
@@ -32,7 +34,6 @@
 // Local includes
 
 #include "mediawiki.h"
-#include "generalinfo.h"
 
 namespace mediawiki
 {

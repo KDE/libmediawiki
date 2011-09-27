@@ -25,6 +25,8 @@
  *
  * ============================================================ */
 
+#include "page.h"
+
 // C++ includes
 
 #include <algorithm>
@@ -32,10 +34,6 @@
 // Qt includes
 
 #include <QtCore/QUrl>
-
-// Local includes
-
-#include "page.h"
 
 namespace mediawiki
 {

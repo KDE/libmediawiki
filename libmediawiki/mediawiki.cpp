@@ -25,8 +25,8 @@
  *
  * ============================================================ */
 
-#include "mediawiki_p.h"
 #include "mediawiki.h"
+#include "mediawiki_p.h"
 
 namespace mediawiki
 {

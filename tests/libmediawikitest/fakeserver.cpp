@@ -17,12 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "fakeserver.moc"
+
 #include <QtGui>
 #include <QtNetwork>
 #include <iostream>
 #include <QDebug>
-
-#include "fakeserver.moc"
 
 FakeServer::FakeServer(QObject* parent)
 :  QThread( parent )

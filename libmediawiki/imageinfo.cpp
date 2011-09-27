@@ -25,13 +25,11 @@
  *
  * ============================================================ */
 
+#include "imageinfo.h"
+
 // C++ includes
 
 #include <algorithm>
-
-// Local includes
-
-#include "imageinfo.h"
 
 namespace mediawiki
 {

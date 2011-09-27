@@ -25,8 +25,8 @@
  *
  * ============================================================ */
 
-#include "job.moc"
 #include "job_p.h"
+#include "job.moc"
 
 // Qt includes
 
