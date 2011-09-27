@@ -63,7 +63,7 @@ void debugPages(Page p)
 
 void debugProtection(QVector <Protection> p)
 {
-    foreach(Protection pr, p)
+    foreach(const Protection& pr, p)
     {
         kDebug() << pr.type();
         kDebug() << pr.level();
