@@ -121,7 +121,7 @@ void QueryImages::doWorkProcessReply()
     if (d->reply->error() == QNetworkReply::NoError)
     {
         QList<Image> imagesReceived;
-        d->imcontinue = QString();
+        d->imcontinue.clear();
         QXmlStreamReader reader(d->reply);
 
         while (!reader.atEnd() && !reader.hasError())

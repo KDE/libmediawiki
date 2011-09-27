@@ -217,7 +217,7 @@ void QueryImageinfo::doWorkProcessReply()
 
     disconnect(d->reply, SIGNAL(finished()),
                this, SLOT(doWorkProcessReply()));
-    d->begin = QString();
+    d->begin.clear();
 
     if (d->reply->error() == QNetworkReply::NoError)
     {
