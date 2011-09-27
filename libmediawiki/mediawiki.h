@@ -57,7 +57,7 @@ public:
      * @brief Constructs a MediaWiki by its url api.
      * @param url the url api of the wiki
      * @param customUserAgent you can specify the user agent to use
-                              wich will be concatenated with the postfix user agent
+                              which will be concatenated with the postfix user agent
      *                        else the postfix user agent is used only
      */
     explicit MediaWiki(const QUrl& url,const QString& customUserAgent = QString());

@@ -110,7 +110,7 @@ Q_SIGNALS:
     /**
      * @brief Provides a list of all images used on pages
      *
-     * This signal can be emited several times.
+     * This signal can be emitted several times.
      *
      * @param pages list of all images used on pages
      */
