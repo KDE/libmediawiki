@@ -168,7 +168,7 @@ public:
      */
     void setText(const QString&);
 
-private slots:
+private Q_SLOTS:
 
     void doWorkSendRequest(Page page);
     void doWorkProcessReply();
