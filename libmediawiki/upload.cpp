@@ -194,7 +194,7 @@ void Upload::doWorkSendRequest(Page page)
     out += boundary;
 
     // comment
-    if(d->comment != "")
+    if (!d->comment.isEmpty())
     {
         out += "Content-Disposition: form-data; name=\"comment\"\r\n\r\n";
         out += d->comment.toUtf8();

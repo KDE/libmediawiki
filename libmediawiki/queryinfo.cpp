@@ -189,11 +189,11 @@ void QueryInfo::doWorkProcessReply()
                     QString type(attrs.value( QString( "type" ) ).toString());
                     QString source = "";
 
-                    if(attrs.value( QString( "source" ) ).toString() != "")
+                    if(!attrs.value( QString( "source" ) ).toString().isEmpty())
                     {
                         source = attrs.value( QString( "source" ) ).toString();
                     }
-                    else if(attrs.value( QString( "cascade" ) ).toString() != "")
+                    else if(!attrs.value( QString( "cascade" ) ).toString().isEmpty())
                     {
                         source = attrs.value( QString( "cascade" ) ).toString();
                     }
