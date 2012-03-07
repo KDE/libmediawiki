@@ -2,12 +2,12 @@
  * @file
  *
  * This file is a part of KDE project
- * <a href="https://projects.kde.org/projects/kdereview/libmediawiki">libmediawiki</a>
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011 by Gilles Caulier
+ * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2011 by Alexandre Mendes
  *         <a href="mailto:alex dot mendes1988 at gmail dot com">alex dot mendes1988 at gmail dot com</a>
@@ -132,7 +132,7 @@ public:
      * @brief Constructs an Upload job.
      * @param parent the QObject parent
      */
-    Upload(MediaWiki& mediawiki, QObject* parent = 0);
+    Upload(MediaWiki& mediawiki, QObject* const parent = 0);
 
     /**
      * @brief Destroys the Upload job.
@@ -154,7 +154,7 @@ public:
      * @brief Set the file.
      * @param file the file
      */
-    void setFile(QIODevice*);
+    void setFile(QIODevice* const);
 
     /**
      * @brief Set the upload comment. Also used as the initial page text for new files if text parameter not provided.

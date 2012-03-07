@@ -1,12 +1,12 @@
 /** ===========================================================
  *
  * This file is a part of KDE project
- * <a href="https://projects.kde.org/projects/kdereview/libmediawiki">libmediawiki</a>
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
  * @date   2011-03-24
  * @brief  MEDIAWIKI release ID header
  *
- * @author Copyright (C) 2011 by Gilles Caulier
+ * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  *
  * This program is free software; you can redistribute it
@@ -30,4 +30,3 @@ static const int mediawiki_binary_version =  ${MEDIAWIKI_LIB_SO_CUR_VERSION};
 #define MEDIAWIKI_VERSION ${MEDIAWIKI_LIB_VERSION_ID}
 
 #endif // MEDIAWIKI_VERSION_H
-

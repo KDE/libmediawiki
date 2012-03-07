@@ -2,12 +2,12 @@
  * @file
  *
  * This file is a part of KDE project
- * <a href="https://projects.kde.org/projects/kdereview/libmediawiki">libmediawiki</a>
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011 by Gilles Caulier
+ * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2009 by Richard Moore
  *         <a href="mailto:rich at kde dot org">rich at kde dot org</a>
@@ -42,14 +42,11 @@
 namespace mediawiki
 {
 
-class MediaWikiPrivate;
-
 /**
  * @brief Provides access to wiki powered by MediaWiki.
  */
 class MEDIAWIKI_EXPORT MediaWiki
 {
-    Q_DECLARE_PRIVATE(MediaWiki)
 
 public:
 
@@ -79,8 +76,15 @@ public:
      */
     QString userAgent() const;
 
+    /**
+     * @brief Returns the network manager instance of the wiki.
+     * @return the network manager instance of the wiki
+     */
+    QNetworkAccessManager* manager() const;
+
 private:
 
+    class MediaWikiPrivate;
     MediaWikiPrivate* const d_ptr;
 
     friend class JobPrivate;

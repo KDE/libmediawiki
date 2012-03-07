@@ -2,7 +2,7 @@
  * @file
  *
  * This file is a part of KDE project
- * <a href="https://projects.kde.org/projects/kdereview/libmediawiki">libmediawiki</a>
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE

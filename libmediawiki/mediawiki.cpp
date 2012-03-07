@@ -2,12 +2,12 @@
  * @file
  *
  * This file is a part of KDE project
- * <a href="https://projects.kde.org/projects/kdereview/libmediawiki">libmediawiki</a>
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011 by Gilles Caulier
+ * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2009 by Richard Moore
  *         <a href="mailto:rich at kde dot org">rich at kde dot org</a>
@@ -33,7 +33,8 @@ namespace mediawiki
 
 MediaWiki::MediaWiki(const QUrl& url, const QString& customUserAgent)
     : d_ptr(new MediaWikiPrivate(url,
-                                 (customUserAgent.isEmpty() ? "" : (customUserAgent + '-')) + MediaWikiPrivate::POSTFIX_USER_AGENT,
+                                 (customUserAgent.isEmpty() ? QString() 
+                                                            : (customUserAgent + '-')) + MediaWikiPrivate::POSTFIX_USER_AGENT,
                                  new QNetworkAccessManager()))
 {
 }
@@ -53,6 +54,9 @@ QString MediaWiki::userAgent() const
     return d_ptr->userAgent;
 }
 
-const QString MediaWikiPrivate::POSTFIX_USER_AGENT = "mediawiki-silk";
+QNetworkAccessManager* MediaWiki::manager() const
+{
+    return d_ptr->manager;
+}
 
 } // namespace mediawiki

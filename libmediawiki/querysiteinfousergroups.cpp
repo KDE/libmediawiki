@@ -2,12 +2,12 @@
  * @file
  *
  * This file is a part of KDE project
- * <a href="https://projects.kde.org/projects/kdereview/libmediawiki">libmediawiki</a>
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011 by Gilles Caulier
+ * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2010 by Ludovic Delfau
  *         <a href="mailto:ludovicdelfau at gmail dot com">ludovicdelfau at gmail dot com</a>
@@ -58,7 +58,7 @@ public:
     bool                         includeNumber;
 };
 
-QuerySiteinfoUsergroups::QuerySiteinfoUsergroups(MediaWiki& mediawiki, QObject* parent)
+QuerySiteinfoUsergroups::QuerySiteinfoUsergroups(MediaWiki& mediawiki, QObject* const parent)
     : Job(*new QuerySiteinfoUsergroupsPrivate(mediawiki, new QNetworkAccessManager(), false), parent)
 {
 }

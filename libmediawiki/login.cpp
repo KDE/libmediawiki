@@ -2,12 +2,12 @@
  * @file
  *
  * This file is a part of KDE project
- * <a href="https://projects.kde.org/projects/kdereview/libmediawiki">libmediawiki</a>
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011 by Gilles Caulier
+ * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2011 by Manuel Campomanes
  *         <a href="mailto:campomanes dot manuel at gmail dot com">campomanes dot manuel at gmail dot com</a>
@@ -60,7 +60,6 @@ public:
 
     static int error(const QString& error)
     {
-        int ret = 0;
         QStringList list;
         list << "NoName"
              << "Illegal"
@@ -72,12 +71,15 @@ public:
              << "Throttled"
              << "Blocked"
              << "NeedToken";
-        ret = list.indexOf(error);
+
+        int ret = list.indexOf(error);
+
         if(ret == -1)
         {
             ret = 0;
         }
-        return  ret + (int)Login::LoginMissing;
+
+        return (ret + (int)Login::LoginMissing);
     }
 
 public:
@@ -89,7 +91,7 @@ public:
     QString lgtoken;
 };
 
-Login::Login(MediaWiki& mediawiki, const QString& login, const QString& password, QObject* parent)
+Login::Login(MediaWiki& mediawiki, const QString& login, const QString& password, QObject* const parent)
     : Job(*new LoginPrivate(mediawiki, login, password), parent)
 {
 }

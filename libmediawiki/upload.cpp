@@ -2,12 +2,12 @@
  * @file
  *
  * This file is a part of KDE project
- * <a href="https://projects.kde.org/projects/kdereview/libmediawiki">libmediawiki</a>
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011 by Gilles Caulier
+ * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2011 by Alexandre Mendes
  *         <a href="mailto:alex dot mendes1988 at gmail dot com">alex dot mendes1988 at gmail dot com</a>
@@ -91,7 +91,7 @@ public:
     QString    token;
 };
 
-Upload::Upload(MediaWiki& mediawiki, QObject* parent)
+Upload::Upload(MediaWiki& mediawiki, QObject* const parent)
     : Job(*new UploadPrivate(mediawiki), parent)
 {
 }
@@ -106,7 +106,7 @@ void Upload::setFilename(const QString& param)
     d->filename = param;
 }
 
-void Upload::setFile(QIODevice* file)
+void Upload::setFile(QIODevice* const file)
 {
     Q_D(Upload);
     d->file = file;
