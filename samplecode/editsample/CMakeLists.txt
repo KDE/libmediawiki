@@ -13,8 +13,6 @@ KDE4_ADD_EXECUTABLE(editSample
                    )
 
 TARGET_LINK_LIBRARIES(editSample
-#                      ${QT_QTCORE_LIBRARY}
-                      ${QT_QTGUI_LIBRARY}
-#                      ${KDE4_KIO_LIBS}
+                      ${KDE4_KIO_LIBS}
                       mediawiki
                      )
