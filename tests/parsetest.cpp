@@ -1,21 +1,27 @@
-/*
- *   Copyright 2011 by Manuel Campomanes <campomanes.manuel@gmail.com>
+/** ===========================================================
+ * @file
  *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU Library General Public License as
- *   published by the Free Software Foundation; either version 2, or
- *   (at your option) any later version.
+ * This file is a part of KDE project
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
+ * @date   2011-03-22
+ * @brief  a MediaWiki C++ interface for KDE
  *
- *   You should have received a copy of the GNU Library General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+ * @author Copyright (C) 2011 by Manuel Campomanes
+ *         <a href="mailto:campomanes dot manuel at gmail dot com">campomanes dot manuel at gmail dot com</a>
+ *
+ * This program is free software; you can redistribute it
+ * and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation;
+ * either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * ============================================================ */
 
 #ifndef TEST_PARSE_H
 #define TEST_PARSE_H
@@ -57,7 +63,7 @@ class ParseTest : public QObject
 {
     Q_OBJECT
 
-public slots:
+public Q_SLOTS:
 
     void parseHandle(KJob* job) {
         Q_UNUSED(job)
@@ -74,7 +80,7 @@ private slots:
     {
         parseCount = 0;
         this->m_mediaWiki = new MediaWiki(QUrl("http://127.0.0.1:12566"));
-    }    
+    }
 
     void result()
     {
@@ -209,19 +215,19 @@ private slots:
 
     void cleanupTestCase()
     {
-        delete this->m_mediaWiki;        
+        delete this->m_mediaWiki;
     }
 
 private:
 
-    int parseCount;
-    QString request;
-    QString parseResult;
+    int        parseCount;
+    QString    request;
+    QString    parseResult;
     MediaWiki* m_mediaWiki;
 };
 
-
 QTEST_MAIN(ParseTest)
-#include "parsetest.moc"
-#endif // TEST_PARSE_H
 
+#include "parsetest.moc"
+
+#endif // TEST_PARSE_H

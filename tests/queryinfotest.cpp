@@ -1,21 +1,27 @@
-/*
- *   Copyright 2010 by Alexandre Mendes <alex.mendes1988@gmail.com>
+/** ===========================================================
+ * @file
  *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU Library General Public License as
- *   published by the Free Software Foundation; either version 2, or
- *   (at your option) any later version.
+ * This file is a part of KDE project
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
+ * @date   2011-03-22
+ * @brief  a MediaWiki C++ interface for KDE
  *
- *   You should have received a copy of the GNU Library General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+ * @author Copyright (C) 2010 by Alexandre Mendes
+ *         <a href="mailto:alex dot mendes1988 at gmail dot com">alex dot mendes1988 at gmail dot com</a>
+ *
+ * This program is free software; you can redistribute it
+ * and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation;
+ * either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * ============================================================ */
 
 #ifndef TEST_QUERYINFO_H
 #define TEST_QUERYINFO_H
@@ -76,7 +82,7 @@ class QueryInfoTest : public QObject
 {
     Q_OBJECT
 
-public slots:
+public Q_SLOTS:
 
     void queryInfoHandlePages(const Page& page) {
         ++queryInfoCount;
@@ -88,7 +94,7 @@ public slots:
         queryInfoResultsProtections = protection;
     }
 
-private slots:
+private Q_SLOTS:
 
     void initTestCase() {
         queryInfoCount = 0;
@@ -147,8 +153,6 @@ private slots:
         QTest::newRow("Revision Id")
                 << QString("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&revids=44545")
                 << j4;
-
-
     }
 
     void parseData()
@@ -174,10 +178,8 @@ private slots:
         QCOMPARE(queryInfoResultsPage, page);
         QCOMPARE(queryInfoResultsProtections, protections);
         QVERIFY(fakeserver.isAllScenarioDone());
-
-
-
     }
+
     void parseData_data()
     {
         QTest::addColumn<QString>("scenario");
@@ -226,23 +228,23 @@ private slots:
                 << "<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"+\\\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection><pr type=\"edit\" level=\"sysop\" expiry=\"infinity\"/><pr type=\"move\" level=\"sysop\" expiry=\"infinity\"/></protection></page></pages></query></api>"
                 << page
                 << (QVector<Protection>() << pr1 << pr2);
-
     }
 
     void cleanupTestCase()
     {
         delete this->m_mediaWiki;
     }
+
 private:
 
-    int queryInfoCount;
-    Page queryInfoResultsPage;
+    int                  queryInfoCount;
+    Page                 queryInfoResultsPage;
     QVector <Protection> queryInfoResultsProtections;
-    MediaWiki* m_mediaWiki;
+    MediaWiki*           m_mediaWiki;
 };
 
-
 QTEST_MAIN(QueryInfoTest)
-#include "queryinfotest.moc"
-#endif // TEST_QUERYINFO_H
 
+#include "queryinfotest.moc"
+
+#endif // TEST_QUERYINFO_H

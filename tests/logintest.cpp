@@ -1,23 +1,31 @@
-/*
- *   Copyright 2010 by Guillaume Hormiere <hormiere.guillaume@gmail.com>
- *   Copyright 2010 by Alexandre Mendes <alex.mendes1988@gmail.com>
- *   Copyright 2011 by Manuel Campomanes <campomanes.manuel@gmail.com>
+/** ===========================================================
+ * @file
  *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU Library General Public License as
- *   published by the Free Software Foundation; either version 2, or
- *   (at your option) any later version.
+ * This file is a part of KDE project
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
+ * @date   2011-03-22
+ * @brief  a MediaWiki C++ interface for KDE
  *
- *   You should have received a copy of the GNU Library General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+ * @author Copyright (C) 2010 by Alexandre Mendes
+ *         <a href="mailto:alex dot mendes1988 at gmail dot com">alex dot mendes1988 at gmail dot com</a>
+ * @author Copyright (C) 2011 by Manuel Campomanes
+ *         <a href="mailto:campomanes dot manuel at gmail dot com">campomanes dot manuel at gmail dot com</a>
+ * @author Copyright (C) 2011 by Hormiere Guillaume
+ *         <a href="mailto:hormiere dot guillaume at gmail dot com">hormiere dot guillaume at gmail dot com</a>
+ *
+ * This program is free software; you can redistribute it
+ * and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation;
+ * either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * ============================================================ */
 
 #ifndef TEST_LOGIN_H
 #define TEST_LOGIN_H
@@ -45,7 +53,7 @@ public slots:
         loginCount++;
     }
 
-private slots:
+private Q_SLOTS:
 
     void initTestCase()
     {
@@ -536,13 +544,14 @@ private slots:
 
 private:
 
-    int loginCount;
-    QString request;
-    MediaWiki* m_mediaWiki;
+    int         loginCount;
+    QString     request;
+    MediaWiki*  m_mediaWiki;
     FakeServer* m_server;
 };
 
-
 QTEST_MAIN(LoginTest)
+
 #include "logintest.moc"
+
 #endif // TEST_LOGIN_H

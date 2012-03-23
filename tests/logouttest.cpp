@@ -1,21 +1,27 @@
-/*
- *   Copyright 2010 by Alexandre Mendes <alex.mendes1988@gmail.com>
+/** ===========================================================
+ * @file
  *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU Library General Public License as
- *   published by the Free Software Foundation; either version 2, or
- *   (at your option) any later version.
+ * This file is a part of KDE project
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
+ * @date   2011-03-22
+ * @brief  a MediaWiki C++ interface for KDE
  *
- *   You should have received a copy of the GNU Library General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+ * @author Copyright (C) 2010 by Alexandre Mendes
+ *         <a href="mailto:alex dot mendes1988 at gmail dot com">alex dot mendes1988 at gmail dot com</a>
+ *
+ * This program is free software; you can redistribute it
+ * and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation;
+ * either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * ============================================================ */
 
 #ifndef TEST_LOGOUT_H
 #define TEST_LOGOUT_H
@@ -43,7 +49,7 @@ public slots:
         logoutCount++;
     }
 
-private slots:
+private Q_SLOTS:
 
     void initTestCase()
     {
@@ -84,14 +90,15 @@ private slots:
 
 private:
 
-    int logoutCount;
-    QString request;
-    MediaWiki* m_mediaWiki;
+    int         logoutCount;
+    QString     request;
+    MediaWiki*  m_mediaWiki;
     FakeServer* m_server;
 };
 
-
 QTEST_MAIN(LogoutTest)
+
 #include "logouttest.moc"
+
 #endif // TEST_LOGOUT_H
 
