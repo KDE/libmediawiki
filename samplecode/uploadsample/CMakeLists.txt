@@ -11,7 +11,7 @@ KDE4_ADD_EXECUTABLE(uploadSample
                     ${uploadSample_SRCS}
                     ${ui_src}
                    )
-                   
+
 TARGET_LINK_LIBRARIES(uploadSample
                       ${KDE4_KIO_LIBS}
                       mediawiki
