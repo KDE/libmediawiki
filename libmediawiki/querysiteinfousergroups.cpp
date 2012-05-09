@@ -115,9 +115,9 @@ void QuerySiteinfoUsergroups::doWorkProcessReply()
     if (d->reply->error() == QNetworkReply::NoError)
     {
         QList<UserGroup> results;
-        QString name;
-        QList<QString> rights;
-        unsigned int number;
+        QString          name;
+        QList<QString>   rights;
+        unsigned int     number = 0;
         QXmlStreamReader reader(d->reply);
 
         while (!reader.atEnd() && !reader.hasError())
