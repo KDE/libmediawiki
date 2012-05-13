@@ -246,6 +246,6 @@ private:
 
 } // namespace mediawiki
 
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::Page & lhs,const mediawiki::Page & rhs);
+MEDIAWIKI_EXPORT bool operator==(const mediawiki::Page& lhs, const mediawiki::Page& rhs);
 
 #endif // PAGE_H

@@ -260,6 +260,6 @@ private:
  * @param rhs right-hand side image info
  * @return true if lhs and rhs are equal, else false
  */
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::Imageinfo & lhs, const mediawiki::Imageinfo & rhs);
+MEDIAWIKI_EXPORT bool operator==(const mediawiki::Imageinfo& lhs, const mediawiki::Imageinfo& rhs);
 
 #endif // MEDIAWIKI_IMAGEINFO_H

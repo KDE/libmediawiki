@@ -196,6 +196,6 @@ private:
 
 } // namespace mediawiki
 
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::Revision& lhs,const mediawiki::Revision& rhs);
+MEDIAWIKI_EXPORT bool operator==(const mediawiki::Revision& lhs, const mediawiki::Revision& rhs);
 
 #endif // MEDIAWIKI_REVISION_H
