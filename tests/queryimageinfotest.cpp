@@ -33,23 +33,26 @@
 
 using namespace mediawiki;
 
-class QueryImageinfoTest : public QObject {
-
+class QueryImageinfoTest : public QObject
+{
     Q_OBJECT
 
-public slots:
+public Q_SLOTS:
 
-    void resultHandle(const QList<Imageinfo> & imageinfos) {
+    void resultHandle(const QList<Imageinfo> & imageinfos)
+    {
         imageinfosReceived.push_back(imageinfos);
     }
 
 private Q_SLOTS:
 
-    void init() {
+    void init()
+    {
         imageinfosReceived = QList<QList<Imageinfo> >();
     }
 
-    void testQuery() {
+    void testQuery()
+    {
         // Constructs the fakeserver
         FakeServer fakeserver;
         fakeserver.setScenario("<?xml version=\"1.0\"?><api><query><normalized><n from=\"Image:Image.bmp\" to=\"File:Image.bmp\" /></normalized><pages><page ns=\"6\" title=\"File:Image.bmp\" missing=\"\" imagerepository=\"shared\"><imageinfo><ii timestamp=\"2008-06-06T22:27:45Z\" user=\"User1\" size=\"448798\" width=\"924\" height=\"1203\" url=\"http://url/File:Image.bmp\" thumburl=\"http://thumburl/File:Image.bmp\" thumbwidth=\"78\" thumbheight=\"102\" descriptionurl=\"http://descriptionurl/File:Image.bmp\" comment=\"Comment1\" sha1=\"00be23585fde01190a0f8c60fc4267ea00f3745d\" mime=\"image/bmp\"><metadata><metadata name=\"Name1\" value=\"Value1\" /><metadata name=\"Name2\" value=\"Value2\" /></metadata></ii></imageinfo></page></pages></query><query-continue><imageinfo iistart=\"2007-06-06T22:27:45Z\" /></query-continue></api>");
@@ -58,7 +61,7 @@ private Q_SLOTS:
 
         // Prepare the job
         MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        QueryImageinfo * job = new QueryImageinfo(mediawiki);
+        QueryImageinfo* job = new QueryImageinfo(mediawiki);
         job->setTitle("Image:Image.bmp");
         job->setProperties(QueryImageinfo::Timestamp|
                            QueryImageinfo::User|
@@ -85,7 +88,8 @@ private Q_SLOTS:
         // Test requests sent
         const QList<FakeServer::Request> requests = fakeserver.getRequest();
         QCOMPARE(requests.size(), 2);
-        for (unsigned int i = 0; i < 2; ++i) {
+        for (unsigned int i = 0; i < 2; ++i)
+        {
             QCOMPARE(requests[i].agent, mediawiki.userAgent());
             QCOMPARE(requests[i].type, QString("GET"));
         }
@@ -138,7 +142,6 @@ private Q_SLOTS:
 private:
 
     QList<QList<Imageinfo> > imageinfosReceived;
-
 };
 
 QTEST_MAIN(QueryImageinfoTest)
