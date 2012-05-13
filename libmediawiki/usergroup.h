@@ -71,6 +71,13 @@ public:
     UserGroup& operator=(UserGroup other);
 
     /**
+     * @brief Returns true if this instance and other are equal, else false.
+     * @param other instance to compare
+     * @return true if there are equal, else false
+     */
+    bool operator==(const UserGroup& other) const;
+
+    /**
      * @brief Returns the name of the user group.
      * @return the name of the user group
      */
@@ -119,13 +126,5 @@ private:
 };
 
 } // namespace mediawiki
-
-/**
- * @brief Returns true if lhs and rhs are equal, else false.
- * @param lhs left-hand side user group
- * @param rhs right-hand side user group
- * @return true if lhs and rhs are equal, else false
- */
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::UserGroup& lhs, const mediawiki::UserGroup& rhs);
 
 #endif // USERGROUP_H

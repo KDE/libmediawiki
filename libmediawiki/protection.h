@@ -74,6 +74,13 @@ public:
     Protection& operator=(Protection other);
 
     /**
+     * @brief Returns true if this instance and other are equal, else false.
+     * @param other instance to compare
+     * @return true if there are equal, else false
+     */
+    bool operator==(const Protection& other) const;
+
+    /**
      * @brief Set the protection type.
      * @param type the protection type
      */
@@ -128,7 +135,5 @@ private:
 };
 
 } // namespace mediawiki
-
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::Protection& lhs, const mediawiki::Protection& rhs);
 
 #endif // PROTECTION_H

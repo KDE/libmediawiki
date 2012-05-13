@@ -71,6 +71,13 @@ public:
     Page& operator=(Page other);
 
     /**
+     * @brief Returns true if this instance and other are equal, else false.
+     * @param other instance to compare
+     * @return true if there are equal, else false
+     */
+    bool operator==(const Page& other) const;
+
+    /**
      * @brief Set the pageId of the page.
      * @param id the page id of the page
      */
@@ -245,7 +252,5 @@ private:
 };
 
 } // namespace mediawiki
-
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::Page& lhs, const mediawiki::Page& rhs);
 
 #endif // PAGE_H

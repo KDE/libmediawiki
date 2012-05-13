@@ -70,6 +70,13 @@ public:
     Revision& operator=(Revision other);
 
     /**
+     * @brief Returns true if this instance and other are equal, else false.
+     * @param other instance to compare
+     * @return true if there are equal, else false
+     */
+    bool operator==(const Revision& other) const;
+
+    /**
     * @brief Set the revision ID.
     * @param revisionId the revision ID
     **/
@@ -195,7 +202,5 @@ private:
 };
 
 } // namespace mediawiki
-
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::Revision& lhs, const mediawiki::Revision& rhs);
 
 #endif // MEDIAWIKI_REVISION_H

@@ -79,6 +79,24 @@ Imageinfo& Imageinfo::operator=(Imageinfo other)
     return *this;
 }
 
+bool Imageinfo::operator==(const Imageinfo& other) const
+{
+    return timestamp()      == other.timestamp()      &&
+           user()           == other.user()           &&
+           comment()        == other.comment()        &&
+           url()            == other.url()            &&
+           descriptionUrl() == other.descriptionUrl() &&
+           thumbUrl()       == other.thumbUrl()       &&
+           thumbWidth()     == other.thumbWidth()     &&
+           thumbHeight()    == other.thumbHeight()    &&
+           size()           == other.size()           &&
+           width()          == other.width()          &&
+           height()         == other.height()         &&
+           sha1()           == other.sha1()           &&
+           mime()           == other.mime()           &&
+           metadata()       == other.metadata();
+}
+
 QDateTime Imageinfo::timestamp() const
 {
     return d->timestamp;
@@ -225,21 +243,3 @@ void Imageinfo::setMetadata(const QHash<QString, QVariant>& metadata)
 }
 
 } // namespace mediawiki
-
-bool operator==(const mediawiki::Imageinfo& lhs, const mediawiki::Imageinfo& rhs)
-{
-    return lhs.timestamp()      == rhs.timestamp()      &&
-           lhs.user()           == rhs.user()           &&
-           lhs.comment()        == rhs.comment()        &&
-           lhs.url()            == rhs.url()            &&
-           lhs.descriptionUrl() == rhs.descriptionUrl() &&
-           lhs.thumbUrl()       == rhs.thumbUrl()       &&
-           lhs.thumbWidth()     == rhs.thumbWidth()     &&
-           lhs.thumbHeight()    == rhs.thumbHeight()    &&
-           lhs.size()           == rhs.size()           &&
-           lhs.width()          == rhs.width()          &&
-           lhs.height()         == rhs.height()         &&
-           lhs.sha1()           == rhs.sha1()           &&
-           lhs.mime()           == rhs.mime()           &&
-           lhs.metadata()       == rhs.metadata();
-}

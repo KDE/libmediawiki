@@ -88,6 +88,33 @@ Generalinfo& Generalinfo::operator=(const Generalinfo& other)
     return *this;
 }
 
+bool Generalinfo::operator==(const Generalinfo& other) const
+{
+    return mainPage()             == other.mainPage()             &&
+           url()                  == other.url()                  &&
+           siteName()             == other.siteName()             &&
+           generator()            == other.generator()            &&
+           phpVersion()           == other.phpVersion()           &&
+           phpApi()               == other.phpApi()               &&
+           dataBaseType()         == other.dataBaseType()         &&
+           dataBaseVersion()      == other.dataBaseVersion()      &&
+           rev()                  == other.rev()                  &&
+           cas()                  == other.cas()                  &&
+           licence()              == other.licence()              &&
+           language()             == other.language()             &&
+           fallBack8bitEncoding() == other.fallBack8bitEncoding() &&
+           writeApi()             == other.writeApi()             &&
+           timeZone()             == other.timeZone()             &&
+           timeOffset()           == other.timeOffset()           &&
+           articlePath()          == other.articlePath()          &&
+           scriptPath()           == other.scriptPath()           &&
+           script()               == other.script()               &&
+           variantArticlePath()   == other.variantArticlePath()   &&
+           serverUrl()            == other.serverUrl()            &&
+           wikiId()               == other.wikiId()               &&
+           time()                 == other.time();
+}
+
 QString Generalinfo::mainPage() const
 {
     return d->mainPage;
@@ -319,30 +346,3 @@ void Generalinfo::setTime(const QDateTime& time)
 }
 
 } // namespace mediawiki
-
-bool operator==(const mediawiki::Generalinfo& lhs, const mediawiki::Generalinfo& rhs)
-{
-    return lhs.mainPage()             == rhs.mainPage()             &&
-           lhs.url()                  == rhs.url()                  &&
-           lhs.siteName()             == rhs.siteName()             &&
-           lhs.generator()            == rhs.generator()            &&
-           lhs.phpVersion()           == rhs.phpVersion()           &&
-           lhs.phpApi()               == rhs.phpApi()               &&
-           lhs.dataBaseType()         == rhs.dataBaseType()         &&
-           lhs.dataBaseVersion()      == rhs.dataBaseVersion()      &&
-           lhs.rev()                  == rhs.rev()                  &&
-           lhs.cas()                  == rhs.cas()                  &&
-           lhs.licence()              == rhs.licence()              &&
-           lhs.language()             == rhs.language()             &&
-           lhs.fallBack8bitEncoding() == rhs.fallBack8bitEncoding() &&
-           lhs.writeApi()             == rhs.writeApi()             &&
-           lhs.timeZone()             == rhs.timeZone()             &&
-           lhs.timeOffset()           == rhs.timeOffset()           &&
-           lhs.articlePath()          == rhs.articlePath()          &&
-           lhs.scriptPath()           == rhs.scriptPath()           &&
-           lhs.script()               == rhs.script()               &&
-           lhs.variantArticlePath()   == rhs.variantArticlePath()   &&
-           lhs.serverUrl()            == rhs.serverUrl()            &&
-           lhs.wikiId()               == rhs.wikiId()               &&
-           lhs.time()                 == rhs.time();
-}

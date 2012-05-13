@@ -79,6 +79,24 @@ Page& Page::operator=(Page other)
     return *this;
 }
 
+bool Page::operator==(const Page& other) const
+{
+    return pageId()             == other.pageId()        &&
+           pageTitle()          == other.pageTitle()     &&
+           pageNs()             == other.pageNs()        &&
+           pageLastRevId()      == other.pageLastRevId() &&
+           pageCounter()        == other.pageCounter()   &&
+           pageLength()         == other.pageLength()    &&
+           pageEditToken()      == other.pageEditToken() &&
+           pageTalkid()         == other.pageTalkid()    &&
+           pageFullurl()        == other.pageFullurl()   &&
+           pageEditurl()        == other.pageEditurl()   &&
+           pageReadable()       == other.pageReadable()  &&
+           pagePreload()        == other.pagePreload()   &&
+           pageTouched()        == other.pageTouched()   &&
+           pageStarttimestamp() == other.pageStarttimestamp();
+}
+
 void Page::setPageId(unsigned int id)
 {
     d->m_pageid=id;
@@ -220,21 +238,3 @@ QDateTime Page::pageStarttimestamp() const
 }
 
 } // namespace mediawiki;
-
-bool operator==(const mediawiki::Page& lhs,const mediawiki::Page& rhs)
-{
-    return lhs.pageId()             == rhs.pageId()        &&
-           lhs.pageTitle()          == rhs.pageTitle()     &&
-           lhs.pageNs()             == rhs.pageNs()        &&
-           lhs.pageLastRevId()      == rhs.pageLastRevId() &&
-           lhs.pageCounter()        == rhs.pageCounter()   &&
-           lhs.pageLength()         == rhs.pageLength()    &&
-           lhs.pageEditToken()      == rhs.pageEditToken() &&
-           lhs.pageTalkid()         == rhs.pageTalkid()    &&
-           lhs.pageFullurl()        == rhs.pageFullurl()   &&
-           lhs.pageEditurl()        == rhs.pageEditurl()   &&
-           lhs.pageReadable()       == rhs.pageReadable()  &&
-           lhs.pagePreload()        == rhs.pagePreload()   &&
-           lhs.pageTouched()        == rhs.pageTouched()   &&
-           lhs.pageStarttimestamp() == rhs.pageStarttimestamp();
-}

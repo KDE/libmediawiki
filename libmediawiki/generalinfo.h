@@ -65,12 +65,18 @@ public:
      */
     ~Generalinfo();
 
-
     /**
      * @brief Assingning an image from an other image.
      * @param other an other image
      */
     Generalinfo& operator=(const Generalinfo& other);
+
+    /**
+     * @brief Returns true if this instance and other are equal, else false.
+     * @param other instance to compare
+     * @return true if there are equal, else false
+     */
+    bool operator==(const Generalinfo& other) const;
 
     /**
      * @brief Get the name of the main page.
@@ -355,7 +361,5 @@ private:
 };
 
 } // namespace mediawiki
-
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::Generalinfo& lhs, const mediawiki::Generalinfo& rhs);
 
 #endif // GENERALINFO_H

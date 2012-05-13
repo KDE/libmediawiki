@@ -69,10 +69,24 @@ Revision::Revision( const Revision& other)
 {
 }
 
-Revision & Revision::operator=(Revision other)
+Revision& Revision::operator=(Revision other)
 {
     *d = *other.d;
     return *this;
+}
+
+bool Revision::operator==(const Revision& other) const
+{
+    return timestamp()     == other.timestamp()     &&
+           user()          == other.user()          &&
+           comment()       == other.comment()       &&
+           content()       == other.content()       &&
+           size()          == other.size()          &&
+           minorRevision() == other.minorRevision() &&
+           parseTree()     == other.parseTree()     &&
+           parentId()      == other.parentId()      &&
+           rollback()      == other.rollback()      &&
+           revisionId()    == other.revisionId();
 }
 
 void Revision::setRevisionId(int revisionId)
@@ -175,17 +189,3 @@ QString Revision::rollback() const
 }
 
 } // namespace mediawiki
-
-bool operator==(const mediawiki::Revision& lhs, const mediawiki::Revision& rhs)
-{
-    return lhs.timestamp()     == rhs.timestamp()     &&
-           lhs.user()          == rhs.user()          &&
-           lhs.comment()       == rhs.comment()       &&
-           lhs.content()       == rhs.content()       &&
-           lhs.size()          == rhs.size()          &&
-           lhs.minorRevision() == rhs.minorRevision() &&
-           lhs.parseTree()     == rhs.parseTree()     &&
-           lhs.parentId()      == rhs.parentId()      &&
-           lhs.rollback()      == rhs.rollback()      &&
-           lhs.revisionId()    == rhs.revisionId();
-}

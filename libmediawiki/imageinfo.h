@@ -73,6 +73,13 @@ public:
     Imageinfo& operator=(Imageinfo other);
 
     /**
+     * @brief Returns true if this instance and other are equal, else false.
+     * @param other instance to compare
+     * @return true if there are equal, else false
+     */
+    bool operator==(const Imageinfo& other) const;
+
+    /**
      * @brief Get the time and date of the revision.
      * @return the time and date of the revision
      */
@@ -253,13 +260,5 @@ private:
 };
 
 } // namespace mediawiki
-
-/**
- * @brief Returns true if lhs and rhs are equal, else false.
- * @param lhs left-hand side image info
- * @param rhs right-hand side image info
- * @return true if lhs and rhs are equal, else false
- */
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::Imageinfo& lhs, const mediawiki::Imageinfo& rhs);
 
 #endif // MEDIAWIKI_IMAGEINFO_H

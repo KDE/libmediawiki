@@ -65,6 +65,12 @@ Image& Image::operator=(Image other)
     return *this;
 }
 
+bool Image::operator==(const Image& other) const
+{
+    return namespaceId() == other.namespaceId() &&
+           title()       == other.title();
+}
+
 qint64 Image::namespaceId() const
 {
     return d->namespaceId;
@@ -86,9 +92,3 @@ void Image::setTitle(const QString& title)
 }
 
 } // namespace mediawiki
-
-bool operator==(const mediawiki::Image& lhs, const mediawiki::Image& rhs)
-{
-    return lhs.namespaceId() == rhs.namespaceId() &&
-           lhs.title()       == rhs.title();
-}

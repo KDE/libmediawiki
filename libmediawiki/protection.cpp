@@ -66,6 +66,14 @@ Protection& Protection::operator=(Protection other)
     return *this;
 }
 
+bool Protection::operator==(const Protection& other) const
+{
+    return type()   == other.type()   &&
+           level()  == other.level()  &&
+           expiry() == other.expiry() &&
+           source() == other.source();
+}
+
 void Protection::setType(const QString& type)
 {
     d->type = type;
@@ -107,11 +115,3 @@ QString Protection::source() const
 }
 
 } // namespace mediawiki
-
-bool operator==(const mediawiki::Protection& ptc, const mediawiki::Protection& ptc2)
-{
-    return ptc.type()   == ptc2.type()   &&
-           ptc.level()  == ptc2.level()  &&
-           ptc.expiry() == ptc2.expiry() &&
-           ptc.source() == ptc2.source();
-}

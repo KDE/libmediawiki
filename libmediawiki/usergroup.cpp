@@ -67,6 +67,13 @@ UserGroup& UserGroup::operator=(UserGroup other)
     return *this;
 }
 
+bool UserGroup::operator==(const mediawiki::UserGroup& other) const
+{
+    return number() == other.number() &&
+           rights() == other.rights() &&
+           name()   == other.name() ;
+}
+
 QString UserGroup::name() const
 {
     return d->name;
@@ -103,10 +110,3 @@ void UserGroup::setNumber(qint64 number)
 }
 
 } // namespace mediawiki
-
-bool operator==(const mediawiki::UserGroup& lhs, const mediawiki::UserGroup& rhs)
-{
-    return lhs.number() == rhs.number() &&
-           lhs.rights() == rhs.rights() &&
-           lhs.name()   == rhs.name() ;
-}

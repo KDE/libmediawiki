@@ -72,6 +72,13 @@ public:
     Image& operator=(Image other);
 
     /**
+     * @brief Returns true if this instance and other are equal, else false.
+     * @param other instance to compare
+     * @return true if there are equal, else false
+     */
+    bool operator==(const Image& other) const;
+
+    /**
      * @brief Returns the namespace id of the image.
      * @return the namespace id of the image
      */
@@ -102,13 +109,5 @@ private:
 };
 
 } // namespace mediawiki
-
-/**
- * @brief Returns true if lhs and rhs are equal, else false.
- * @param lhs left-hand side image info
- * @param rhs right-hand side image info
- * @return true if lhs and rhs are equal, else false
- */
-MEDIAWIKI_EXPORT bool operator==(const mediawiki::Image& lhs, const mediawiki::Image& rhs);
 
 #endif // MEDIAWIKI_IMAGE_H
