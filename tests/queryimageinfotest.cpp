@@ -29,6 +29,7 @@
 #include "libmediawikitest/fakeserver.h"
 
 #include "mediawiki.h"
+#include "imageinfo.h"
 #include "queryimageinfo.h"
 
 using namespace mediawiki;
@@ -39,7 +40,7 @@ class QueryImageinfoTest : public QObject
 
 public Q_SLOTS:
 
-    void resultHandle(const QList<Imageinfo> & imageinfos)
+    void resultHandle(const QList<Imageinfo>& imageinfos)
     {
         imageinfosReceived.push_back(imageinfos);
     }
