@@ -7,7 +7,7 @@
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011-2012 by Gilles Caulier
+ * @author Copyright (C) 2011-2013 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2011 by Manuel Campomanes
  *         <a href="mailto:campomanes dot manuel at gmail dot com">campomanes dot manuel at gmail dot com</a>
@@ -57,8 +57,6 @@ public:
     {
     }
 
-    int                    id;
-
     QMap<QString, QString> requestParameter;
 };
 
@@ -87,7 +85,10 @@ void QueryRevision::setProperties(Properties properties)
     Q_D(QueryRevision);
     QString buff;
 
-    if(properties & QueryRevision::Ids) buff.append("ids");
+    if(properties & QueryRevision::Ids)
+    {
+        buff.append("ids");
+    }
 
     if(properties & QueryRevision::Flags)
     {
@@ -254,6 +255,7 @@ void QueryRevision::doWorkSendRequest()
     url.addQueryItem("prop",   "revisions");
 
     QMapIterator<QString, QString> i(d->requestParameter);
+
     while (i.hasNext())
     {
         i.next();
@@ -291,17 +293,19 @@ void QueryRevision::doWorkProcessReply()
             for (int i = replytmp.indexOf("parsetree"); i != -1; i = replytmp.indexOf("parsetree", i+1))
             {
                 int count = 0;
+
                 while (count < 2)
                 {
                     if (replytmp[i] == '"' && replytmp[i-1] != '\\') count++;
-                    if (replytmp[i] == '<') replytmp[i]=char(255);
-                    if (replytmp[i] == '>') replytmp[i]=char(254);
+                    if (replytmp[i] == '<')                          replytmp[i] = char(255);
+                    if (replytmp[i] == '>')                          replytmp[i] = char(254);
                     ++i;
                 }
             }
         }
 
         QXmlStreamReader reader(replytmp);
+
         while (!reader.atEnd() && !reader.hasError())
         {
             QXmlStreamReader::TokenType token = reader.readNext();
@@ -372,6 +376,7 @@ void QueryRevision::doWorkProcessReply()
         if (!reader.hasError())
         {
             setError(KJob::NoError);
+
             for (int i = 0; i < results.length(); i++)
             {
                 results[i].setParseTree(results[i].parseTree().replace(QChar(254), '>'));

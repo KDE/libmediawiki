@@ -7,7 +7,7 @@
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011-2012 by Gilles Caulier
+ * @author Copyright (C) 2011-2013 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2009 by Paolo de Vathaire
  *         <a href="mailto:paolo dot devathaire at gmail dot com">paolo dot devathaire at gmail dot com</a>
@@ -39,7 +39,8 @@ public:
 
     explicit JobPrivate(MediaWiki& mediawiki)
         : mediawiki(mediawiki),
-          manager(mediawiki.manager())
+          manager(mediawiki.manager()),
+          reply(0)
     {
     }
 

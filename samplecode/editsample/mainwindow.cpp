@@ -7,7 +7,7 @@
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011 by Gilles Caulier
+ * @author Copyright (C) 2011-2013 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2010 by Alexandre Mendes
  *         <a href="mailto:alex dot mendes1988 at gmail dot com">alex dot mendes1988 at gmail dot com</a>
@@ -37,10 +37,10 @@
 
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget* parent)
+MainWindow::MainWindow(QWidget* const parent)
     : QMainWindow(parent),
-      ui(new Ui::MainWindow)
-
+      ui(new Ui::MainWindow),
+      mediawiki(0)
 {
     ui->setupUi(this);
 }
@@ -78,15 +78,18 @@ void MainWindow::revisionHandle(const QList<Revision>& revisions)
         popup.exec();
         return;
     }
+
     this->ui->plainTextEdit->setPlainText(revisions[0].content().toUtf8());
 }
 
 //Send page
 void MainWindow::on_pushButton1_clicked()
 {
-    Login* login = new Login(*mediawiki, this->ui->mLoginEdit->text(), this->ui->mMdpEdit->text());
+    Login* const login = new Login(*mediawiki, this->ui->mLoginEdit->text(), this->ui->mMdpEdit->text());
+
     connect(login, SIGNAL(result(KJob*)),
             this, SLOT(loginHandle(KJob*)));
+
     login->start();
 }
 
@@ -100,11 +103,13 @@ void MainWindow::loginHandle(KJob* login)
     }
     else
     {
-        Edit* job = new Edit(*mediawiki,NULL);
+        Edit* const job = new Edit(*mediawiki, NULL);
         job->setPageName(this->ui->mPageEdit->text());
         job->setText(this->ui->plainTextEdit->toPlainText());
+
         connect(job, SIGNAL(result(KJob*)),
                 this, SLOT(editError(KJob*)));
+
         job->start();
     }
 }
@@ -112,8 +117,12 @@ void MainWindow::loginHandle(KJob* login)
 void MainWindow::editError(KJob* job)
 {
     QString errorMessage;
-    if(job->error() == 0) errorMessage = "The Wiki page modified successfully.";
-    else errorMessage = "The Wiki page can't be modified.";
+
+    if(job->error() == 0)
+        errorMessage = "The Wiki page modified successfully.";
+    else
+        errorMessage = "The Wiki page can't be modified.";
+
     QMessageBox popup;
     popup.setText(errorMessage);
     popup.exec();

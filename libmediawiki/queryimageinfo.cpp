@@ -7,7 +7,7 @@
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011-2012 by Gilles Caulier
+ * @author Copyright (C) 2011-2013 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2010 by Ludovic Delfau
  *         <a href="mailto:ludovicdelfau at gmail dot com">ludovicdelfau at gmail dot com</a>
@@ -51,13 +51,14 @@ public:
     QueryImageinfoPrivate(MediaWiki& mediawiki)
         : JobPrivate(mediawiki)
     {
+        onlyOneSignal = false;
     }
 
     static inline qint64 toQInt64(const QString& qstring)
     {
-        bool ok;
+        bool   ok;
         qint64 result = qstring.toLongLong(&ok);
-        return ok ? result : -1;
+        return (ok ? result : -1);
     }
 
     static inline void addQueryItemIfNotNull(QUrl& url, const QString& key, const QString& value)
@@ -85,7 +86,7 @@ QueryImageinfo::QueryImageinfo(MediaWiki& mediawiki, QObject* const parent)
     : Job(*new QueryImageinfoPrivate(mediawiki), parent)
 {
     Q_D(QueryImageinfo);
-    d->onlyOneSignal = false;
+    Q_UNUSED(d);
 }
 
 QueryImageinfo::~QueryImageinfo()
@@ -101,7 +102,9 @@ void QueryImageinfo::setTitle(const QString& title)
 void QueryImageinfo::setProperties(Properties properties)
 {
     Q_D(QueryImageinfo);
+
     QString iiprop;
+
     if (properties & QueryImageinfo::Timestamp)
     {
         iiprop.append("timestamp|");
@@ -134,6 +137,7 @@ void QueryImageinfo::setProperties(Properties properties)
     {
         iiprop.append("metadata|");
     }
+
     iiprop.chop(1);
     d->iiprop = iiprop;
 }
@@ -141,7 +145,7 @@ void QueryImageinfo::setProperties(Properties properties)
 void QueryImageinfo::setLimit(unsigned int limit)
 {
     Q_D(QueryImageinfo);
-    d->limit = limit > 0u ? QString::number(limit) : QString();
+    d->limit = (limit > 0u) ? QString::number(limit) : QString();
 }
 
 void QueryImageinfo::setOnlyOneSignal(bool onlyOneSignal)
@@ -165,13 +169,14 @@ void QueryImageinfo::setEndTimestamp(const QDateTime& end)
 void QueryImageinfo::setWidthScale(unsigned int width)
 {
     Q_D(QueryImageinfo);
-    d->width = width > 0u ? QString::number(width) : QString();
+    d->width = (width > 0u) ? QString::number(width) : QString();
 }
 
 void QueryImageinfo::setHeightScale(unsigned int height)
 {
     Q_D(QueryImageinfo);
-    d->height = height > 0u ? QString::number(height) : QString();
+    d->height = (height > 0u) ? QString::number(height) : QString();
+
     if (d->width.isNull())
     {
         d->width = d->height;
@@ -192,12 +197,12 @@ void QueryImageinfo::doWorkSendRequest()
     url.addQueryItem("format", "xml");
     url.addQueryItem("action", "query");
     url.addQueryItem("titles", d->title); //FIXME: Job error because title is required
-    url.addQueryItem("prop", "imageinfo");
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiprop", d->iiprop);
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iilimit", d->limit);
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iistart", d->begin);
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiend", d->end);
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiurlwidth", d->width);
+    url.addQueryItem("prop",   "imageinfo");
+    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiprop",      d->iiprop);
+    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iilimit",     d->limit);
+    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iistart",     d->begin);
+    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiend",       d->end);
+    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiurlwidth",  d->width);
     QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiurlheight", d->height);
 
     // Set the request
@@ -207,6 +212,7 @@ void QueryImageinfo::doWorkSendRequest()
     // Send the request
     d->reply = d->manager->get(request);
     connectReply();
+
     connect(d->reply, SIGNAL(finished()),
             this, SLOT(doWorkProcessReply()));
 }
@@ -217,6 +223,7 @@ void QueryImageinfo::doWorkProcessReply()
 
     disconnect(d->reply, SIGNAL(finished()),
                this, SLOT(doWorkProcessReply()));
+
     d->begin.clear();
 
     if (d->reply->error() == QNetworkReply::NoError)
