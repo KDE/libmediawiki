@@ -1,21 +1,27 @@
-/*
- *   Copyright 2010 by Guillaume Hormiere <hormiere.guillaume@gmail.com>
+/** ===========================================================
+ * @file
  *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU Library General Public License as
- *   published by the Free Software Foundation; either version 2, or
- *   (at your option) any later version.
+ * This file is a part of KDE project
+ * <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
+ * @date   2010-03-22
+ * @brief  a MediaWiki C++ interface for KDE
  *
- *   You should have received a copy of the GNU Library General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+ * @author Copyright (C) 2010-2011 by Hormiere Guillaume
+ *         <a href="mailto:hormiere dot guillaume at gmail dot com">hormiere dot guillaume at gmail dot com</a>
+ *
+ * This program is free software; you can redistribute it
+ * and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation;
+ * either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * ============================================================ */
 
 #ifndef SERVER_H
 #define SERVER_H
@@ -41,22 +47,25 @@ class FakeServer : QThread
 
 public:
 
-    struct Request{
+    struct Request
+    {
         Request(){}
-        Request(QString t, QString a, QString v){type=t;agent=a;value=v;}
+        Request(const QString& t, const QString& a, const QString& v){type=t; agent=a; value=v;}
+
         QString type;
         QString agent;
         QString value;
     };
 
-    FakeServer(QObject* parent = 0);
+    FakeServer(QObject* const parent = 0);
     ~FakeServer();
 
     void startAndWait();
     virtual void run();
-    void setScenario( const QString &scenario, const QString &cookie = QString("empty"));
-    void addScenario( const QString &scenario, const QString &cookie = QString("empty"));
-    void addScenarioFromFile( const QString &fileName, const QString &cookie = QString("empty"));
+
+    void setScenario( const QString& scenario, const QString& cookie = QString("empty"));
+    void addScenario( const QString& scenario, const QString& cookie = QString("empty"));
+    void addScenarioFromFile( const QString& fileName, const QString& cookie = QString("empty"));
 
     bool isScenarioDone( int scenarioNumber ) const;
     bool isAllScenarioDone() const;
@@ -76,13 +85,15 @@ private:
     void writeServerPart();
     void readClientPart();
 
-    QStringList m_scenarios;
-    QStringList m_cookie;
+private:
+
+    QStringList                m_scenarios;
+    QStringList                m_cookie;
     QList<FakeServer::Request> m_request;
-    QTcpServer *m_tcpServer;
-    mutable QMutex m_mutex;
-    QTcpSocket* m_clientSocket;
+    QTcpServer*                m_tcpServer;
+    mutable QMutex             m_mutex;
+    QTcpSocket*                m_clientSocket;
 };
 //! [0]
 
-#endif
+#endif // SERVER_H

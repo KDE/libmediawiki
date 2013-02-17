@@ -49,20 +49,21 @@ class QuerySiteInfoGeneralTest : public QObject
 
 public Q_SLOTS:
 
-void resultHandle(const Generalinfo & generalinfo) {
+void resultHandle(const Generalinfo& generalinfo)
+{
     ++generalCount;
     generalResult = generalinfo;
 }
+
 private Q_SLOTS:
 
 void initTestCase()
 {
-    generalCount = 0;
+    generalCount  = 0;
     this->request = "?format=xml&action=query&meta=siteinfo&siprop=general";
 }
 void QuerySiteInfoGeneralTestConnectTrue()
 {
-
     MediaWiki mediaWiki(QUrl("http://127.0.0.1:12566"));
     FakeServer server;
 
@@ -71,20 +72,21 @@ void QuerySiteInfoGeneralTestConnectTrue()
     server.addScenario(senario);
     server.startAndWait();
 
-    QuerySiteInfoGeneral * general = new QuerySiteInfoGeneral(mediaWiki);
+    QuerySiteInfoGeneral* const general = new QuerySiteInfoGeneral(mediaWiki);
 
-    connect(general, SIGNAL(result(Generalinfo)), this, SLOT(resultHandle(Generalinfo)));
+    connect(general, SIGNAL(result(Generalinfo)),
+            this, SLOT(resultHandle(Generalinfo)));
+
     general->exec();
     FakeServer::Request serverrequest = server.getRequest()[0];
     QCOMPARE(this->generalCount, 1);
     QCOMPARE(serverrequest.type, QString("GET"));
     QCOMPARE(serverrequest.value, this->request);
     QVERIFY(general->error() == QuerySiteInfoGeneral::NoError);
-
 }
+
 void QuerySiteInfoGeneralTestAttribute()
 {
-
     MediaWiki mediaWiki(QUrl("http://127.0.0.1:12566"));
     FakeServer server;
 
@@ -93,9 +95,11 @@ void QuerySiteInfoGeneralTestAttribute()
     server.addScenario(senario);
     server.startAndWait();
 
-    QuerySiteInfoGeneral * general = new QuerySiteInfoGeneral(mediaWiki);
+    QuerySiteInfoGeneral* const general = new QuerySiteInfoGeneral(mediaWiki);
 
-    connect(general, SIGNAL(result(Generalinfo)), this, SLOT(resultHandle(Generalinfo)));
+    connect(general, SIGNAL(result(Generalinfo)),
+            this, SLOT(resultHandle(Generalinfo)));
+
     general->exec();
     FakeServer::Request serverrequest = server.getRequest()[0];
     QCOMPARE(this->generalCount, 1);
@@ -128,6 +132,7 @@ void QuerySiteInfoGeneralTestAttribute()
     resultExpected.setTime(QDateTime(QDate(2010, 10, 24), QTime(19, 53, 13)));
     QCOMPARE(generalResult, resultExpected);
 }
+
 void QuerySiteInfoGeneralTestConnectFalseXML()
 {
 
@@ -139,9 +144,11 @@ void QuerySiteInfoGeneralTestConnectFalseXML()
     server.addScenario(senario);
     server.startAndWait();
 
-    QuerySiteInfoGeneral * general = new QuerySiteInfoGeneral(mediaWiki);
+    QuerySiteInfoGeneral* const general = new QuerySiteInfoGeneral(mediaWiki);
 
-    connect(general, SIGNAL(result(Generalinfo)), this, SLOT(resultHandle(Generalinfo)));
+    connect(general, SIGNAL(result(Generalinfo)),
+            this, SLOT(resultHandle(Generalinfo)));
+
     general->exec();
     FakeServer::Request serverrequest = server.getRequest()[0];
     QCOMPARE(this->generalCount, 0);
@@ -152,7 +159,6 @@ void QuerySiteInfoGeneralTestConnectFalseXML()
 
 void QuerySiteInfoGeneralTestErrortIncludeAllDenied()
 {
-
     MediaWiki mediaWiki(QUrl("http://127.0.0.1:12566"));
     FakeServer server;
 
@@ -161,9 +167,11 @@ void QuerySiteInfoGeneralTestErrortIncludeAllDenied()
     server.addScenario(senario);
     server.startAndWait();
 
-    QuerySiteInfoGeneral * general = new QuerySiteInfoGeneral(mediaWiki);
+    QuerySiteInfoGeneral* const general = new QuerySiteInfoGeneral(mediaWiki);
 
-    connect(general, SIGNAL(result(Generalinfo)), this, SLOT(resultHandle(Generalinfo)));
+    connect(general, SIGNAL(result(Generalinfo)),
+            this, SLOT(resultHandle(Generalinfo)));
+
     general->exec();
     FakeServer::Request serverrequest = server.getRequest()[0];
     QCOMPARE(this->generalCount, 0);
@@ -173,6 +181,7 @@ void QuerySiteInfoGeneralTestErrortIncludeAllDenied()
 }
 
 private:
+
     int         generalCount;
     Generalinfo generalResult;
     QString     request;

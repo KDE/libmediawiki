@@ -46,8 +46,7 @@ using mediawiki::Protection;
 Q_DECLARE_METATYPE(Page)
 Q_DECLARE_METATYPE(Protection)
 Q_DECLARE_METATYPE(QueryInfo*)
-Q_DECLARE_METATYPE( QVector <Protection> )
-
+Q_DECLARE_METATYPE(QVector <Protection>)
 
 void debugPages(Page p)
 {
@@ -84,20 +83,23 @@ class QueryInfoTest : public QObject
 
 public Q_SLOTS:
 
-    void queryInfoHandlePages(const Page& page) {
+    void queryInfoHandlePages(const Page& page)
+    {
         ++queryInfoCount;
         queryInfoResultsPage = page;
     }
 
-    void queryInfoHandleProtection(const QVector<Protection> & protection) {
+    void queryInfoHandleProtection(const QVector<Protection>& protection)
+    {
         ++queryInfoCount;
         queryInfoResultsProtections = protection;
     }
 
 private Q_SLOTS:
 
-    void initTestCase() {
-        queryInfoCount = 0;
+    void initTestCase()
+    {
+        queryInfoCount    = 0;
         this->m_mediaWiki = new MediaWiki(QUrl("http://127.0.0.1:12566"));
     }
 
@@ -119,28 +121,28 @@ private Q_SLOTS:
         QCOMPARE(requestServeur.agent, m_mediaWiki->userAgent());
         QCOMPARE(requestServeur.type, QString("GET"));
         QCOMPARE(requestServeur.value, request);
-
     }
+
     void constructQuery_data()
     {
         QTest::addColumn<QString>("request");
         QTest::addColumn<QueryInfo*>("job");
 
-        QueryInfo *j1 = new QueryInfo(*m_mediaWiki);
+        QueryInfo* const j1 = new QueryInfo(*m_mediaWiki);
         j1->setPageName("API");
 
         QTest::newRow("Name pages")
                 << QString("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&titles=API")
                 << j1;
 
-        QueryInfo *j2 = new QueryInfo(*m_mediaWiki);
+        QueryInfo* const j2 = new QueryInfo(*m_mediaWiki);
         j2->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
 
         QTest::newRow("Token")
                 << QString("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&intoken=cecded1f35005d22904a35cc7b736e18+\\")
                 << j2;
 
-        QueryInfo *j3 = new QueryInfo(*m_mediaWiki);
+        QueryInfo* const j3 = new QueryInfo(*m_mediaWiki);
         j3->setPageId(25255);
 
         QTest::newRow("Page Id")
@@ -166,8 +168,12 @@ private Q_SLOTS:
         FakeServer fakeserver;
         fakeserver.addScenario(scenario);
         fakeserver.startAndWait();
-        connect(&job, SIGNAL(page(Page)),this,SLOT(queryInfoHandlePages(Page)));
-        connect(&job, SIGNAL(protection(QVector<Protection>)),this,SLOT(queryInfoHandleProtection(QVector<Protection>)));
+
+        connect(&job, SIGNAL(page(Page)),
+                this,SLOT(queryInfoHandlePages(Page)));
+
+        connect(&job, SIGNAL(protection(QVector<Protection>)),
+                this,SLOT(queryInfoHandleProtection(QVector<Protection>)));
 
         job.exec();
 

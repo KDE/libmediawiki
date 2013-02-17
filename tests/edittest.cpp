@@ -56,11 +56,13 @@ signals:
 
 public Q_SLOTS:
 
-    void editHandle(KJob* ) {
+    void editHandle(KJob* )
+    {
         editCount++;
     }
 
-    void editHandle(const QVariant & captcha) {
+    void editHandle(const QVariant& captcha)
+    {
         editCount++;
         this->CaptchaQuestion = captcha;
         emit captchaSignal(this->CaptchaAnswer);
@@ -70,8 +72,8 @@ private Q_SLOTS:
 
     void initTestCase()
     {
-        editCount = 0;
-        this->m_mediaWiki = new MediaWiki(QUrl("http://127.0.0.1:12566"));
+        editCount            = 0;
+        this->m_mediaWiki    = new MediaWiki(QUrl("http://127.0.0.1:12566"));
         this->m_infoScenario = "<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"cecded1f35005d22904a35cc7b736e18%2B\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection /></page></pages></query></api>";
     }
 
@@ -86,7 +88,10 @@ private Q_SLOTS:
         fakeserver.setScenario(m_infoScenario);
         fakeserver.addScenario(senario);
         fakeserver.startAndWait();
-        connect(job, SIGNAL(result(KJob*)),this, SLOT(editHandle(KJob*)));
+
+        connect(job, SIGNAL(result(KJob*)),
+                this, SLOT(editHandle(KJob*)));
+
         job->exec();
         FakeServer::Request serverrequest = fakeserver.getRequest()[1];
         QCOMPARE(serverrequest.type, QString("POST"));
@@ -100,7 +105,7 @@ private Q_SLOTS:
         QTest::addColumn<QString>("senario");
         QTest::addColumn<Edit*>("job");
 
-        Edit * e1 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e1 = new Edit( *m_mediaWiki, NULL);
         e1->setSection("new");
         e1->setSummary("Hello World" );
         e1->setPageName( "Talk:Main Page" );
@@ -113,7 +118,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e1;
 
-        Edit * e2 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e2 = new Edit( *m_mediaWiki, NULL);
         e2->setSection("new");
         e2->setSummary("Hello World");
         e2->setPageName( "Talk:Main Page" );
@@ -126,7 +131,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e2;
 
-        Edit * e3 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e3 = new Edit( *m_mediaWiki, NULL);
         e3->setSection("new");
         e3->setSummary("Hello World");
         e3->setPageName( "Talk:Main Page" );
@@ -139,7 +144,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e3;
 
-        Edit * e4 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e4 = new Edit( *m_mediaWiki, NULL);
         e4->setSummary("Hello World");
         e4->setPageName( "Talk:Main Page" );
         e4->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -151,7 +156,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e4;
 
-        Edit * e5 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e5 = new Edit( *m_mediaWiki, NULL);
         e5->setSummary("Hello World");
         e5->setPageName( "Talk:Main Page" );
         e5->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -163,7 +168,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e5;
 
-        Edit * e6 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e6 = new Edit( *m_mediaWiki, NULL);
         e6->setSummary("Hello World");
         e6->setPageName( "Talk:Main Page" );
         e6->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -177,7 +182,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e6;
 
-        Edit * e7 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e7 = new Edit( *m_mediaWiki, NULL);
         e7->setSummary("Hello World");
         e7->setPageName( "Talk:Main Page" );
         e7->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -191,7 +196,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e7;
 
-        Edit * e8 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e8 = new Edit( *m_mediaWiki, NULL);
         e8->setSummary("Hello World");
         e8->setPageName( "Talk:Main Page" );
         e8->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -205,7 +210,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e8;
 
-        Edit * e9 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e9 = new Edit( *m_mediaWiki, NULL);
         e9->setSummary("Hello World");
         e9->setPageName( "Talk:Main Page" );
         e9->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -219,7 +224,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e9;
 
-        Edit * e10 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e10 = new Edit( *m_mediaWiki, NULL);
         e10->setSummary("Hello World");
         e10->setPageName( "Talk:Main Page" );
         e10->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -231,7 +236,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e10;
 
-        Edit * e11 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e11 = new Edit( *m_mediaWiki, NULL);
         e11->setSummary("Hello World");
         e11->setPageName( "Talk:Main Page" );
         e11->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -243,7 +248,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e11;
 
-        Edit * e12 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e12 = new Edit( *m_mediaWiki, NULL);
         e12->setSummary("Hello World");
         e12->setPageName( "Talk:Main Page" );
         e12->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -255,7 +260,7 @@ private Q_SLOTS:
                 << "<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>"
                 << e12;
 
-        Edit * e13 = new Edit( *m_mediaWiki, NULL);
+        Edit* const e13 = new Edit( *m_mediaWiki, NULL);
         e13->setSummary("Hello World");
         e13->setPageName( "Talk:Main Page" );
         e13->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
@@ -277,6 +282,7 @@ private Q_SLOTS:
         editCount = 0;
         MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
         FakeServer fakeserver;
+
         if(scenario != QString("error serveur"))
         {
             fakeserver.setScenario(m_infoScenario);
@@ -284,7 +290,7 @@ private Q_SLOTS:
             fakeserver.startAndWait();
         }
 
-        Edit * job = new Edit(mediawiki, NULL);
+        Edit* const job = new Edit(mediawiki, NULL);
         job->setSection("new");
         job->setSummary("Hello World" );
         job->setPageName( "Talk:Main Page" );
@@ -292,7 +298,9 @@ private Q_SLOTS:
         job->setBaseTimestamp( QDateTime::fromString("2008-03-20T17:26:39Z","yyyy-MM-ddThh:mm:ssZ") );
         job->setStartTimestamp( QDateTime::fromString("2008-03-27T21:15:39Z","yyyy-MM-ddThh:mm:ssZ") );
         job->setText( "Hello everyone!" );
-        connect(job,  SIGNAL(result(KJob*)),this, SLOT(editHandle(KJob*)));
+
+        connect(job,  SIGNAL(result(KJob*)),
+                this, SLOT(editHandle(KJob*)));
 
         job->exec();
 
@@ -301,6 +309,7 @@ private Q_SLOTS:
             QList<FakeServer::Request> requests = fakeserver.getRequest();
             QCOMPARE(requests.size(), 2);
         }
+
         QCOMPARE(job->error(), error);
         QCOMPARE(editCount, 1);
 
@@ -402,8 +411,12 @@ private Q_SLOTS:
         edit.setStartTimestamp( QDateTime::fromString("2008-03-27T21:15:39Z","yyyy-MM-ddThh:mm:ssZ") );
         edit.setText( "Hello everyone!" );
 
-        connect(&edit, SIGNAL(resultCaptcha(QVariant)), this, SLOT(editHandle(QVariant)));
-        connect(this, SIGNAL(captchaSignal(QString)), &edit, SLOT(finishedCaptcha(QString)));
+        connect(&edit, SIGNAL(resultCaptcha(QVariant)),
+                this, SLOT(editHandle(QVariant)));
+
+        connect(this, SIGNAL(captchaSignal(QString)),
+                &edit, SLOT(finishedCaptcha(QString)));
+
         edit.exec();
 
         FakeServer::Request serverrequest = fakeserver.getRequest()[1];
