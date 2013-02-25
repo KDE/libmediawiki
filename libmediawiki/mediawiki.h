@@ -32,8 +32,8 @@
 
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-#include <QNetwork/QNetworkAccessManager>
-#include <QNetwork/QNetworkCookieJar>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkCookieJar>
 
 // Local includes
 
