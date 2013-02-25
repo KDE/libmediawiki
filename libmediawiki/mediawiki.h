@@ -7,7 +7,7 @@
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
- * @author Copyright (C) 2011-2012 by Gilles Caulier
+ * @author Copyright (C) 2011-2013 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2009 by Richard Moore
  *         <a href="mailto:rich at kde dot org">rich at kde dot org</a>
@@ -32,8 +32,8 @@
 
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-#include <QNetworkAccessManager>
-#include <QNetworkCookieJar>
+#include <QNetwork/QNetworkAccessManager>
+#include <QNetwork/QNetworkCookieJar>
 
 // Local includes
 
@@ -57,7 +57,7 @@ public:
                               which will be concatenated with the postfix user agent
      *                        else the postfix user agent is used only
      */
-    explicit MediaWiki(const QUrl& url,const QString& customUserAgent = QString());
+    explicit MediaWiki(const QUrl& url, const QString& customUserAgent = QString());
 
     /**
      * @brief Destructs the MediaWiki.
