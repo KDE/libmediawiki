@@ -132,7 +132,7 @@ private Q_SLOTS:
 
         MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
         FakeServer fakeserver;
-        fakeserver.addScenario(scenario);
+        fakeserver.setScenario(scenario);
         fakeserver.startAndWait();
 
         QueryRevision * job = new QueryRevision(mediawiki);
@@ -241,7 +241,7 @@ private Q_SLOTS:
         FakeServer fakeserver;
         if(scenario != QString("error serveur"))
         {
-            fakeserver.addScenario(scenario);
+            fakeserver.setScenario(scenario);
             fakeserver.startAndWait();
         }
 
@@ -523,7 +523,7 @@ private Q_SLOTS:
         MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
 
         FakeServer fakeserver;
-        fakeserver.addScenario(scenario);
+        fakeserver.setScenario(scenario);
         fakeserver.startAndWait();
 
         QueryRevision * job = new QueryRevision(mediawiki);
@@ -593,7 +593,7 @@ private Q_SLOTS:
         MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
 
         FakeServer fakeserver;
-        fakeserver.addScenario(scenario);
+        fakeserver.setScenario(scenario);
         fakeserver.startAndWait();
 
         QueryRevision * job = new QueryRevision(mediawiki);

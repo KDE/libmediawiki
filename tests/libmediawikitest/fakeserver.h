@@ -55,6 +55,12 @@ public:
         QString type;
         QString agent;
         QString value;
+
+        bool operator==(const FakeServer::Request &other) const {
+            return this->type  == other.type  &&
+                   this->agent == other.agent &&
+                   this->value == other.value;
+        }
     };
 
     FakeServer(QObject* const parent = 0);
@@ -79,11 +85,6 @@ private Q_SLOTS:
     void newConnection();
     void dataAvailable();
     void started();
-
-private:
-
-    void writeServerPart();
-    void readClientPart();
 
 private:
 

@@ -120,6 +120,7 @@ void Login::doWorkSendRequest()
     // Set the request
     QNetworkRequest request(url);
     request.setRawHeader("User-Agent", d->mediawiki.userAgent().toUtf8());
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
     // Send the request
     d->reply = d->manager->post(request, url.toString().toUtf8());
@@ -247,6 +248,7 @@ void Login::doWorkProcessReply()
     QNetworkRequest request(url);
     request.setRawHeader("User-Agent", d->mediawiki.userAgent().toUtf8());
     request.setRawHeader("Cookie", d->manager->cookieJar()->cookiesForUrl(d->mediawiki.url()).at(0).toRawForm());
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
     // Send the request
     d->reply = d->manager->post(request, data.toUtf8());

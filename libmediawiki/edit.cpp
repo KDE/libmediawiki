@@ -437,6 +437,7 @@ void Edit::finishedCaptcha(const QString& captcha)
     QNetworkRequest request( url );
     request.setRawHeader("User-Agent", d->mediawiki.userAgent().toUtf8());
     request.setRawHeader( "Cookie", cookie );
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     // Send the request
     d->reply = d->manager->post( request, data.toUtf8() );
     connect( d->reply, SIGNAL(finished()),

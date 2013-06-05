@@ -64,8 +64,34 @@ void FakeServer::newConnection()
 void FakeServer::dataAvailable()
 {
     QMutexLocker locker(&m_mutex);
-    readClientPart();
-    writeServerPart();
+
+    if (m_clientSocket->canReadLine())
+    {
+        QStringList token = QString(m_clientSocket->readAll()).split(QRegExp("[ \r\n][ \r\n]*"));
+        if(!token.empty())
+        {
+            FakeServer::Request request;
+            request.type  = token[0];
+            request.agent = token[4];
+            request.value = token[1];
+
+            // It might happen that the same request cames through more than once, so you need to check that you are
+            // counting each different request only once.
+            //
+            // For more information, see: http://qt-project.org/forums/viewthread/25521
+            //
+            if (!m_request.contains(request))
+            {
+                m_request << request;
+
+                QString retour   = m_scenarios.isEmpty() ? QString("empty") : m_scenarios.takeFirst();
+                QString cookie   = m_cookie.isEmpty()    ? QString("empty") : m_cookie.takeFirst();
+                QString scenario = "HTTP/1.0 200 Ok\r\nContent-Type: text/html; charset=\"utf-8\"\r\nSet-Cookie:" + cookie + "\r\n\r\n" + retour;
+                m_clientSocket->write(scenario.toLocal8Bit());
+            }
+        }
+    }
+    m_clientSocket->close();
 }
 
 void FakeServer::run()
@@ -98,6 +124,7 @@ void FakeServer::setScenario(const QString& scenario, const QString& cookie)
     m_scenarios << scenario;
     m_cookie.clear();
     m_cookie << cookie;
+    m_request.clear();
 }
 
 void FakeServer::addScenario(const QString& scenario, const QString& cookie )
@@ -156,30 +183,4 @@ bool FakeServer::isAllScenarioDone() const
     }
     
     return true;
-}
-
-void FakeServer::writeServerPart()
-{
-    QString retour   = m_scenarios.isEmpty() ? QString("vide")  : m_scenarios.takeFirst();
-    QString cookie   = m_cookie.isEmpty()    ? QString("empty") : m_cookie.takeFirst();
-    QString scenario = "HTTP/1.0 200 Ok\r\nContent-Type: text/html; charset=\"utf-8\"\r\nSet-Cookie:"+cookie+"\r\n\r\n" + retour;
-    m_clientSocket->write( scenario.toLocal8Bit() );
-    m_clientSocket->close();
-}
-
-void FakeServer::readClientPart()
-{
-    if (m_clientSocket->canReadLine())
-    {
-        QStringList token = QString(m_clientSocket->readAll()).split(QRegExp("[ \r\n][ \r\n]*"));
-        FakeServer::Request request;
-
-        if(token.empty())
-            return;
-
-        request.type  = token[0];
-        request.agent = token[4];
-        request.value = token[1];
-        m_request << request;
-    }
 }

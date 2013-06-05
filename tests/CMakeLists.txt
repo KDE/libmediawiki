@@ -62,16 +62,33 @@ IF(KDE4_BUILD_TESTS)
                          parsetest
                         )
 
-    SET(ressources_RC
-        queryrevisiontest_content.rc
-        queryrevisiontest_onetitle.rc
+    macro(MEDIAWIKI_TEST_RESOURCES)
+
+        foreach(resource ${ARGN})
+
+            add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${resource}"
+                               COMMAND ${CMAKE_COMMAND} -E copy
+                               "${CMAKE_CURRENT_SOURCE_DIR}/${resource}"
+                               "${CMAKE_CURRENT_BINARY_DIR}/${resource}"
+                               DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${resource}")
+            list(APPEND test_resources_dest "${resource}" )
+
+        endforeach(resource)
+
+    endmacro(MEDIAWIKI_TEST_RESOURCES)
+
+    MEDIAWIKI_TEST_RESOURCES(
+        parsetest.rc
         queryrevisiontest.rc
+        queryrevisiontest_content.rc
         queryrevisiontest_cuted.rc
-        queryrevisiontest_timestamponly.rc
-        queryrevisiontest_useronly.rc
+        queryrevisiontest_onetitle.rc
         queryrevisiontest_parsetree.rc
         queryrevisiontest_rollback.rc
-        parsetest.rc
-       )
+        queryrevisiontest_timestamponly.rc
+        queryrevisiontest_useronly.rc
+    )
+
+    add_custom_target(TestResources ALL DEPENDS ${test_resources_dest})
 
 ENDIF(KDE4_BUILD_TESTS)
