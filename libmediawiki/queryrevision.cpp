@@ -286,7 +286,7 @@ void QueryRevision::doWorkProcessReply()
     {
         QList<Revision> results;
         Revision        tempR;
-        QString         replytmp = d->reply->readAll();
+        QString         replytmp = QString::fromUtf8(d->reply->readAll());
 
         if (d->requestParameter.contains("rvgeneratexml"))
         {
