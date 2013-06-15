@@ -344,11 +344,16 @@ void Edit::doWorkSendRequest(Page page)
     request.setRawHeader("User-Agent", d->mediawiki.userAgent().toUtf8());
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     request.setRawHeader( "Cookie", cookie );
+
+    setPercent(25); // Request ready.
+
     // Send the request
     d->reply = d->manager->post( request, url.toString().toUtf8() );
     connectReply();
     connect( d->reply, SIGNAL(finished()),
              this, SLOT(finishedEdit()) );
+
+    setPercent(50); // Request sent.
 }
 
 void Edit::finishedEdit()
@@ -356,6 +361,8 @@ void Edit::finishedEdit()
     Q_D(Edit);
     disconnect(d->reply, SIGNAL(finished()),
                this, SLOT(finishedEdit()));
+
+    setPercent(75); // Response received.
 
     if ( d->reply->error() != QNetworkReply::NoError )
     {
@@ -376,6 +383,7 @@ void Edit::finishedEdit()
             {
                 if ( attrs.value( QString( "result" ) ).toString() == "Success" )
                 {
+                    setPercent(100); // Response parsed successfully.
                     this->setError(KJob::NoError);
                     d->reply->close();
                     d->reply->deleteLater();

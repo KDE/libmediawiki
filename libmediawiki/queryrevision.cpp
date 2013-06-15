@@ -267,12 +267,16 @@ void QueryRevision::doWorkSendRequest()
     QNetworkRequest request(url);
     request.setRawHeader("User-Agent", d->mediawiki.userAgent().toUtf8());
 
+    setPercent(25); // Request ready.
+
     // Send the request
     d->reply = d->manager->get(request);
     connectReply();
 
     connect(d->reply, SIGNAL(finished()), 
             this, SLOT(doWorkProcessReply()));
+
+    setPercent(50); // Request sent.
 }
 
 void QueryRevision::doWorkProcessReply()
@@ -281,6 +285,8 @@ void QueryRevision::doWorkProcessReply()
 
     disconnect(d->reply, SIGNAL(finished()),
                this, SLOT(doWorkProcessReply()));
+
+    setPercent(75); // Response received.
 
     if (d->reply->error() == QNetworkReply::NoError)
     {
@@ -384,6 +390,7 @@ void QueryRevision::doWorkProcessReply()
             }
 
             emit revision(results);
+            setPercent(100); // Response parsed successfully.
         }
         else
         {
