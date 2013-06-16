@@ -60,7 +60,6 @@ private Q_SLOTS:
         loginCount = 0;
         this->m_mediaWiki = new MediaWiki(QUrl("http://127.0.0.1:12566"));
         this->m_server = new FakeServer;
-        this->request = "?format=xml&action=login&lgname=alexTest&lgpassword=test";
     }
 
     void loginTestConnectTrue()
@@ -80,7 +79,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
         QCOMPARE(login.error(), (int)Login::NoError);
     }
 
@@ -102,7 +101,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
         QCOMPARE(login.error(), (int)Login::NoError);        
     }
 
@@ -140,7 +139,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
         QCOMPARE(login.error(), (int)Login::XmlError);
 
     }
@@ -159,7 +158,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::LoginMissing);
     }
@@ -178,7 +177,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::IllegalUsername);
     }
@@ -197,7 +196,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::UsernameNotExists);
     }
@@ -216,7 +215,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword="));
 
         QCOMPARE(login.error(), (int)Login::PasswordMissing);
     }
@@ -235,7 +234,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::WrongPassword);
     }
@@ -254,7 +253,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::WrongPluginPassword);
     }
@@ -273,7 +272,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::IPAddressBlocked);
     }
@@ -292,7 +291,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::TooManyConnections);
     }
@@ -311,7 +310,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::UserBlocked);
     }
@@ -333,7 +332,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
         QCOMPARE(login.error(), (int)Login::XmlError);
 
     }
@@ -355,7 +354,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::LoginMissing);
     }
@@ -377,7 +376,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::IllegalUsername);
     }
@@ -399,7 +398,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::UsernameNotExists);
     }
@@ -421,7 +420,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword="));
 
         QCOMPARE(login.error(), (int)Login::PasswordMissing);
     }
@@ -443,7 +442,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::WrongPassword);
     }
@@ -465,7 +464,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::WrongPluginPassword);
     }
@@ -487,7 +486,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::IPAddressBlocked);
     }
@@ -509,7 +508,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::TooManyConnections);
     }
@@ -531,7 +530,7 @@ private Q_SLOTS:
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
         QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, this->request);
+        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::UserBlocked);
     }
@@ -545,7 +544,6 @@ private Q_SLOTS:
 private:
 
     int         loginCount;
-    QString     request;
     MediaWiki*  m_mediaWiki;
     FakeServer* m_server;
 };
