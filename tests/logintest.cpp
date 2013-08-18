@@ -58,7 +58,6 @@ private Q_SLOTS:
     void initTestCase()
     {
         loginCount = 0;
-        this->m_mediaWiki = new MediaWiki(QUrl("http://127.0.0.1:12566"));
         this->m_server = new FakeServer;
     }
 
@@ -72,7 +71,8 @@ private Q_SLOTS:
         m_server->addScenario(senario, cookie);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -93,7 +93,8 @@ private Q_SLOTS:
         m_server->addScenario(senario, cookie);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -115,7 +116,8 @@ private Q_SLOTS:
         m_server->addScenario(senario, cookie);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         QCOMPARE(this->loginCount, 1);
@@ -132,7 +134,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -151,7 +154,8 @@ private Q_SLOTS:
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -170,7 +174,8 @@ private Q_SLOTS:
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -189,7 +194,8 @@ private Q_SLOTS:
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -208,7 +214,8 @@ private Q_SLOTS:
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -227,7 +234,8 @@ private Q_SLOTS:
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -246,7 +254,8 @@ private Q_SLOTS:
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -265,7 +274,8 @@ private Q_SLOTS:
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -284,7 +294,8 @@ private Q_SLOTS:
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -303,7 +314,8 @@ private Q_SLOTS:
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -325,7 +337,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -347,7 +360,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -369,7 +383,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -391,7 +406,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -413,7 +429,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -435,7 +452,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -457,7 +475,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -479,7 +498,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -501,7 +521,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -523,7 +544,8 @@ private Q_SLOTS:
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        Login login(*m_mediaWiki, "alexTest", "test");
+        MediaWiki site(QUrl("http://127.0.0.1:12566"));
+        Login login(site, "alexTest", "test");
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
@@ -537,14 +559,12 @@ private Q_SLOTS:
 
     void cleanupTestCase()
     {
-        delete this->m_mediaWiki;
         delete this->m_server;
     }
 
 private:
 
     int         loginCount;
-    MediaWiki*  m_mediaWiki;
     FakeServer* m_server;
 };
 
