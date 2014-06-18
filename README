@@ -1,4 +1,4 @@
-MEDIAWIKI C++ INTERFACE FOR KDE.
+MEDIAWIKI Qt/C++ INTERFACE FOR KDE.
 
 This library is a part of KDE project (https://projects.kde.org/projects/extragear/libs/libmediawiki)
 
@@ -8,7 +8,7 @@ See AUTHORS file for details.
 
 -- ABOUT --------------------------------------------------------------
 
-libmediawiki is a KDE C++ interface for MediaWiki based web service as wikipedia.org
+libmediawiki is a KDE Qt/C++ interface for MediaWiki based web service as wikipedia.org
 
 This library is used by kipi-plugins and digiKam.
 

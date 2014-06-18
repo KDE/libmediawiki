@@ -4,7 +4,7 @@ libdir=${LIB_INSTALL_DIR}
 includedir=${INCLUDE_INSTALL_DIR}
 
 Name: libmediawiki
-Description: a MediaWiki C++ interface for KDE.
+Description: a MediaWiki Qt/C++ interface for KDE.
 URL: https://projects.kde.org/projects/extragear/libs/libmediawiki
 Requires:
 Version: ${MEDIAWIKI_LIB_VERSION_STRING}

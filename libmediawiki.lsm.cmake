@@ -2,7 +2,7 @@ Begin4
 Title:          libmediawiki
 Version:        ${MEDIAWIKI_LIB_VERSION_STRING}
 Entered-date:   2011-03-24
-Description:    a MediaWiki C++ interface for KDE.
+Description:    a MediaWiki Qt/C++ interface for KDE.
 Keywords:       kde mediawiki interface
 Author:         caulier dot gilles at gmail dot com (Gilles Caulier)
                 campomanes dot manuel at gmail dot com (Manuel Campomanes)
