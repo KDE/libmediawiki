@@ -6,7 +6,7 @@
 # @date   2011-03-24
 # @brief  a MediaWiki C++ interface for KDE
 #
-# @author Copyright (C) 2011-2012 by Gilles Caulier
+# @author Copyright (C) 2011-2014 by Gilles Caulier
 #         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
 #
 # This program is free software; you can redistribute it
@@ -22,7 +22,7 @@
 #
 # ============================================================
 
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/version.h.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 
 SET(mediawiki_LIB_SRCS image.cpp
                        imageinfo.cpp

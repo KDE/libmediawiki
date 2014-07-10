@@ -6,7 +6,7 @@
 # @date   2011-03-24
 # @brief  a MediaWiki C++ interface for KDE
 #
-# @author Copyright (C) 2011-2012 by Gilles Caulier
+# @author Copyright (C) 2011-2014 by Gilles Caulier
 #         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
 #
 # This program is free software; you can redistribute it
@@ -88,8 +88,8 @@ IF(KDE4_BUILD_TESTS)
 ENDIF(KDE4_BUILD_TESTS)
 
 IF(NOT WIN32)
-  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/libmediawiki.pc.cmake ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc)
-  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/libmediawiki.lsm.cmake ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.lsm)
+  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.pc.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc)
+  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.lsm.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.lsm)
   INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig )
 ENDIF(NOT WIN32)
 
