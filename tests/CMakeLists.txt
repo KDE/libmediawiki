@@ -1,52 +1,34 @@
-# ===========================================================
 #
-# This file is a part of KDE project
-# <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
+# Copyright (c) 2010-2014, Gilles Caulier, <caulier dot gilles at gmail dot com>
 #
-# @date   2011-03-24
-# @brief  a MediaWiki C++ interface for KDE
-#
-# @author Copyright (C) 2011-2012 by Gilles Caulier
-#         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
-#
-# This program is free software; you can redistribute it
-# and/or modify it under the terms of the GNU General
-# Public License as published by the Free Software Foundation;
-# either version 2, or (at your option)
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-#
-# ============================================================
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-IF(KDE4_BUILD_TESTS)
+if(KDE4_BUILD_TESTS)
 
-    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../libmediawiki)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libmediawiki)
 
-    MACRO(MEDIAWIKI_UNIT_TESTS)
+    macro(MEDIAWIKI_UNIT_TESTS)
 
-        FOREACH(_testname ${ARGN})
+        foreach(_testname ${ARGN})
 
-            ADD_DEFINITIONS(-DTEST_DATA="\"${CMAKE_CURRENT_SOURCE_DIR}\"")
+            add_definitions(-DTEST_DATA="\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 
             KDE4_ADD_UNIT_TEST(${_testname} TESTNAME mediawiki-${_testname}
                                             NOGUI ${_testname}.cpp libmediawikitest/fakeserver.cpp
                               )
 
-            TARGET_LINK_LIBRARIES(${_testname}
+            target_link_libraries(${_testname}
                                   ${KDE4_KIO_LIBS}
                                   ${QT_QTTEST_LIBRARY}
                                   mediawiki
                                  )
 
-            SET_PROPERTY(TEST mediawiki-${_testname} PROPERTY LABELS library)
+            set_property(TEST mediawiki-${_testname} PROPERTY LABELS library)
 
-        ENDFOREACH(_testname)
+        endforeach()
 
-    ENDMACRO(MEDIAWIKI_UNIT_TESTS)
+    endmacro()
 
     MEDIAWIKI_UNIT_TESTS(logintest
                          logouttest
@@ -73,9 +55,9 @@ IF(KDE4_BUILD_TESTS)
                                DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${resource}")
             list(APPEND test_resources_dest "${resource}" )
 
-        endforeach(resource)
+        endforeach()
 
-    endmacro(MEDIAWIKI_TEST_RESOURCES)
+    endmacro()
 
     MEDIAWIKI_TEST_RESOURCES(
         parsetest.rc
@@ -91,4 +73,4 @@ IF(KDE4_BUILD_TESTS)
 
     add_custom_target(TestResources ALL DEPENDS ${test_resources_dest})
 
-ENDIF(KDE4_BUILD_TESTS)
+endif()

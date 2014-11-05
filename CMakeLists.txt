@@ -1,45 +1,27 @@
-# ===========================================================
 #
-# This file is a part of KDE project
-# <a href="https://projects.kde.org/projects/extragear/libs/libmediawiki">libmediawiki</a>
+# Copyright (c) 2010-2014, Gilles Caulier, <caulier dot gilles at gmail dot com>
 #
-# @date   2011-03-24
-# @brief  a MediaWiki C++ interface for KDE
-#
-# @author Copyright (C) 2011-2014 by Gilles Caulier
-#         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
-#
-# This program is free software; you can redistribute it
-# and/or modify it under the terms of the GNU General
-# Public License as published by the Free Software Foundation;
-# either version 2, or (at your option)
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-#
-# ============================================================
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-PROJECT(libmediawiki)
+project(libmediawiki)
 
-MESSAGE(STATUS "----------------------------------------------------------------------------------")
-MESSAGE(STATUS "Starting CMake configuration for: libmediawiki")
+message(STATUS "----------------------------------------------------------------------------------")
+message(STATUS "Starting CMake configuration for: libmediawiki")
 
-FIND_PACKAGE(KDE4 REQUIRED)
+find_package(KDE4 REQUIRED)
 
-INCLUDE(KDE4Defaults)
-INCLUDE(MacroLibrary)
-INCLUDE(MacroOptionalAddSubdirectory)
-INCLUDE(MacroOptionalFindPackage)
-INCLUDE(FindPackageHandleStandardArgs)
+include(KDE4Defaults)
+include(MacroLibrary)
+include(MacroOptionalAddSubdirectory)
+include(MacroOptionalFindPackage)
+include(FindPackageHandleStandardArgs)
 
-ADD_DEFINITIONS (${QT_DEFINITIONS} ${QT_QTDBUS_DEFINITIONS} ${KDE4_DEFINITIONS})
-INCLUDE_DIRECTORIES (${QDBUS_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
+add_definitions (${QT_DEFINITIONS} ${QT_QTDBUS_DEFINITIONS} ${KDE4_DEFINITIONS})
+include_directories (${QDBUS_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
 
-SET(LIBMEDDIAWIKI_AREA_CODE_GENERAL 51007)
-ADD_DEFINITIONS(-DKDE_DEFAULT_DEBUG_AREA=${LIBMEDDIAWIKI_AREA_CODE_GENERAL})
+set(LIBMEDDIAWIKI_AREA_CODE_GENERAL 51007)
+add_definitions(-DKDE_DEFAULT_DEBUG_AREA=${LIBMEDDIAWIKI_AREA_CODE_GENERAL})
 
 # =======================================================
 # Information to update before to release this library.
@@ -49,9 +31,9 @@ ADD_DEFINITIONS(-DKDE_DEFAULT_DEBUG_AREA=${LIBMEDDIAWIKI_AREA_CODE_GENERAL})
 # 1.0.0 => 1.0.0  (released with KDE 4.7.0)
 
 # Library API version
-SET(MEDIAWIKI_LIB_MAJOR_VERSION "1")
-SET(MEDIAWIKI_LIB_MINOR_VERSION "0")
-SET(MEDIAWIKI_LIB_PATCH_VERSION "0")
+set(MEDIAWIKI_LIB_MAJOR_VERSION "1")
+set(MEDIAWIKI_LIB_MINOR_VERSION "0")
+set(MEDIAWIKI_LIB_PATCH_VERSION "0")
 
 # Suffix to add at end of version string. Usual values are:
 # "-git"   : alpha code unstable from git. Do not use in production
@@ -60,40 +42,39 @@ SET(MEDIAWIKI_LIB_PATCH_VERSION "0")
 # "-beta3" : beta3 release.
 # "-rc"    : release candidate.
 # ""       : final relase. Can be used in production.
-SET(MEDIAWIKI_LIB_SUFFIX_VERSION "")
+set(MEDIAWIKI_LIB_SUFFIX_VERSION "")
 
 # Library ABI version used by linker.
 # For details : http://www.gnu.org/software/libtool/manual/libtool.html#Updating-version-info
-SET(MEDIAWIKI_LIB_SO_CUR_VERSION "1")
-SET(MEDIAWIKI_LIB_SO_REV_VERSION "0")
-SET(MEDIAWIKI_LIB_SO_AGE_VERSION "0")
+set(MEDIAWIKI_LIB_SO_CUR_VERSION "1")
+set(MEDIAWIKI_LIB_SO_REV_VERSION "0")
+set(MEDIAWIKI_LIB_SO_AGE_VERSION "0")
 
 # =======================================================
 # Set env. variables accordinly.
 
-SET(MEDIAWIKI_LIB_VERSION_STRING "${MEDIAWIKI_LIB_MAJOR_VERSION}.${MEDIAWIKI_LIB_MINOR_VERSION}.${MEDIAWIKI_LIB_PATCH_VERSION}${MEDIAWIKI_LIB_SUFFIX_VERSION}")
-SET(MEDIAWIKI_LIB_VERSION_ID "0x0${MEDIAWIKI_LIB_MAJOR_VERSION}0${MEDIAWIKI_LIB_MINOR_VERSION}0${MEDIAWIKI_LIB_PATCH_VERSION}")
-
-SET(MEDIAWIKI_LIB_SO_VERSION_STRING "${MEDIAWIKI_LIB_SO_CUR_VERSION}.${MEDIAWIKI_LIB_SO_REV_VERSION}.${MEDIAWIKI_LIB_SO_AGE_VERSION}")
+set(MEDIAWIKI_LIB_VERSION_STRING    "${MEDIAWIKI_LIB_MAJOR_VERSION}.${MEDIAWIKI_LIB_MINOR_VERSION}.${MEDIAWIKI_LIB_PATCH_VERSION}${MEDIAWIKI_LIB_SUFFIX_VERSION}")
+set(MEDIAWIKI_LIB_VERSION_ID        "0x0${MEDIAWIKI_LIB_MAJOR_VERSION}0${MEDIAWIKI_LIB_MINOR_VERSION}0${MEDIAWIKI_LIB_PATCH_VERSION}")
+set(MEDIAWIKI_LIB_SO_VERSION_STRING "${MEDIAWIKI_LIB_SO_CUR_VERSION}.${MEDIAWIKI_LIB_SO_REV_VERSION}.${MEDIAWIKI_LIB_SO_AGE_VERSION}")
 
 # =======================================================
 
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
-ADD_SUBDIRECTORY(libmediawiki)
-ADD_SUBDIRECTORY(samplecode)
+add_subdirectory(libmediawiki)
+add_subdirectory(samplecode)
 
-IF(KDE4_BUILD_TESTS)
+if(KDE4_BUILD_TESTS)
     MACRO_OPTIONAL_ADD_SUBDIRECTORY(tests)
-ENDIF(KDE4_BUILD_TESTS)
+endif()
 
-IF(NOT WIN32)
-  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.pc.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc)
-  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.lsm.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.lsm)
-  INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig )
-ENDIF(NOT WIN32)
+if(NOT WIN32)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.pc.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.lsm.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.lsm)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig )
+endif()
 
 # Install find cmake script to the system for client applications.
 
-INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/FindMediawiki.cmake
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/FindMediawiki.cmake
         DESTINATION ${DATA_INSTALL_DIR}/cmake/modules)
