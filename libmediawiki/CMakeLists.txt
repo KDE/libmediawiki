@@ -41,7 +41,7 @@ set_target_properties(mediawiki PROPERTIES VERSION ${MEDIAWIKI_LIB_SO_VERSION_ST
 install(TARGETS mediawiki ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 # Check if compilation is done through digiKam SC or not. If yes, do not install header files.
-if(NOT DIGIKAMSC_USE_PRIVATE_SHAREDLIBS)
+if(NOT DIGIKAMSC_COMPILE_LIBMEDIAWIKI)
 
     install(FILES image.h
                   imageinfo.h
