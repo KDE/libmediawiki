@@ -67,14 +67,3 @@ add_subdirectory(samplecode)
 if(KDE4_BUILD_TESTS)
     MACRO_OPTIONAL_ADD_SUBDIRECTORY(tests)
 endif()
-
-if(NOT WIN32)
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.pc.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc)
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.lsm.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.lsm)
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig )
-endif()
-
-# Install find cmake script to the system for client applications.
-
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/FindMediawiki.cmake
-        DESTINATION ${DATA_INSTALL_DIR}/cmake/modules)
