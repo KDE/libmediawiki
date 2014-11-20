@@ -68,8 +68,8 @@ if(NOT DIGIKAMSC_COMPILE_LIBMEDIAWIKI)
         DESTINATION ${INCLUDE_INSTALL_DIR}/libmediawiki COMPONENT Devel)
 
     if(NOT WIN32)
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.pc.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc)
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/libmediawiki.lsm.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.lsm)
+        configure_file(${CMAKE__SOURCE_DIR}/cmake/templates/libmediawiki.pc.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc)
+        configure_file(${CMAKE__SOURCE_DIR}/cmake/templates/libmediawiki.lsm.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.lsm)
         install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libmediawiki.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig )
     endif()
 
