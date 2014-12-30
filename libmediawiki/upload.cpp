@@ -32,7 +32,6 @@
 #include <QtCore/QTimer>
 #include <QtCore/QUrl>
 #include <QtCore/QXmlStreamReader>
-#include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 #include <QtCore/QStringList>

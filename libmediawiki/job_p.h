@@ -44,9 +44,9 @@ public:
     {
     }
 
-    MediaWiki&                   mediawiki;
-    QNetworkAccessManager* const manager;
-    QNetworkReply*               reply;
+    MediaWiki& mediawiki;
+    KIO::Integration::AccessManager* const manager;
+    QNetworkReply* reply;
 };
 
 } // namespace mediawiki

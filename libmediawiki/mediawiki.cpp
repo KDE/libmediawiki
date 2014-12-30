@@ -35,7 +35,7 @@ MediaWiki::MediaWiki(const QUrl& url, const QString& customUserAgent)
     : d_ptr(new MediaWikiPrivate(url,
                                  (customUserAgent.isEmpty() ? QString() 
                                                             : (customUserAgent + '-')) + MediaWikiPrivate::POSTFIX_USER_AGENT,
-                                 new QNetworkAccessManager()))
+                                 new KIO::Integration::AccessManager(0)))
 {
 }
 
@@ -54,7 +54,7 @@ QString MediaWiki::userAgent() const
     return d_ptr->userAgent;
 }
 
-QNetworkAccessManager* MediaWiki::manager() const
+KIO::Integration::AccessManager* MediaWiki::manager() const
 {
     return d_ptr->manager;
 }

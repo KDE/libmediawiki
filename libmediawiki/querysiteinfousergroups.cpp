@@ -31,7 +31,6 @@
 
 #include <QtCore/QTimer>
 #include <QtCore/QXmlStreamReader>
-#include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
@@ -47,19 +46,19 @@ class QuerySiteinfoUsergroupsPrivate : public JobPrivate
 {
 public:
 
-    QuerySiteinfoUsergroupsPrivate(MediaWiki& mediawiki, QNetworkAccessManager* const manager, bool includeNumber)
+    QuerySiteinfoUsergroupsPrivate(MediaWiki& mediawiki, KIO::Integration::AccessManager* const manager, bool includeNumber)
             : JobPrivate(mediawiki),
               manager(manager),
               includeNumber(includeNumber)
     {
     }
 
-    QNetworkAccessManager* const manager;
-    bool                         includeNumber;
+    KIO::Integration::AccessManager* const manager;
+    bool includeNumber;
 };
 
 QuerySiteinfoUsergroups::QuerySiteinfoUsergroups(MediaWiki& mediawiki, QObject* const parent)
-    : Job(*new QuerySiteinfoUsergroupsPrivate(mediawiki, new QNetworkAccessManager(), false), parent)
+: Job(*new QuerySiteinfoUsergroupsPrivate(mediawiki, new KIO::Integration::AccessManager(0), false), parent)
 {
 }
 

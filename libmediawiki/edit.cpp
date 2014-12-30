@@ -31,7 +31,6 @@
 
 // Qt includes
 
-#include <QtCore/QTimer>
 #include <QtCore/QUrl>
 #include <QtCore/QXmlStreamReader>
 #include <QtNetwork/QNetworkReply>

@@ -28,14 +28,11 @@
 #ifndef MEDIAWIKI_MEDIAWIKI_H
 #define MEDIAWIKI_MEDIAWIKI_H
 
-// Qt includes
-
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-#include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkCookieJar>
 
-// Local includes
+#include <KDE/KIO/AccessManager>
 
 #include "mediawiki_export.h"
 
@@ -80,7 +77,7 @@ public:
      * @brief Returns the network manager instance of the wiki.
      * @return the network manager instance of the wiki
      */
-    QNetworkAccessManager* manager() const;
+    KIO::Integration::AccessManager* manager() const;
 
 private:
 

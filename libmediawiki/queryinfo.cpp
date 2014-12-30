@@ -34,7 +34,6 @@
 #include <QtCore/QUrl>
 #include <QtCore/QXmlStreamReader>
 #include <QtCore/QRegExp>
-#include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 

@@ -28,11 +28,10 @@
 #ifndef MEDIAWIKI_P_H
 #define MEDIAWIKI_P_H
 
-// Qt includes
-
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-#include <QtNetwork/QNetworkAccessManager>
+
+#include <KDE/KIO/AccessManager>
 
 namespace mediawiki
 {
@@ -42,7 +41,7 @@ class MediaWiki::MediaWikiPrivate
 
 public:
 
-    MediaWikiPrivate(const QUrl& url, const QString& userAgent, QNetworkAccessManager* const manager)
+    MediaWikiPrivate(const QUrl& url, const QString& userAgent, KIO::Integration::AccessManager* const manager)
         : url(url),
           userAgent(userAgent),
           manager(manager)
@@ -56,11 +55,11 @@ public:
 
 public:
 
-    static const QString         POSTFIX_USER_AGENT;
+    static const QString POSTFIX_USER_AGENT;
 
-    const QUrl                   url;
-    const QString                userAgent;
-    QNetworkAccessManager* const manager;
+    const QUrl url;
+    const QString userAgent;
+    KIO::Integration::AccessManager* const manager;
 };
 
 const QString MediaWiki::MediaWikiPrivate::POSTFIX_USER_AGENT("mediawiki-silk");

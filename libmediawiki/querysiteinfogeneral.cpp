@@ -33,7 +33,6 @@
 
 #include <QtCore/QTimer>
 #include <QtCore/QXmlStreamReader>
-#include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
