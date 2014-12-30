@@ -19,6 +19,7 @@ if(KDE4_BUILD_TESTS)
                               )
 
             target_link_libraries(${_testname}
+                                  LINK_PRIVATE
                                   ${KDE4_KIO_LIBS}
                                   ${QT_QTTEST_LIBRARY}
                                   mediawiki

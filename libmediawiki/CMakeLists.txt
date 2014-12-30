@@ -31,6 +31,7 @@ set(mediawiki_LIB_SRCS image.cpp
 KDE4_ADD_LIBRARY(mediawiki SHARED ${mediawiki_LIB_SRCS})
 
 target_link_libraries(mediawiki
+                      LINK_PRIVATE
                       ${KDE4_KIO_LIBS}
                       ${QT_QTCORE_LIBRARY}
                      )

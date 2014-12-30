@@ -19,6 +19,7 @@ KDE4_ADD_EXECUTABLE(uploadSample
                    )
 
 target_link_libraries(uploadSample
+                      LINK_PRIVATE
                       ${KDE4_KIO_LIBS}
                       mediawiki
                       )
