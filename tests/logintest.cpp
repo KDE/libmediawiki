@@ -46,7 +46,7 @@ class LoginTest : public QObject
 {
     Q_OBJECT
 
-public slots:
+public Q_SLOTS:
 
     void loginHandle(KJob* job) {
         Q_UNUSED(job)
@@ -64,60 +64,60 @@ private Q_SLOTS:
     void loginTestConnectTrue()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"alexTest\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>";
+        senario = QStringLiteral("<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"MyUsername\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>");
         m_server->addScenario(senario, cookie);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
         QCOMPARE(login.error(), (int)Login::NoError);
     }
 
     void loginTestAttribute()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"alexTest\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /></api>";
+        senario = QStringLiteral("<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"MyUsername\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /></api>");
         m_server->addScenario(senario, cookie);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
 
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
         QCOMPARE(login.error(), (int)Login::NoError);        
     }
 
     void loginTestConnectTrueWithoutCookie()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario);
-        senario = "<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"alexTest\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /></api>";
+        senario = QStringLiteral("<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"MyUsername\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /></api>");
         m_server->addScenario(senario, cookie);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         QCOMPARE(this->loginCount, 1);
@@ -127,22 +127,22 @@ private Q_SLOTS:
     void loginTestFalseXMLLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"alexTest\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /></api>";
+        senario = QStringLiteral("<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"MyUsername\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /></api>");
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
         QCOMPARE(login.error(), (int)Login::XmlError);
 
     }
@@ -150,19 +150,19 @@ private Q_SLOTS:
     void loginTestNoNameLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NoName\" info=\"\" /> </api>" );
+        QString senario(QStringLiteral("<api><login result=\"NoName\" info=\"\" /> </api>") );
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::LoginMissing);
     }
@@ -170,19 +170,19 @@ private Q_SLOTS:
     void loginTestIllegalLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"Illegal\" info=\"\" /> </api>" );
+        QString senario(QStringLiteral("<api><login result=\"Illegal\" info=\"\" /> </api>") );
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::IllegalUsername);
     }
@@ -190,19 +190,19 @@ private Q_SLOTS:
     void loginTestNotExistsLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NotExists\" info=\"\" /> </api>" );
+        QString senario(QStringLiteral("<api><login result=\"NotExists\" info=\"\" /> </api>") );
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::UsernameNotExists);
     }
@@ -210,19 +210,19 @@ private Q_SLOTS:
     void loginTestEmptyPassLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"EmptyPass\" info=\"\" /> </api>" );
+        QString senario(QStringLiteral("<api><login result=\"EmptyPass\" info=\"\" /> </api>") );
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QString());
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword="));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword="));
 
         QCOMPARE(login.error(), (int)Login::PasswordMissing);
     }
@@ -230,19 +230,19 @@ private Q_SLOTS:
     void loginTestWrongPassLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"WrongPass\" info=\"\" /> </api>" );
+        QString senario(QStringLiteral("<api><login result=\"WrongPass\" info=\"\" /> </api>") );
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::WrongPassword);
     }
@@ -250,19 +250,19 @@ private Q_SLOTS:
     void loginTestWrongPluginPassLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"WrongPluginPass\" info=\"\" /> </api>" );
+        QString senario(QStringLiteral("<api><login result=\"WrongPluginPass\" info=\"\" /> </api>") );
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::WrongPluginPassword);
     }
@@ -270,19 +270,19 @@ private Q_SLOTS:
     void loginTestCreateBlockedLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"CreateBlocked\" info=\"\" /> </api>" );
+        QString senario(QStringLiteral("<api><login result=\"CreateBlocked\" info=\"\" /> </api>") );
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::IPAddressBlocked);
     }
@@ -290,19 +290,19 @@ private Q_SLOTS:
     void loginTestThrottledLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"Throttled\" info=\"\" /> </api>" );
+        QString senario(QStringLiteral("<api><login result=\"Throttled\" info=\"\" /> </api>") );
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::TooManyConnections);
     }
@@ -310,19 +310,19 @@ private Q_SLOTS:
     void loginTestBlockedLogin()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"Blocked\" info=\"\" /> </api>" );
+        QString senario(QStringLiteral("<api><login result=\"Blocked\" info=\"\" /> </api>") );
         m_server->setScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::UserBlocked);
     }
@@ -330,22 +330,22 @@ private Q_SLOTS:
     void loginTestFalseXMLToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"alexTest\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"</api>";
+        senario = QStringLiteral("<api><login result=\"Success\" lguserid=\"12345\" lgusername=\"MyUsername\" lgtoken=\"b5780b6e2f27e20b450921d9461010b4\" cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"</api>");
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
         QCOMPARE(login.error(), (int)Login::XmlError);
 
     }
@@ -353,22 +353,22 @@ private Q_SLOTS:
     void loginTestNoNameToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"NoName\" info=\"\" /> </api>" ;
+        senario = QStringLiteral("<api><login result=\"NoName\" info=\"\" /> </api>") ;
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::LoginMissing);
     }
@@ -376,22 +376,22 @@ private Q_SLOTS:
     void loginTestIllegalToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"Illegal\" info=\"\" /> </api>" ;
+        senario = QStringLiteral("<api><login result=\"Illegal\" info=\"\" /> </api>") ;
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::IllegalUsername);
     }
@@ -399,22 +399,22 @@ private Q_SLOTS:
     void loginTestNotExistsToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"NotExists\" info=\"\" /> </api>" ;
+        senario = QStringLiteral("<api><login result=\"NotExists\" info=\"\" /> </api>") ;
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::UsernameNotExists);
     }
@@ -422,22 +422,22 @@ private Q_SLOTS:
     void loginTestEmptyPassToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"EmptyPass\" info=\"\" /> </api>" ;
+        senario = QStringLiteral("<api><login result=\"EmptyPass\" info=\"\" /> </api>") ;
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QString());
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword="));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword="));
 
         QCOMPARE(login.error(), (int)Login::PasswordMissing);
     }
@@ -445,22 +445,22 @@ private Q_SLOTS:
     void loginTestWrongPassToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"WrongPass\" info=\"\" /> </api>" ;
+        senario = QStringLiteral("<api><login result=\"WrongPass\" info=\"\" /> </api>") ;
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::WrongPassword);
     }
@@ -468,22 +468,22 @@ private Q_SLOTS:
     void loginTestWrongPluginPassToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"WrongPluginPass\" info=\"\" /> </api>" ;
+        senario = QStringLiteral("<api><login result=\"WrongPluginPass\" info=\"\" /> </api>") ;
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::WrongPluginPassword);
     }
@@ -491,22 +491,22 @@ private Q_SLOTS:
     void loginTestCreateBlockedToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"CreateBlocked\" info=\"\" /> </api>" ;
+        senario = QStringLiteral("<api><login result=\"CreateBlocked\" info=\"\" /> </api>") ;
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::IPAddressBlocked);
     }
@@ -514,22 +514,22 @@ private Q_SLOTS:
     void loginTestThrottledToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"Throttled\" info=\"\" /> </api>" ;
+        senario = QStringLiteral("<api><login result=\"Throttled\" info=\"\" /> </api>") ;
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::TooManyConnections);
     }
@@ -537,22 +537,22 @@ private Q_SLOTS:
     void loginTestBlockedToken()
     {
         loginCount = 0;
-        QString senario("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\"");
+        QString senario(QStringLiteral("<api><login result=\"NeedToken\" token=\"b5780b6e2f27e20b450921d9461010b4\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" /> </api>") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\""));
         m_server->setScenario(senario, cookie);
-        senario = "<api><login result=\"Blocked\" info=\"\" /> </api>" ;
+        senario = QStringLiteral("<api><login result=\"Blocked\" info=\"\" /> </api>") ;
         m_server->addScenario(senario);
         m_server->startAndWait();
 
-        MediaWiki site(QUrl("http://127.0.0.1:12566"));
-        Login login(site, "alexTest", "test");
+        MediaWiki site(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        Login login(site, QStringLiteral("MyUsername"), QStringLiteral("test"));
 
         connect(&login, SIGNAL(result(KJob*)),this, SLOT(loginHandle(KJob*)));
         login.exec();
         FakeServer::Request serverrequest = m_server->getRequest()[0];
         QCOMPARE(this->loginCount, 1);
-        QCOMPARE(serverrequest.type, QString("POST"));
-        QCOMPARE(serverrequest.value, QString("?format=xml&action=login&lgname=alexTest&lgpassword=test"));
+        QCOMPARE(serverrequest.type, QStringLiteral("POST"));
+        QCOMPARE(serverrequest.value, QStringLiteral("?format=xml&action=login&lgname=MyUsername&lgpassword=test"));
 
         QCOMPARE(login.error(), (int)Login::UserBlocked);
     }

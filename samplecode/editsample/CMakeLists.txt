@@ -6,20 +6,20 @@
 
 project(editSample)
 
-KDE4_ADD_UI_FILES (ui_src mainwindow.ui)
+ki18n_wrap_ui(ui_src mainwindow.ui)
 
 set(editSample_SRCS
     main.cpp
     mainwindow.cpp
    )
 
-KDE4_ADD_EXECUTABLE(editSample
-                    ${editSample_SRCS}
-                    ${ui_src}
-                   )
+add_executable(editSample
+               ${editSample_SRCS}
+               ${ui_src}
+               )
 
 target_link_libraries(editSample
                       LINK_PRIVATE
-                      ${KDE4_KIO_LIBS}
+                      KF5::KIOCore
                       mediawiki
                      )

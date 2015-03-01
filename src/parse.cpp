@@ -27,15 +27,18 @@
  *
  * ============================================================ */
 
-#include "parse.moc"
+#include "parse.h"
+
 
 // Qt includes
 
 #include <QtCore/QTimer>
+#include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
 #include <QtCore/QXmlStreamReader>
+
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
-#include <QDebug>
 
 // Local includes
 
@@ -70,25 +73,25 @@ Parse::~Parse()
 void Parse::setText(const QString& param)
 {
     Q_D(Parse);
-    d->requestParameter["text"] = param;
+    d->requestParameter[QStringLiteral("text")] = param;
 }
 
 void Parse::setTitle(const QString& param)
 {
     Q_D(Parse);
-    d->requestParameter["title"] = param;
+    d->requestParameter[QStringLiteral("title")] = param;
 }
 
 void Parse::setPageName(const QString& param)
 {
     Q_D(Parse);
-    d->requestParameter["page"] = param;
+    d->requestParameter[QStringLiteral("page")] = param;
 }
 
 void Parse::setUseLang(const QString& param)
 {
     Q_D(Parse);
-    d->requestParameter["uselang"] = param;
+    d->requestParameter[QStringLiteral("uselang")] = param;
 }
 
 void Parse::start()
@@ -100,18 +103,19 @@ void Parse::doWorkSendRequest()
 {
     Q_D(Parse);
 
-    // Set the url
     QUrl url = d->mediawiki.url();
-    url.addQueryItem("format", "xml");
-    url.addQueryItem("action", "parse");
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
+    query.addQueryItem(QStringLiteral("action"), QStringLiteral("parse"));
 
     QMapIterator<QString, QString> i(d->requestParameter);
     while (i.hasNext())
     {
         i.next();
-        url.addEncodedQueryItem(QByteArray(i.key().toAscii()),              // TODO : check UTF-8 support
-                                QByteArray(i.value().toAscii()));           // TODO : check UTF-8 support
+        query.addQueryItem(i.key(),              // TODO : check UTF-8 support
+                         i.value());           // TODO : check UTF-8 support
     }
+    url.setQuery(query);
 
     // Set the request
     QNetworkRequest request(url);
@@ -141,16 +145,16 @@ void Parse::doWorkProcessReply()
 
             if (token == QXmlStreamReader::StartElement)
             {
-                if (reader.name() == "text")
+                if (reader.name() == QLatin1String("text"))
                 {
                     text = reader.text().toString();
                     setError(Parse::NoError);
                 }
-                else if (reader.name() == "error")
+                else if (reader.name() == QLatin1String("error"))
                 {
-                    if (reader.attributes().value("code").toString() == QString("params"))
+                    if (reader.attributes().value(QStringLiteral("code")).toString() == QLatin1String("params"))
                         this->setError(this->TooManyParams);
-                    else if (reader.attributes().value("code").toString() == QString("missingtitle"))
+                    else if (reader.attributes().value(QStringLiteral("code")).toString() == QLatin1String("missingtitle"))
                         this->setError(this->MissingPage);
 
                     d->reply->close();

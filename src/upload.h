@@ -30,6 +30,7 @@
 
 // Qt includes
 
+#include <QtCore/QIODevice>
 #include <QtCore/QString>
 #include <QtCore/QDateTime>
 #include <QtNetwork/QNetworkCookieJar>

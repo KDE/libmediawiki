@@ -25,20 +25,25 @@
  *
  * ============================================================ */
 
-#include "queryimageinfo.moc"
+#include "queryimageinfo.h"
+
 
 // Qt includes
 
 #include <QtCore/QString>
 #include <QtCore/QTimer>
+#include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
 #include <QtCore/QXmlStreamReader>
+
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
 // Local includes
 
-#include "mediawiki.h"
 #include "job_p.h"
+#include "mediawiki.h"
+#include "imageinfo.h"
 
 namespace mediawiki
 {
@@ -61,11 +66,11 @@ public:
         return (ok ? result : -1);
     }
 
-    static inline void addQueryItemIfNotNull(QUrl& url, const QString& key, const QString& value)
+    static inline void addQueryItemIfNotNull(QUrlQuery& query, const QString& key, const QString& value)
     {
         if (!value.isNull())
         {
-            url.addQueryItem(key, value);
+            query.addQueryItem(key, value);
         }
     }
 
@@ -107,35 +112,35 @@ void QueryImageinfo::setProperties(Properties properties)
 
     if (properties & QueryImageinfo::Timestamp)
     {
-        iiprop.append("timestamp|");
+        iiprop.append(QStringLiteral("timestamp|"));
     }
     if (properties & QueryImageinfo::User)
     {
-        iiprop.append("user|");
+        iiprop.append(QStringLiteral("user|"));
     }
     if (properties & QueryImageinfo::Comment)
     {
-        iiprop.append("comment|");
+        iiprop.append(QStringLiteral("comment|"));
     }
     if (properties & QueryImageinfo::Url)
     {
-        iiprop.append("url|");
+        iiprop.append(QStringLiteral("url|"));
     }
     if (properties & QueryImageinfo::Size)
     {
-        iiprop.append("size|");
+        iiprop.append(QStringLiteral("size|"));
     }
     if (properties & QueryImageinfo::Sha1)
     {
-        iiprop.append("sha1|");
+        iiprop.append(QStringLiteral("sha1|"));
     }
     if (properties & QueryImageinfo::Mime)
     {
-        iiprop.append("mime|");
+        iiprop.append(QStringLiteral("mime|"));
     }
     if (properties & QueryImageinfo::Metadata)
     {
-        iiprop.append("metadata|");
+        iiprop.append(QStringLiteral("metadata|"));
     }
 
     iiprop.chop(1);
@@ -157,13 +162,13 @@ void QueryImageinfo::setOnlyOneSignal(bool onlyOneSignal)
 void QueryImageinfo::setBeginTimestamp(const QDateTime& begin)
 {
     Q_D(QueryImageinfo);
-    d->begin = begin.toString("yyyy-MM-dd'T'hh:mm:ss'Z'");
+    d->begin = begin.toString(QStringLiteral("yyyy-MM-dd'T'hh:mm:ss'Z'"));
 }
 
 void QueryImageinfo::setEndTimestamp(const QDateTime& end)
 {
     Q_D(QueryImageinfo);
-    d->end = end.toString("yyyy-MM-dd'T'hh:mm:ss'Z'");
+    d->end = end.toString(QStringLiteral("yyyy-MM-dd'T'hh:mm:ss'Z'"));
 }
 
 void QueryImageinfo::setWidthScale(unsigned int width)
@@ -194,16 +199,18 @@ void QueryImageinfo::doWorkSendRequest()
 
     // Set the url
     QUrl url = d->mediawiki.url();
-    url.addQueryItem("format", "xml");
-    url.addQueryItem("action", "query");
-    url.addQueryItem("titles", d->title); //FIXME: Job error because title is required
-    url.addQueryItem("prop",   "imageinfo");
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiprop",      d->iiprop);
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iilimit",     d->limit);
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iistart",     d->begin);
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiend",       d->end);
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiurlwidth",  d->width);
-    QueryImageinfoPrivate::addQueryItemIfNotNull(url, "iiurlheight", d->height);
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
+    query.addQueryItem(QStringLiteral("action"), QStringLiteral("query"));
+    query.addQueryItem(QStringLiteral("titles"), d->title); //FIXME: Job error because title is required
+    query.addQueryItem(QStringLiteral("prop"),   QStringLiteral("imageinfo"));
+    QueryImageinfoPrivate::addQueryItemIfNotNull(query, QStringLiteral("iiprop"),      d->iiprop);
+    QueryImageinfoPrivate::addQueryItemIfNotNull(query, QStringLiteral("iilimit"),     d->limit);
+    QueryImageinfoPrivate::addQueryItemIfNotNull(query, QStringLiteral("iistart"),     d->begin);
+    QueryImageinfoPrivate::addQueryItemIfNotNull(query, QStringLiteral("iiend"),       d->end);
+    QueryImageinfoPrivate::addQueryItemIfNotNull(query, QStringLiteral("iiurlwidth"),  d->width);
+    QueryImageinfoPrivate::addQueryItemIfNotNull(query, QStringLiteral("iiurlheight"), d->height);
+    url.setQuery(query);
 
     // Set the request
     QNetworkRequest request(url);
@@ -238,40 +245,40 @@ void QueryImageinfo::doWorkProcessReply()
 
             if (token == QXmlStreamReader::StartElement)
             {
-                if (reader.name() == "imageinfo")
+                if (reader.name() == QLatin1String("imageinfo"))
                 {
-                    if (!reader.attributes().value("iistart").isNull())
+                    if (!reader.attributes().value(QStringLiteral("iistart")).isNull())
                     {
-                        d->begin = reader.attributes().value("iistart").toString();
+                        d->begin = reader.attributes().value(QStringLiteral("iistart")).toString();
                     }
                 }
-                else if (reader.name() == "ii")
+                else if (reader.name() == QLatin1String("ii"))
                 {
-                    imageinfo.setTimestamp(QDateTime::fromString(reader.attributes().value("timestamp").toString(), "yyyy-MM-dd'T'hh:mm:ss'Z'"));
-                    imageinfo.setUser(reader.attributes().value("user").toString());
-                    imageinfo.setComment(reader.attributes().value("comment").toString());
-                    imageinfo.setUrl(QUrl::fromPercentEncoding(reader.attributes().value("url").toString().toLocal8Bit()));
-                    imageinfo.setDescriptionUrl(QUrl::fromPercentEncoding(reader.attributes().value("descriptionurl").toString().toLocal8Bit()));
-                    imageinfo.setThumbUrl(QUrl::fromPercentEncoding(reader.attributes().value("thumburl").toString().toLocal8Bit()));
-                    imageinfo.setThumbWidth(QueryImageinfoPrivate::toQInt64(reader.attributes().value("thumbwidth").toString()));
-                    imageinfo.setThumbHeight(QueryImageinfoPrivate::toQInt64(reader.attributes().value("thumbheight").toString()));
-                    imageinfo.setSize(QueryImageinfoPrivate::toQInt64(reader.attributes().value("size").toString()));
-                    imageinfo.setWidth(QueryImageinfoPrivate::toQInt64(reader.attributes().value("width").toString()));
-                    imageinfo.setHeight(QueryImageinfoPrivate::toQInt64(reader.attributes().value("height").toString()));
-                    imageinfo.setSha1(reader.attributes().value("sha1").toString());
-                    imageinfo.setMime(reader.attributes().value("mime").toString());
+                    imageinfo.setTimestamp(QDateTime::fromString(reader.attributes().value(QStringLiteral("timestamp")).toString(), QStringLiteral("yyyy-MM-dd'T'hh:mm:ss'Z'")));
+                    imageinfo.setUser(reader.attributes().value(QStringLiteral("user")).toString());
+                    imageinfo.setComment(reader.attributes().value(QStringLiteral("comment")).toString());
+                    imageinfo.setUrl(QUrl::fromEncoded(reader.attributes().value(QStringLiteral("url")).toString().toLocal8Bit()));
+                    imageinfo.setDescriptionUrl(QUrl::fromEncoded(reader.attributes().value(QStringLiteral("descriptionurl")).toString().toLocal8Bit()));
+                    imageinfo.setThumbUrl(QUrl::fromEncoded(reader.attributes().value(QStringLiteral("thumburl")).toString().toLocal8Bit()));
+                    imageinfo.setThumbWidth(QueryImageinfoPrivate::toQInt64(reader.attributes().value(QStringLiteral("thumbwidth")).toString()));
+                    imageinfo.setThumbHeight(QueryImageinfoPrivate::toQInt64(reader.attributes().value(QStringLiteral("thumbheight")).toString()));
+                    imageinfo.setSize(QueryImageinfoPrivate::toQInt64(reader.attributes().value(QStringLiteral("size")).toString()));
+                    imageinfo.setWidth(QueryImageinfoPrivate::toQInt64(reader.attributes().value(QStringLiteral("width")).toString()));
+                    imageinfo.setHeight(QueryImageinfoPrivate::toQInt64(reader.attributes().value(QStringLiteral("height")).toString()));
+                    imageinfo.setSha1(reader.attributes().value(QStringLiteral("sha1")).toString());
+                    imageinfo.setMime(reader.attributes().value(QStringLiteral("mime")).toString());
                 }
-                else if (reader.name() == "metadata")
+                else if (reader.name() == QLatin1String("metadata"))
                 {
                     if (!reader.attributes().isEmpty())
                     {
-                        imageinfo.metadata()[reader.attributes().value("name").toString()] = reader.attributes().value("value").toString();
+                        imageinfo.metadata()[reader.attributes().value(QStringLiteral("name")).toString()] = reader.attributes().value(QStringLiteral("value")).toString();
                     }
                 }
             }
             else if (token == QXmlStreamReader::EndElement)
             {
-                if (reader.name() == "ii")
+                if (reader.name() == QLatin1String("ii"))
                 {
                     imageinfos.push_back(imageinfo);
                     imageinfo = Imageinfo();

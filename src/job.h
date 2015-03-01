@@ -25,53 +25,77 @@
  *
  * ============================================================ */
 
-#include "job_p.h"
-#include "job.moc"
+#ifndef MEDIAWIKIJOB_H
+#define MEDIAWIKIJOB_H
 
-// Qt includes
+// KDE includes
 
-#include <QtNetwork/QNetworkReply>
+#include <KCoreAddons/KJob>
 
-// Local include
+// Local includes
 
-#include "mediawiki.h"
+#include "mediawiki_export.h"
 
 namespace mediawiki
 {
 
-Job::Job(JobPrivate& dd, QObject* const parent)
-    : KJob(parent),
-      d_ptr(&dd)
-{
-    setCapabilities(Job::Killable);
-}
+class MediaWiki;
+class JobPrivate;
 
-Job::~Job()
+/**
+ * @brief The base class for all MediaWiki jobs.
+ */
+class MEDIAWIKI_EXPORT Job : public KJob
 {
-    delete d_ptr;
-}
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(Job)
 
-bool Job::doKill()
-{
-    Q_D(Job);
-    if (d->reply != 0)
+public:
+
+    /**
+     * @brief Indicates all possible error conditions found during the processing of the job.
+     */
+    enum
     {
-        d->reply->abort();
-    }
-    return true;
-}
+        NetworkError            = KJob::UserDefinedError + 1,
+        XmlError,
+        UserRequestDefinedError = KJob::UserDefinedError + 100
+    };
 
-void Job::connectReply()
-{
-    Q_D(Job);
-    connect(d->reply, SIGNAL(uploadProgress(qint64,qint64)),
-            this, SLOT(processUploadProgress(qint64,qint64)));
-}
+public:
 
-void Job::processUploadProgress(qint64 bytesReceived, qint64 bytesTotal)
-{
-    setTotalAmount(Job::Bytes, bytesTotal);
-    setProcessedAmount(Job::Bytes, bytesReceived);
-}
+    /**
+     * @brief Destructs the Job.
+     */
+    virtual ~Job();
+
+    /**
+     * @brief Aborts this job quietly.
+     */
+    virtual bool doKill();
+
+protected:
+
+    /**
+     * @brief Constructs a Job by a private class.
+     * @param dd a private class
+     * @param parent the QObject parent
+     */
+    Job(JobPrivate& dd, QObject* const parent = 0);
+
+    //TODO comment
+    void connectReply();
+
+    /**
+     * @brief The private d pointer.
+     */
+    JobPrivate* const d_ptr;
+
+private Q_SLOTS:
+
+    void processUploadProgress(qint64 bytesReceived, qint64 bytesTotal);
+};
 
 } // namespace mediawiki
+
+#endif // MEDIAWIKIJOB_H

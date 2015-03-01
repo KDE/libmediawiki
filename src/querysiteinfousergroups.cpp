@@ -25,12 +25,16 @@
  *
  * ============================================================ */
 
-#include "querysiteinfousergroups.moc"
+#include "querysiteinfousergroups.h"
+
 
 // Qt includes
 
 #include <QtCore/QTimer>
+#include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
 #include <QtCore/QXmlStreamReader>
+
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
@@ -84,14 +88,16 @@ void QuerySiteinfoUsergroups::doWorkSendRequest()
 
     // Set the url
     QUrl url = d->mediawiki.url();
-    url.addQueryItem("format", "xml");
-    url.addQueryItem("action", "query");
-    url.addQueryItem("meta",   "siteinfo");
-    url.addQueryItem("siprop", "usergroups");
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
+    query.addQueryItem(QStringLiteral("action"), QStringLiteral("query"));
+    query.addQueryItem(QStringLiteral("meta"),   QStringLiteral("siteinfo"));
+    query.addQueryItem(QStringLiteral("siprop"), QStringLiteral("usergroups"));
     if (d->includeNumber)
     {
-        url.addQueryItem("sinumberingroup", QString());
+        query.addQueryItem(QStringLiteral("sinumberingroup"), QString());
     }
+    url.setQuery(query);
 
     // Set the request
     QNetworkRequest request(url);
@@ -126,19 +132,19 @@ void QuerySiteinfoUsergroups::doWorkProcessReply()
 
             if (token == QXmlStreamReader::StartElement)
             {
-                if (reader.name() == "group")
+                if (reader.name() == QLatin1String("group"))
                 {
-                    name = reader.attributes().value("name").toString();
+                    name = reader.attributes().value(QStringLiteral("name")).toString();
                     if (d->includeNumber)
                     {
-                        number = reader.attributes().value("number").toString().toUInt();
+                        number = reader.attributes().value(QStringLiteral("number")).toString().toUInt();
                     }
                 }
-                else if (reader.name() == "rights")
+                else if (reader.name() == QLatin1String("rights"))
                 {
                     rights.clear();
                 }
-                else if (reader.name() == "permission")
+                else if (reader.name() == QLatin1String("permission"))
                 {
                     reader.readNext();
                     rights.push_back(reader.text().toString());
@@ -146,7 +152,7 @@ void QuerySiteinfoUsergroups::doWorkProcessReply()
             }
             else if (token == QXmlStreamReader::EndElement)
             {
-                if (reader.name() == "group")
+                if (reader.name() == QLatin1String("group"))
                 {
                     UserGroup usergroup;
                     usergroup.setName(name);

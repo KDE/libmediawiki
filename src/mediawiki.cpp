@@ -9,8 +9,8 @@
  *
  * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
- * @author Copyright (C) 2009 by Remi Benoit
- *         <a href="mailto:r3m1 dot benoit at gmail dot com">r3m1 dot benoit at gmail dot com</a>
+ * @author Copyright (C) 2009 by Richard Moore
+ *         <a href="mailto:rich at kde dot org">rich at kde dot org</a>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -25,46 +25,40 @@
  *
  * ============================================================ */
 
-#ifndef MEDIAWIKI_P_H
-#define MEDIAWIKI_P_H
-
-// Qt includes
-
 #include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtNetwork/QNetworkAccessManager>
+
+#include "mediawiki.h"
+#include "mediawiki_p.h"
 
 namespace mediawiki
 {
 
-class MediaWiki::MediaWikiPrivate
+MediaWiki::MediaWiki(const QUrl& url, const QString& customUserAgent)
+    : d_ptr(new MediaWikiPrivate(url,
+                                 (customUserAgent.isEmpty() ? QString() 
+                                                            : QString(customUserAgent + QStringLiteral("-"))) + MediaWikiPrivate::POSTFIX_USER_AGENT,
+                                 new QNetworkAccessManager()))
 {
+}
 
-public:
+MediaWiki::~MediaWiki()
+{
+    delete d_ptr;
+}
 
-    MediaWikiPrivate(const QUrl& url, const QString& userAgent, QNetworkAccessManager* const manager)
-        : url(url),
-          userAgent(userAgent),
-          manager(manager)
-    {
-    }
+QUrl MediaWiki::url() const
+{
+    return d_ptr->url;
+}
 
-    ~MediaWikiPrivate()
-    {
-        delete manager;
-    }
+QString MediaWiki::userAgent() const
+{
+    return d_ptr->userAgent;
+}
 
-public:
-
-    static const QString         POSTFIX_USER_AGENT;
-
-    const QUrl                   url;
-    const QString                userAgent;
-    QNetworkAccessManager* const manager;
-};
-
-const QString MediaWiki::MediaWikiPrivate::POSTFIX_USER_AGENT("mediawiki-silk");
+QNetworkAccessManager* MediaWiki::manager() const
+{
+    return d_ptr->manager;
+}
 
 } // namespace mediawiki
-
-#endif // MEDIAWIKI_P_H

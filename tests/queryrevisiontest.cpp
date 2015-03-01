@@ -37,7 +37,6 @@
 #include <QTextStream>
 
 #include <KDE/KJob>
-#include <kdebug.h>
 
 #include "libmediawikitest/fakeserver.h"
 
@@ -70,19 +69,6 @@ Revision constructRevision(int i,int p, int s, bool m, QString u, QDateTime t, Q
     rev.setRollback(r);
     return rev;
 
-}
-void debugRev(const Revision &rev)
-{
-    kDebug() << rev.revisionId();
-    kDebug() << rev.parentId();
-    kDebug() << rev.size();
-    kDebug() << rev.minorRevision();
-    kDebug() << rev.user();
-    kDebug() << rev.timestamp();
-    kDebug() << rev.comment();
-    kDebug() << rev.content();
-    kDebug() << rev.parseTree();
-    kDebug() << rev.rollback();
 }
 
 QString QStringFromFile( const QString &fileName )
@@ -130,7 +116,7 @@ private Q_SLOTS:
         QFETCH(QList<Revision>, results);
 
 
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
         FakeServer fakeserver;
         fakeserver.setScenario(scenario);
         fakeserver.startAndWait();
@@ -167,67 +153,67 @@ private Q_SLOTS:
         QTest::addColumn< QList<Revision> >("results");
 
         QTest::newRow("All rvprop enable")
-                << QStringFromFile("./queryrevisiontest.rc")
-                << FakeServer::Request("GET","","?format=xml&action=query&prop=revisions&rvprop=ids|flags|timestamp|user|comment|size|content&titles=API|Main%20Page")
-                << QString("API|Main%20Page")
+                << QStringFromFile(QStringLiteral("./queryrevisiontest.rc"))
+                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvprop=ids|flags|timestamp|user|comment|size|content&titles=API|Main%20Page"))
+                << QStringLiteral("API|Main%20Page")
                 << int(KJob::NoError)
                 << QueryRevision::Properties(QueryRevision::Ids | QueryRevision::Flags | QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Size | QueryRevision::Content)
                 << 2
                 << (QList<Revision>()
-                        << constructRevision(367741756, 367741564, 70, false, "Graham87",
-                                                           QDateTime::fromString("2010-06-13T08:41:17Z","yyyy-MM-ddThh:mm:ssZ"),
-                                                           "Protected API: restore protection ([edit=sysop] (indefinite) [move=sysop] (indefinite))",
-                                                           "#REDIRECT [[Application programming interface]]{{R from abbreviation}}","","")
-                        << constructRevision(387545037, 387542946, 5074, false, "Rich Farmbrough",
-                                                 QDateTime::fromString("2010-09-28T15:21:07Z","yyyy-MM-ddThh:mm:ssZ"),
-                                                 "[[Help:Reverting|Reverted]] edits by [[Special:Contributions/Rich Farmbrough|Rich Farmbrough]] ([[User talk:Rich Farmbrough|talk]]) to last version by David Levy",
-                                                 QStringFromFile("./queryrevisiontest_content.rc"),"",""));
+                        << constructRevision(367741756, 367741564, 70, false, QStringLiteral("Graham87"),
+                                                           QDateTime::fromString(QStringLiteral("2010-06-13T08:41:17Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")),
+                                                           QStringLiteral("Protected API: restore protection ([edit=sysop] (indefinite) [move=sysop] (indefinite))"),
+                                                           QStringLiteral("#REDIRECT [[Application programming interface]]{{R from abbreviation}}"),QString(),QString())
+                        << constructRevision(387545037, 387542946, 5074, false, QStringLiteral("Rich Farmbrough"),
+                                                 QDateTime::fromString(QStringLiteral("2010-09-28T15:21:07Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")),
+                                                 QStringLiteral("[[Help:Reverting|Reverted]] edits by [[Special:Contributions/Rich Farmbrough|Rich Farmbrough]] ([[User talk:Rich Farmbrough|talk]]) to last version by David Levy"),
+                                                 QStringFromFile(QStringLiteral("./queryrevisiontest_content.rc")),QString(),QString()));
 
         QTest::newRow("One title")
-                << QStringFromFile("./queryrevisiontest_onetitle.rc")
-                << FakeServer::Request("GET","","?format=xml&action=query&prop=revisions&rvprop=ids|flags|timestamp|user|comment|size|content&titles=API")
-                << QString("API")
+                << QStringFromFile(QStringLiteral("./queryrevisiontest_onetitle.rc"))
+                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvprop=ids|flags|timestamp|user|comment|size|content&titles=API"))
+                << QStringLiteral("API")
                 << int(KJob::NoError)
                 << QueryRevision::Properties(QueryRevision::Ids | QueryRevision::Flags | QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Size | QueryRevision::Content)
                 << 1
                 << (QList<Revision>()
-                        << constructRevision(367741756, 367741564, 70, false, "Graham87",
-                                                 QDateTime::fromString("2010-06-13T08:41:17Z","yyyy-MM-ddThh:mm:ssZ"),
-                                                 "Protected API: restore protection ([edit=sysop] (indefinite) [move=sysop] (indefinite))",
-                                                 "#REDIRECT [[Application programming interface]]{{R from abbreviation}}","",""));
+                        << constructRevision(367741756, 367741564, 70, false, QStringLiteral("Graham87"),
+                                                 QDateTime::fromString(QStringLiteral("2010-06-13T08:41:17Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")),
+                                                 QStringLiteral("Protected API: restore protection ([edit=sysop] (indefinite) [move=sysop] (indefinite))"),
+                                                 QStringLiteral("#REDIRECT [[Application programming interface]]{{R from abbreviation}}"),QString(),QString()));
 
         QTest::newRow("Timestamp only")
-                << QStringFromFile("./queryrevisiontest_timestamponly.rc")
-                << FakeServer::Request("GET","","?format=xml&action=query&prop=revisions&rvprop=timestamp&titles=API|Main%20Page")
-                << QString("API|Main%20Page")
+                << QStringFromFile(QStringLiteral("./queryrevisiontest_timestamponly.rc"))
+                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvprop=timestamp&titles=API|Main%20Page"))
+                << QStringLiteral("API|Main%20Page")
                 << int(KJob::NoError)
                 << QueryRevision::Properties(QueryRevision::Timestamp)
                 << 2
                 << (QList<Revision>()
-                    << constructRevision(-1, -1, -1, false, "",
-                                             QDateTime::fromString("2010-06-13T08:41:17Z","yyyy-MM-ddThh:mm:ssZ"),
-                                             "",
-                                             "","","")
-                    << constructRevision(-1, -1, -1, false, "",
-                                             QDateTime::fromString("2010-09-28T15:21:07Z","yyyy-MM-ddThh:mm:ssZ"),
-                                             "",
-                                             "","",""));
+                    << constructRevision(-1, -1, -1, false, QString(),
+                                             QDateTime::fromString(QStringLiteral("2010-06-13T08:41:17Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")),
+                                             QString(),
+                                             QString(),QString(),QString())
+                    << constructRevision(-1, -1, -1, false, QString(),
+                                             QDateTime::fromString(QStringLiteral("2010-09-28T15:21:07Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")),
+                                             QString(),
+                                             QString(),QString(),QString()));
         QTest::newRow("User only")
-                << QStringFromFile("./queryrevisiontest_useronly.rc")
-                << FakeServer::Request("GET","","?format=xml&action=query&prop=revisions&rvprop=user&titles=API|Main%20Page")
-                << QString("API|Main%20Page")
+                << QStringFromFile(QStringLiteral("./queryrevisiontest_useronly.rc"))
+                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvprop=user&titles=API|Main%20Page"))
+                << QStringLiteral("API|Main%20Page")
                 << int(KJob::NoError)
                 << QueryRevision::Properties(QueryRevision::User)
                 << 2
                 << (QList<Revision>()
-                    << constructRevision(-1, -1, -1, false, "Graham87",
+                    << constructRevision(-1, -1, -1, false, QStringLiteral("Graham87"),
                                              QDateTime(),
-                                             "",
-                                             "","","")
-                    << constructRevision(-1, -1, -1, false, "Rich Farmbrough",
+                                             QString(),
+                                             QString(),QString(),QString())
+                    << constructRevision(-1, -1, -1, false, QStringLiteral("Rich Farmbrough"),
                                              QDateTime(),
-                                             "",
-                                             "","",""));
+                                             QString(),
+                                             QString(),QString(),QString()));
 
     }
 
@@ -237,9 +223,9 @@ private Q_SLOTS:
         QFETCH(int, error);
 
 
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
         FakeServer fakeserver;
-        if(scenario != QString("error serveur"))
+        if(scenario != QStringLiteral("error serveur"))
         {
             fakeserver.setScenario(scenario);
             fakeserver.startAndWait();
@@ -247,13 +233,13 @@ private Q_SLOTS:
 
         QueryRevision * job = new QueryRevision(mediawiki);
         job->setProperties( QueryRevision::Size | QueryRevision::Content );
-        job->setPageName("title");
+        job->setPageName(QStringLiteral("title"));
 
         connect(job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
 
         job->exec();
 
-        if(scenario != QString("error serveur"))
+        if(scenario != QStringLiteral("error serveur"))
         {
             QList<FakeServer::Request> requests = fakeserver.getRequest();
             QCOMPARE(requests.size(), 1);
@@ -262,7 +248,7 @@ private Q_SLOTS:
         QCOMPARE(revisionCount, 0);
         QCOMPARE(revisionResults.size(), 0);
 
-        if(scenario != QString("error serveur"))
+        if(scenario != QStringLiteral("error serveur"))
         {
             QVERIFY(fakeserver.isAllScenarioDone());
         }
@@ -273,40 +259,40 @@ private Q_SLOTS:
         QTest::addColumn<int>("error");
 
         QTest::newRow("XML")
-                << QStringFromFile("./queryrevisiontest_cuted.rc")
+                << QStringFromFile(QStringLiteral("./queryrevisiontest_cuted.rc"))
                 << int(QueryRevision::XmlError);
 
         QTest::newRow("Network")
-                << "error serveur"
+                << QStringLiteral("error serveur")
                 << int(QueryRevision::NetworkError);
 
         QTest::newRow("Revision Ids")
-                << "<api><error code=\"rvrevids\" info=\"\"/></api>"
+                << QStringLiteral("<api><error code=\"rvrevids\" info=\"\"/></api>")
                 << int(QueryRevision::WrongRevisionId);
 
         QTest::newRow("Multilple pages")
-                << "<api><error code=\"rvmultpages\" info=\"\"/></api>"
+                << QStringLiteral("<api><error code=\"rvmultpages\" info=\"\"/></api>")
                 << int(QueryRevision::MultiPagesNotAllowed);
 
         QTest::newRow("Access Denied")
-                << "<api><error code=\"rvaccessdenied\" info=\"\"/></api>"
+                << QStringLiteral("<api><error code=\"rvaccessdenied\" info=\"\"/></api>")
                 << int(QueryRevision::TitleAccessDenied);
 
         QTest::newRow("Add Parameters")
-                << "<api><error code=\"rvbadparams\" info=\"\"/></api>"
+                << QStringLiteral("<api><error code=\"rvbadparams\" info=\"\"/></api>")
                 << int(QueryRevision::TooManyParams);
 
         QTest::newRow("No Such Section")
-                << "<api><error code=\"rvnosuchsection\" info=\"\"/></api>"
+                << QStringLiteral("<api><error code=\"rvnosuchsection\" info=\"\"/></api>")
                 << int(QueryRevision::SectionNotFound);
 
     }
     void testRvLimit()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvlimit=2&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvlimit=2&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
+        job.setPageName(QStringLiteral("API"));
         job.setLimit(2);
 
         FakeServer fakeserver;
@@ -324,10 +310,10 @@ private Q_SLOTS:
     }
     void testRvStartId()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvstartid=2&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvstartid=2&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
+        job.setPageName(QStringLiteral("API"));
         job.setStartId(2);
 
         FakeServer fakeserver;
@@ -345,10 +331,10 @@ private Q_SLOTS:
     }
     void testRvEndId()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvendid=2&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvendid=2&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
+        job.setPageName(QStringLiteral("API"));
         job.setEndId(2);
 
         FakeServer fakeserver;
@@ -367,11 +353,11 @@ private Q_SLOTS:
 
     void testRvStart()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvstart=2010-09-28T15:21:07Z&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvstart=2010-09-28T15:21:07Z&titles=API"));
         QueryRevision job(mediawiki);
-         job.setPageName("API");
-        job.setStartTimestamp(QDateTime::fromString("2010-09-28T15:21:07Z","yyyy-MM-ddThh:mm:ssZ"));
+         job.setPageName(QStringLiteral("API"));
+        job.setStartTimestamp(QDateTime::fromString(QStringLiteral("2010-09-28T15:21:07Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")));
 
         FakeServer fakeserver;
         fakeserver.startAndWait();
@@ -389,11 +375,11 @@ private Q_SLOTS:
 
     void testRvEnd()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvend=2010-09-28T15:21:07Z&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvend=2010-09-28T15:21:07Z&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
-        job.setEndTimestamp(QDateTime::fromString("2010-09-28T15:21:07Z","yyyy-MM-ddThh:mm:ssZ"));
+        job.setPageName(QStringLiteral("API"));
+        job.setEndTimestamp(QDateTime::fromString(QStringLiteral("2010-09-28T15:21:07Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")));
 
         FakeServer fakeserver;
         fakeserver.startAndWait();
@@ -411,11 +397,11 @@ private Q_SLOTS:
 
     void testRvUser()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvuser=martine&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvuser=martine&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
-        job.setUser(QString("martine"));
+        job.setPageName(QStringLiteral("API"));
+        job.setUser(QStringLiteral("martine"));
 
         FakeServer fakeserver;
         fakeserver.startAndWait();
@@ -433,11 +419,11 @@ private Q_SLOTS:
 
     void testRvExcludeUser()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvexcludeuser=martine&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvexcludeuser=martine&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
-        job.setExcludeUser(QString("martine"));
+        job.setPageName(QStringLiteral("API"));
+        job.setExcludeUser(QStringLiteral("martine"));
 
         FakeServer fakeserver;
         fakeserver.startAndWait();
@@ -455,10 +441,10 @@ private Q_SLOTS:
 
     void testRvDirOlder()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvdir=older&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvdir=older&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
+        job.setPageName(QStringLiteral("API"));
         job.setDirection(QueryRevision::Older);
 
         FakeServer fakeserver;
@@ -477,10 +463,10 @@ private Q_SLOTS:
 
     void testRvDirNewer()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvdir=newer&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvdir=newer&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
+        job.setPageName(QStringLiteral("API"));
         job.setDirection(QueryRevision::Newer);
 
         FakeServer fakeserver;
@@ -498,29 +484,29 @@ private Q_SLOTS:
     }
     void testGenerateXML()
     {
-        QString scenario = QStringFromFile("./queryrevisiontest_parsetree.rc");
-        FakeServer::Request requestTrue("GET","","?format=xml&action=query&prop=revisions&rvgeneratexml=on&rvprop=timestamp|user|comment|content&titles=API");
-        QString title = "API";
+        QString scenario = QStringFromFile(QStringLiteral("./queryrevisiontest_parsetree.rc"));
+        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvgeneratexml=on&rvprop=timestamp|user|comment|content&titles=API"));
+        QString title = QStringLiteral("API");
         int error = 0;
         QueryRevision::Properties rvprop = QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Content;
         int size = 2;
         QList<Revision> results;
 
         Revision rev;
-        rev.setUser("martine");
-        rev.setTimestamp(QDateTime::fromString("2010-06-13T08:41:17Z","yyyy-MM-ddThh:mm:ssZ"));
-        rev.setComment("Protected API: restore protection ([edit=sysop] (indefinite) [move=sysop] (indefinite))");
-        rev.setContent("#REDIRECT [[Application programming interface]]{{R from abbreviation}}");
-        rev.setParseTree("<root>#REDIRECT [[Application programming interface]]<template><title>R from abbreviation</title></template></root>");
+        rev.setUser(QStringLiteral("martine"));
+        rev.setTimestamp(QDateTime::fromString(QStringLiteral("2010-06-13T08:41:17Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")));
+        rev.setComment(QStringLiteral("Protected API: restore protection ([edit=sysop] (indefinite) [move=sysop] (indefinite))"));
+        rev.setContent(QStringLiteral("#REDIRECT [[Application programming interface]]{{R from abbreviation}}"));
+        rev.setParseTree(QStringLiteral("<root>#REDIRECT [[Application programming interface]]<template><title>R from abbreviation</title></template></root>"));
         results << rev;
         Revision rev2;
-        rev2.setUser("Graham87");
-        rev2.setTimestamp(QDateTime::fromString("2010-06-13T08:41:17Z","yyyy-MM-ddThh:mm:ssZ"));
-        rev2.setComment("Protected API: restore protection ([edit=sysop] (indefinite) [move=sysop] (indefinite))");
-        rev2.setContent("#REDIRECT [[Application programming interface]]{{R from abbreviation}}");
-        rev2.setParseTree("<root>#REDIRECT [[Application programming interface]]<template><title>R from abbreviation</title></template></root>");
+        rev2.setUser(QStringLiteral("Graham87"));
+        rev2.setTimestamp(QDateTime::fromString(QStringLiteral("2010-06-13T08:41:17Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")));
+        rev2.setComment(QStringLiteral("Protected API: restore protection ([edit=sysop] (indefinite) [move=sysop] (indefinite))"));
+        rev2.setContent(QStringLiteral("#REDIRECT [[Application programming interface]]{{R from abbreviation}}"));
+        rev2.setParseTree(QStringLiteral("<root>#REDIRECT [[Application programming interface]]<template><title>R from abbreviation</title></template></root>"));
         results << rev2;
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
 
         FakeServer fakeserver;
         fakeserver.setScenario(scenario);
@@ -555,10 +541,10 @@ private Q_SLOTS:
     }
     void testRvSection()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvsection=1&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvsection=1&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
+        job.setPageName(QStringLiteral("API"));
         job.setSection(1);
 
         FakeServer fakeserver;
@@ -576,21 +562,21 @@ private Q_SLOTS:
     }
     void testRvToken()
     {
-        QString scenario = QStringFromFile("queryrevisiontest_rollback.rc");
-        FakeServer::Request requestTrue("GET","","?format=xml&action=query&prop=revisions&rvtoken=rollback&titles=API");
-        QString title = "API";
+        QString scenario = QStringFromFile(QStringLiteral("queryrevisiontest_rollback.rc"));
+        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvtoken=rollback&titles=API"));
+        QString title = QStringLiteral("API");
         int error = 0;
         int size = 1;
         QList<Revision> results;
-        results << constructRevision(-1, -1, -1, false, "",
+        results << constructRevision(-1, -1, -1, false, QString(),
                                            QDateTime(),
-                                           "",
-                                           "",
-                                           ""
-                                           ,"094a45ddbbd5e90d55d79d2a23a8c921+\\");
+                                           QString(),
+                                           QString(),
+                                           QString()
+                                           ,QStringLiteral("094a45ddbbd5e90d55d79d2a23a8c921+\\"));
 
 
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
 
         FakeServer fakeserver;
         fakeserver.setScenario(scenario);
@@ -621,10 +607,10 @@ private Q_SLOTS:
     }
     void testRvExpandTemplates()
     {
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
-        FakeServer::Request requestSend("GET","","?format=xml&action=query&prop=revisions&rvexpandtemplates=on&titles=API");
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        FakeServer::Request requestSend(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&rvexpandtemplates=on&titles=API"));
         QueryRevision job(mediawiki);
-        job.setPageName("API");
+        job.setPageName(QStringLiteral("API"));
         job.setExpandTemplates(true);
 
         FakeServer fakeserver;
@@ -641,12 +627,12 @@ private Q_SLOTS:
         QVERIFY(fakeserver.isAllScenarioDone());
     }
     void testRvPageId(){
-        FakeServer::Request requestTrue("GET","","?format=xml&action=query&prop=revisions&pageids=2993&rvprop=timestamp|user|comment|content");
+        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&pageids=2993&rvprop=timestamp|user|comment|content"));
         QueryRevision::Properties rvprop = QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Content;
         int id= 2993;
 
 
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
 
         FakeServer fakeserver;
         fakeserver.startAndWait();
@@ -672,12 +658,12 @@ private Q_SLOTS:
     }
 
     void testRvRevisionId(){
-        FakeServer::Request requestTrue("GET","","?format=xml&action=query&prop=revisions&revids=2993&rvprop=timestamp|user|comment|content");
+        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("?format=xml&action=query&prop=revisions&revids=2993&rvprop=timestamp|user|comment|content"));
         QueryRevision::Properties rvprop = QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Content;
         int id= 2993;
 
 
-        MediaWiki mediawiki(QUrl("http://127.0.0.1:12566"));
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
 
         FakeServer fakeserver;
         fakeserver.startAndWait();

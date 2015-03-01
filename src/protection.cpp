@@ -44,10 +44,6 @@ public:
 Protection::Protection()
     : d(new ProtectionPrivate())
 {
-    d->type   = "";
-    d->level  = "";
-    d->expiry = "";
-    d->source = "";
 }
 
 Protection::~Protection()

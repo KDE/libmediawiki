@@ -27,12 +27,16 @@
  *
  * ============================================================ */
 
-#include "querysiteinfogeneral.moc"
+#include "querysiteinfogeneral.h"
+
 
 // Qt includes
 
 #include <QtCore/QTimer>
+#include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
 #include <QtCore/QXmlStreamReader>
+
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
@@ -76,10 +80,12 @@ void QuerySiteInfoGeneral::doWorkSendRequest()
 
     // Set the url
     QUrl url = d->mediawiki.url();
-    url.addQueryItem("format", "xml");
-    url.addQueryItem("action", "query");
-    url.addQueryItem("meta",   "siteinfo");
-    url.addQueryItem("siprop", "general");
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
+    query.addQueryItem(QStringLiteral("action"), QStringLiteral("query"));
+    query.addQueryItem(QStringLiteral("meta"),   QStringLiteral("siteinfo"));
+    query.addQueryItem(QStringLiteral("siprop"), QStringLiteral("general"));
+    url.setQuery(query);
 
     // Set the request
     QNetworkRequest request(url);
@@ -118,31 +124,31 @@ void QuerySiteInfoGeneral::doWorkProcessReply()
 
         if(token == QXmlStreamReader::StartElement)
         {
-            if(reader.name() == "general")
+            if(reader.name() == QLatin1String("general"))
             {
-                generalinfo.setMainPage(reader.attributes().value("mainpage").toString());
-                generalinfo.setUrl(reader.attributes().value("base").toString());
-                generalinfo.setSiteName(reader.attributes().value("sitename").toString());
-                generalinfo.setGenerator(reader.attributes().value("generator").toString());
-                generalinfo.setPhpVersion(reader.attributes().value("phpversion").toString());
-                generalinfo.setPhpApi(reader.attributes().value("phpsapi").toString());
-                generalinfo.setDataBaseType(reader.attributes().value("dbtype").toString());
-                generalinfo.setDataBaseVersion(reader.attributes().value("dbversion").toString());
-                generalinfo.setRev(reader.attributes().value("rev").toString());
-                generalinfo.setCas(reader.attributes().value("case").toString());
-                generalinfo.setLicence(reader.attributes().value("rights").toString());
-                generalinfo.setLanguage(reader.attributes().value("lang").toString());
-                generalinfo.setFallBack8bitEncoding(reader.attributes().value("fallback8bitEncoding").toString());
-                generalinfo.setWriteApi(reader.attributes().value("writeapi").toString());
-                generalinfo.setTimeZone(reader.attributes().value("timezone").toString());
-                generalinfo.setTimeOffset(reader.attributes().value("timeoffset").toString());
-                generalinfo.setArticlePath(reader.attributes().value("articlepath").toString());
-                generalinfo.setScriptPath(reader.attributes().value("scriptpath").toString());
-                generalinfo.setScript(reader.attributes().value("script").toString());
-                generalinfo.setVariantArticlePath(reader.attributes().value("variantarticlepath").toString());
-                generalinfo.setServerUrl(reader.attributes().value("server").toString());
-                generalinfo.setWikiId(reader.attributes().value("wikiid").toString());
-                generalinfo.setTime(QDateTime::fromString(reader.attributes().value("time").toString(), "yyyy-MM-dd'T'hh:mm:ss'Z'"));
+                generalinfo.setMainPage(reader.attributes().value(QStringLiteral("mainpage")).toString());
+                generalinfo.setUrl(QUrl::fromEncoded(reader.attributes().value(QStringLiteral("base")).toString().toLocal8Bit()));
+                generalinfo.setSiteName(reader.attributes().value(QStringLiteral("sitename")).toString());
+                generalinfo.setGenerator(reader.attributes().value(QStringLiteral("generator")).toString());
+                generalinfo.setPhpVersion(reader.attributes().value(QStringLiteral("phpversion")).toString());
+                generalinfo.setPhpApi(reader.attributes().value(QStringLiteral("phpsapi")).toString());
+                generalinfo.setDataBaseType(reader.attributes().value(QStringLiteral("dbtype")).toString());
+                generalinfo.setDataBaseVersion(reader.attributes().value(QStringLiteral("dbversion")).toString());
+                generalinfo.setRev(reader.attributes().value(QStringLiteral("rev")).toString());
+                generalinfo.setCas(reader.attributes().value(QStringLiteral("case")).toString());
+                generalinfo.setLicence(reader.attributes().value(QStringLiteral("rights")).toString());
+                generalinfo.setLanguage(reader.attributes().value(QStringLiteral("lang")).toString());
+                generalinfo.setFallBack8bitEncoding(reader.attributes().value(QStringLiteral("fallback8bitEncoding")).toString());
+                generalinfo.setWriteApi(reader.attributes().value(QStringLiteral("writeapi")).toString());
+                generalinfo.setTimeZone(reader.attributes().value(QStringLiteral("timezone")).toString());
+                generalinfo.setTimeOffset(reader.attributes().value(QStringLiteral("timeoffset")).toString());
+                generalinfo.setArticlePath(reader.attributes().value(QStringLiteral("articlepath")).toString());
+                generalinfo.setScriptPath(reader.attributes().value(QStringLiteral("scriptpath")).toString());
+                generalinfo.setScript(reader.attributes().value(QStringLiteral("script")).toString());
+                generalinfo.setVariantArticlePath(reader.attributes().value(QStringLiteral("variantarticlepath")).toString());
+                generalinfo.setServerUrl(QUrl::fromEncoded(reader.attributes().value(QStringLiteral("server")).toString().toLocal8Bit()));
+                generalinfo.setWikiId(reader.attributes().value(QStringLiteral("wikiid")).toString());
+                generalinfo.setTime(QDateTime::fromString(reader.attributes().value(QStringLiteral("time")).toString(), QStringLiteral("yyyy-MM-dd'T'hh:mm:ss'Z'")));
             }
             else if(reader.name() == QLatin1String("error"))
             {

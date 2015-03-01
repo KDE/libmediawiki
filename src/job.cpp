@@ -9,8 +9,8 @@
  *
  * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
- * @author Copyright (C) 2009 by Richard Moore
- *         <a href="mailto:rich at kde dot org">rich at kde dot org</a>
+ * @author Copyright (C) 2009 by Paolo de Vathaire
+ *         <a href="mailto:paolo dot devathaire at gmail dot com">paolo dot devathaire at gmail dot com</a>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -25,38 +25,53 @@
  *
  * ============================================================ */
 
+#include "job.h"
+
+// Qt includes
+
+#include <QtNetwork/QNetworkReply>
+
+// Local include
+
 #include "mediawiki.h"
-#include "mediawiki_p.h"
+#include "job_p.h"
 
 namespace mediawiki
 {
 
-MediaWiki::MediaWiki(const QUrl& url, const QString& customUserAgent)
-    : d_ptr(new MediaWikiPrivate(url,
-                                 (customUserAgent.isEmpty() ? QString() 
-                                                            : (customUserAgent + '-')) + MediaWikiPrivate::POSTFIX_USER_AGENT,
-                                 new QNetworkAccessManager()))
+Job::Job(JobPrivate& dd, QObject* const parent)
+    : KJob(parent),
+      d_ptr(&dd)
 {
+    setCapabilities(Job::Killable);
 }
 
-MediaWiki::~MediaWiki()
+Job::~Job()
 {
     delete d_ptr;
 }
 
-QUrl MediaWiki::url() const
+bool Job::doKill()
 {
-    return d_ptr->url;
+    Q_D(Job);
+    if (d->reply != 0)
+    {
+        d->reply->abort();
+    }
+    return true;
 }
 
-QString MediaWiki::userAgent() const
+void Job::connectReply()
 {
-    return d_ptr->userAgent;
+    Q_D(Job);
+    connect(d->reply, SIGNAL(uploadProgress(qint64,qint64)),
+            this, SLOT(processUploadProgress(qint64,qint64)));
 }
 
-QNetworkAccessManager* MediaWiki::manager() const
+void Job::processUploadProgress(qint64 bytesReceived, qint64 bytesTotal)
 {
-    return d_ptr->manager;
+    setTotalAmount(Job::Bytes, bytesTotal);
+    setProcessedAmount(Job::Bytes, bytesReceived);
 }
 
 } // namespace mediawiki

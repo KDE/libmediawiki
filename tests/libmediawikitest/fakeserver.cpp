@@ -23,9 +23,8 @@
  *
  * ============================================================ */
 
-#include "fakeserver.moc"
+#include "fakeserver.h"
 
-#include <QtGui>
 #include <QtNetwork>
 #include <iostream>
 #include <QDebug>
@@ -67,7 +66,7 @@ void FakeServer::dataAvailable()
 
     if (m_clientSocket->canReadLine())
     {
-        QStringList token = QString(m_clientSocket->readAll()).split(QRegExp("[ \r\n][ \r\n]*"));
+        QStringList token = QString::fromUtf8(m_clientSocket->readAll()).split(QRegExp(QStringLiteral("[ \r\n][ \r\n]*")));
         if(!token.empty())
         {
             FakeServer::Request request;
@@ -84,9 +83,9 @@ void FakeServer::dataAvailable()
             {
                 m_request << request;
 
-                QString retour   = m_scenarios.isEmpty() ? QString("empty") : m_scenarios.takeFirst();
-                QString cookie   = m_cookie.isEmpty()    ? QString("empty") : m_cookie.takeFirst();
-                QString scenario = "HTTP/1.0 200 Ok\r\nContent-Type: text/html; charset=\"utf-8\"\r\nSet-Cookie:" + cookie + "\r\n\r\n" + retour;
+                QString retour   = m_scenarios.isEmpty() ? QStringLiteral("empty") : m_scenarios.takeFirst();
+                QString cookie   = m_cookie.isEmpty()    ? QStringLiteral("empty") : m_cookie.takeFirst();
+                QString scenario = QStringLiteral("HTTP/1.0 200 Ok\r\nContent-Type: text/html; charset=\"utf-8\"\r\nSet-Cookie:") + cookie + QStringLiteral("\r\n\r\n") + retour;
                 m_clientSocket->write(scenario.toLocal8Bit());
             }
         }

@@ -25,22 +25,23 @@
  *
  * ============================================================ */
 
-#include "upload.moc"
+#include "upload.h"
 
 // Qt includes
 
+#include <QtCore/QFile>
+#include <QtCore/QStringList>
 #include <QtCore/QTimer>
 #include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
 #include <QtCore/QXmlStreamReader>
+
 #include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkCookie>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
-#include <QtCore/QStringList>
-#include <QtCore/QDebug>
-#include <QtCore/QFile>
 
 // Local includes
-
 #include "job_p.h"
 #include "mediawiki.h"
 #include "queryinfo.h"
@@ -63,20 +64,20 @@ public:
         QString temp = error;
         int ret      = 0;
         QStringList list;
-        list    << "internalerror"
-                << "uploaddisabled"
-                << "invalidsessionkey"
-                << "badaccessgroups"
-                << "missingparam"
-                << "mustbeloggedin"
-                << "fetchfileerror"
-                << "nomodule"
-                << "emptyfile"
-                << "filetypemissing"
-                << "filenametooshort"
-                << "overwrite"
-                << "stashfailed";
-        ret = list.indexOf(temp.remove(QChar('-')));
+        list    << QStringLiteral("internalerror")
+                << QStringLiteral("uploaddisabled")
+                << QStringLiteral("invalidsessionkey")
+                << QStringLiteral("badaccessgroups")
+                << QStringLiteral("missingparam")
+                << QStringLiteral("mustbeloggedin")
+                << QStringLiteral("fetchfileerror")
+                << QStringLiteral("nomodule")
+                << QStringLiteral("emptyfile")
+                << QStringLiteral("filetypemissing")
+                << QStringLiteral("filenametooshort")
+                << QStringLiteral("overwrite")
+                << QStringLiteral("stashfailed");
+        ret = list.indexOf(temp.remove(QChar::fromLatin1('-')));
         if(ret == -1)
         {
             ret = 0;
@@ -129,8 +130,8 @@ void Upload::start()
     Q_D(Upload);
 
     QueryInfo* info = new QueryInfo(d->mediawiki, this);
-    info->setPageName("File:" + d->filename);
-    info->setToken("edit");
+    info->setPageName(QStringLiteral("File:") + d->filename);
+    info->setToken(QStringLiteral("edit"));
 
     connect(info, SIGNAL(page(Page)),
             this, SLOT(doWorkSendRequest(Page)));
@@ -146,20 +147,19 @@ void Upload::doWorkSendRequest(Page page)
     d->token      = token;
 
     // Get the extension
-    QStringList filename = d->filename.split('.');
+    QStringList filename = d->filename.split(QChar::fromLatin1('.'));
     QString extension    = filename.at(filename.size()-1);
 
-    if (extension == "jpg")
-        extension = "jpeg";
-    else if (extension == "svg")
-        extension += "+xml";
+    if (extension == QLatin1String("jpg"))
+        extension = QStringLiteral("jpeg");
+    else if (extension == QLatin1String("svg"))
+        extension += QStringLiteral("+xml");
 
-    // Set the url
     QUrl url = d->mediawiki.url();
-
-    // Add params
-    url.addQueryItem("action", "upload");
-    url.addQueryItem("format", "xml");
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("action"), QStringLiteral("upload"));
+    query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
+    url.setQuery(query);
 
     // Add the cookies
     QByteArray cookie = "";
@@ -210,10 +210,10 @@ void Upload::doWorkSendRequest(Page page)
 
     // the actual file
     out += "Content-Disposition: form-data; name=\"file\"; filename=\"";
-    out += d->filename.toAscii();   // TODO : check UTF-8 support
+    out += d->filename.toUtf8();   // TODO : check UTF-8 support
     out += "\"\r\n";
     out += "Content-Type: image/";
-    out += extension.toAscii();     // TODO : check UTF-8 support
+    out += extension.toUtf8();     // TODO : check UTF-8 support
     out += "\r\n\r\n";
     out += d->file->readAll();
     out += "\r\n";
@@ -222,7 +222,7 @@ void Upload::doWorkSendRequest(Page page)
     // description page
     out += "Content-Disposition: form-data; name=\"text\"\r\n";
     out += "Content-Type: text/plain\r\n\r\n";
-    out += d->text.toAscii();       // TODO : check UTF-8 support
+    out += d->text.toUtf8();       // TODO : check UTF-8 support
     out += "\r\n";
     out += boundary.mid(0, boundary.length() - 2);
     out += "--\r\n";
@@ -261,15 +261,15 @@ void Upload::doWorkProcessReply()
 
             if ( reader.name() == QLatin1String( "upload" ) )
             {
-                if ( attrs.value( QString( "result" ) ).toString() == "Success" )
+                if ( attrs.value(QStringLiteral("result")).toString() == QLatin1String("Success") )
                 {
                     this->setError(KJob::NoError);
                 }
             }
             else if ( reader.name() == QLatin1String( "error" ) )
             {
-                this->setErrorText(attrs.value( QString( "info" )).toString());
-                this->setError(UploadPrivate::error(attrs.value("code" ).toString()));
+                this->setErrorText(attrs.value( QStringLiteral("info")).toString());
+                this->setError(UploadPrivate::error(attrs.value(QStringLiteral("code")).toString()));
             }
         }
         else if ( token == QXmlStreamReader::Invalid && reader.error() != 

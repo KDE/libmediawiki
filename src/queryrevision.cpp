@@ -27,14 +27,17 @@
  *
  * ============================================================ */
 
-#include "queryrevision.moc"
+#include "queryrevision.h"
+
 
 // Qt includes
 
 #include <QtCore/QDateTime>
 #include <QtCore/QTimer>
 #include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
 #include <QtCore/QXmlStreamReader>
+
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
@@ -77,7 +80,7 @@ void QueryRevision::start()
 void QueryRevision::setPageName(const QString& pageName)
 {
     Q_D(QueryRevision);
-    d->requestParameter["titles"] = pageName;
+    d->requestParameter[QStringLiteral("titles")] = pageName;
 }
 
 void QueryRevision::setProperties(Properties properties)
@@ -87,112 +90,112 @@ void QueryRevision::setProperties(Properties properties)
 
     if(properties & QueryRevision::Ids)
     {
-        buff.append("ids");
+        buff.append(QStringLiteral("ids"));
     }
 
     if(properties & QueryRevision::Flags)
     {
         if (buff.length())
-            buff.append('|');
+            buff.append(QStringLiteral("|"));
 
-        buff.append("flags");
+        buff.append(QStringLiteral("flags"));
     }
 
     if(properties & QueryRevision::Timestamp)
     {
         if (buff.length())
-            buff.append('|');
+            buff.append(QStringLiteral("|"));
 
-        buff.append("timestamp");
+        buff.append(QStringLiteral("timestamp"));
     }
 
     if(properties & QueryRevision::User)
     {
         if (buff.length())
-            buff.append('|');
+            buff.append(QStringLiteral("|"));
 
-        buff.append("user");
+        buff.append(QStringLiteral("user"));
     }
 
     if(properties & QueryRevision::Comment)
     {
         if (buff.length())
-            buff.append('|');
+            buff.append(QStringLiteral("|"));
 
-        buff.append("comment");
+        buff.append(QStringLiteral("comment"));
     }
 
     if(properties & QueryRevision::Size)
     {
         if (buff.length())
-            buff.append('|');
+            buff.append(QStringLiteral("|"));
 
-        buff.append("size");
+        buff.append(QStringLiteral("size"));
     }
 
     if(properties & QueryRevision::Content)
     {
         if (buff.length())
-            buff.append('|');
+            buff.append(QStringLiteral("|"));
 
-        buff.append("content");
+        buff.append(QStringLiteral("content"));
     }
 
-    d->requestParameter["rvprop"] = buff;
+    d->requestParameter[QStringLiteral("rvprop")] = buff;
 }
 
 void QueryRevision::setPageId(unsigned int pageId)
 {
     Q_D(QueryRevision);
-    d->requestParameter["pageids"] = QString::number(pageId);
+    d->requestParameter[QStringLiteral("pageids")] = QString::number(pageId);
 }
 
 void QueryRevision::setRevisionId(unsigned int revisionId)
 {
     Q_D(QueryRevision);
-    d->requestParameter["revids"] = QString::number(revisionId);
+    d->requestParameter[QStringLiteral("revids")] = QString::number(revisionId);
 }
 
 void QueryRevision::setLimit(int limit)
 {
     Q_D(QueryRevision);
-    d->requestParameter["rvlimit"] = QString::number(limit);
+    d->requestParameter[QStringLiteral("rvlimit")] = QString::number(limit);
 }
 
 void QueryRevision::setStartId(int startId)
 {
     Q_D(QueryRevision);
-    d->requestParameter["rvstartid"] = QString::number(startId);
+    d->requestParameter[QStringLiteral("rvstartid")] = QString::number(startId);
 }
 
 void QueryRevision::setEndId(int endId)
 {
     Q_D(QueryRevision);
-    d->requestParameter["rvendid"] = QString::number(endId);
+    d->requestParameter[QStringLiteral("rvendid")] = QString::number(endId);
 }
 
 void QueryRevision::setStartTimestamp(const QDateTime& start)
 {
     Q_D(QueryRevision);
-    d->requestParameter["rvstart"] = start.toString("yyyy-MM-ddThh:mm:ssZ");
+    d->requestParameter[QStringLiteral("rvstart")] = start.toString(QStringLiteral("yyyy-MM-ddThh:mm:ssZ"));
 }
 
 void QueryRevision::setEndTimestamp(const QDateTime& end)
 {
     Q_D(QueryRevision);
-    d->requestParameter["rvend"] = end.toString("yyyy-MM-ddThh:mm:ssZ");
+    d->requestParameter[QStringLiteral("rvend")] = end.toString(QStringLiteral("yyyy-MM-ddThh:mm:ssZ"));
 }
 
 void QueryRevision::setUser(const QString& user)
 {
     Q_D(QueryRevision);
-    d->requestParameter["rvuser"] = user;
+    d->requestParameter[QStringLiteral("rvuser")] = user;
 }
 
 void QueryRevision::setExcludeUser(const QString& excludeUser)
 {
     Q_D(QueryRevision);
-    d->requestParameter["rvexcludeuser"] = excludeUser;
+    d->requestParameter[QStringLiteral("rvexcludeuser")] = excludeUser;
 }
 
 void QueryRevision::setDirection(QueryRevision::Direction direction)
@@ -201,11 +204,11 @@ void QueryRevision::setDirection(QueryRevision::Direction direction)
 
     if (direction == QueryRevision::Older)
     {
-        d->requestParameter["rvdir"] = QString("older");
+        d->requestParameter[QStringLiteral("rvdir")] = QStringLiteral("older");
     }
     else if (direction == QueryRevision::Newer)
     {
-        d->requestParameter["rvdir"] = QString("newer");
+        d->requestParameter[QStringLiteral("rvdir")] = QStringLiteral("newer");
     }
 }
 
@@ -215,14 +218,14 @@ void QueryRevision::setGenerateXML(bool generateXML)
 
     if (generateXML)
     {
-        d->requestParameter["rvgeneratexml"] = QString("on");
+        d->requestParameter[QStringLiteral("rvgeneratexml")] = QStringLiteral("on");
     }
 }
 
 void QueryRevision::setSection(int section)
 {
     Q_D(QueryRevision);
-    d->requestParameter["rvsection"] = QString::number(section);
+    d->requestParameter[QStringLiteral("rvsection")] = QString::number(section);
 }
 
 void QueryRevision::setToken(QueryRevision::Token token)
@@ -231,7 +234,7 @@ void QueryRevision::setToken(QueryRevision::Token token)
 
     if (QueryRevision::Rollback == token)
     {
-        d->requestParameter["rvtoken"] = QString("rollback");
+        d->requestParameter[QStringLiteral("rvtoken")] = QStringLiteral("rollback");
     }
 }
 
@@ -241,7 +244,7 @@ void QueryRevision::setExpandTemplates(bool expandTemplates)
 
     if (expandTemplates)
     {
-        d->requestParameter["rvexpandtemplates"] = QString("on");
+        d->requestParameter[QStringLiteral("rvexpandtemplates")] = QStringLiteral("on");
     }
 }
 void QueryRevision::doWorkSendRequest()
@@ -250,18 +253,20 @@ void QueryRevision::doWorkSendRequest()
 
     // Set the url
     QUrl url = d->mediawiki.url();
-    url.addQueryItem("format", "xml");
-    url.addQueryItem("action", "query");
-    url.addQueryItem("prop",   "revisions");
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
+    query.addQueryItem(QStringLiteral("action"), QStringLiteral("query"));
+    query.addQueryItem(QStringLiteral("prop"),   QStringLiteral("revisions"));
 
     QMapIterator<QString, QString> i(d->requestParameter);
 
     while (i.hasNext())
     {
         i.next();
-        url.addEncodedQueryItem(QByteArray(i.key().toAscii()),           // TODO : check UTF-8 support
-                                QByteArray(i.value().toAscii()));        // TODO : check UTF-8 support
+        query.addQueryItem(i.key(),           // TODO : check UTF-8 support
+                           i.value());        // TODO : check UTF-8 support
     }
+    url.setQuery(query);
 
     // Set the request
     QNetworkRequest request(url);
@@ -294,17 +299,17 @@ void QueryRevision::doWorkProcessReply()
         Revision        tempR;
         QString         replytmp = QString::fromUtf8(d->reply->readAll());
 
-        if (d->requestParameter.contains("rvgeneratexml"))
+        if (d->requestParameter.contains(QStringLiteral("rvgeneratexml")))
         {
-            for (int i = replytmp.indexOf("parsetree"); i != -1; i = replytmp.indexOf("parsetree", i+1))
+            for (int i = replytmp.indexOf(QStringLiteral("parsetree")); i != -1; i = replytmp.indexOf(QStringLiteral("parsetree"), i+1))
             {
                 int count = 0;
 
                 while (count < 2)
                 {
-                    if (replytmp[i] == '"' && replytmp[i-1] != '\\') count++;
-                    if (replytmp[i] == '<')                          replytmp[i] = char(255);
-                    if (replytmp[i] == '>')                          replytmp[i] = char(254);
+                    if (replytmp[i] == QLatin1Char('"') && replytmp[i-1] != QLatin1Char('\\')) count++;
+                    if (replytmp[i] == QLatin1Char('<'))                          replytmp[i] = char(255);
+                    if (replytmp[i] == QLatin1Char('>'))                          replytmp[i] = char(254);
                     ++i;
                 }
             }
@@ -318,57 +323,57 @@ void QueryRevision::doWorkProcessReply()
 
             if (token == QXmlStreamReader::StartElement)
             {
-                if (reader.name() == "page" && d->requestParameter.contains("rvtoken"))
+                if (reader.name() == QLatin1String("page") && d->requestParameter.contains(QStringLiteral("rvtoken")))
                 {
-                    tempR.setRollback(reader.attributes().value("rollbacktoken").toString());
+                    tempR.setRollback(reader.attributes().value(QStringLiteral("rollbacktoken")).toString());
                 }
 
-                if (reader.name() == "rev")
+                if (reader.name() == QLatin1String("rev"))
                 {
-                    if (d->requestParameter.contains("rvprop"))
+                    if (d->requestParameter.contains(QStringLiteral("rvprop")))
                     {
-                        QString rvprop = d->requestParameter["rvprop"];
+                        QString rvprop = d->requestParameter[QStringLiteral("rvprop")];
 
-                        if (rvprop.contains("ids"))
+                        if (rvprop.contains(QStringLiteral("ids")))
                         {
-                            tempR.setRevisionId(reader.attributes().value("revid").toString().toInt());
-                            tempR.setParentId(reader.attributes().value("parentid").toString().toInt());}
+                            tempR.setRevisionId(reader.attributes().value(QStringLiteral("revid")).toString().toInt());
+                            tempR.setParentId(reader.attributes().value(QStringLiteral("parentid")).toString().toInt());}
 
-                            if (rvprop.contains("size"))
-                                tempR.setSize(reader.attributes().value("size").toString().toInt());
+                            if (rvprop.contains(QStringLiteral("size")))
+                                tempR.setSize(reader.attributes().value(QStringLiteral("size")).toString().toInt());
 
-                            if (rvprop.contains("minor"))
+                            if (rvprop.contains(QStringLiteral("minor")))
                                 tempR.setMinorRevision(true);
 
-                            if (rvprop.contains("user"))
-                                tempR.setUser(reader.attributes().value("user").toString());
+                            if (rvprop.contains(QStringLiteral("user")))
+                                tempR.setUser(reader.attributes().value(QStringLiteral("user")).toString());
 
-                            if (rvprop.contains("timestamp"))
-                                tempR.setTimestamp(QDateTime::fromString(reader.attributes().value("timestamp").toString(),"yyyy-MM-ddThh:mm:ssZ"));
+                            if (rvprop.contains(QStringLiteral("timestamp")))
+                                tempR.setTimestamp(QDateTime::fromString(reader.attributes().value(QStringLiteral("timestamp")).toString(),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")));
 
-                            if (rvprop.contains("comment"))
-                                tempR.setComment(reader.attributes().value("comment").toString());
+                            if (rvprop.contains(QStringLiteral("comment")))
+                                tempR.setComment(reader.attributes().value(QStringLiteral("comment")).toString());
 
-                            if (d->requestParameter.contains("rvgeneratexml"))
-                                tempR.setParseTree(reader.attributes().value("parsetree").toString());
+                            if (d->requestParameter.contains(QStringLiteral("rvgeneratexml")))
+                                tempR.setParseTree(reader.attributes().value(QStringLiteral("parsetree")).toString());
 
-                            if (rvprop.contains("content"))
+                            if (rvprop.contains(QStringLiteral("content")))
                                 tempR.setContent(reader.readElementText());
                         }
 
                         results << tempR;
                     }
-                    else if (reader.name() == "error")
+                    else if (reader.name() == QLatin1String("error"))
                     {
-                        if (reader.attributes().value("code").toString() == QString("rvrevids"))
+                        if (reader.attributes().value(QStringLiteral("code")).toString() == QLatin1String("rvrevids"))
                             this->setError(this->WrongRevisionId);
-                        else if (reader.attributes().value("code").toString() == QString("rvmultpages"))
+                        else if (reader.attributes().value(QStringLiteral("code")).toString() == QLatin1String("rvmultpages"))
                             this->setError(this->MultiPagesNotAllowed);
-                        else if (reader.attributes().value("code").toString() == QString("rvaccessdenied"))
+                        else if (reader.attributes().value(QStringLiteral("code")).toString() == QLatin1String("rvaccessdenied"))
                             this->setError(this->TitleAccessDenied);
-                        else if (reader.attributes().value("code").toString() == QString("rvbadparams"))
+                        else if (reader.attributes().value(QStringLiteral("code")).toString() == QLatin1String("rvbadparams"))
                             this->setError(this->TooManyParams);
-                        else if (reader.attributes().value("code").toString() == QString("rvnosuchsection"))
+                        else if (reader.attributes().value(QStringLiteral("code")).toString() == QLatin1String("rvnosuchsection"))
                             this->setError(this->SectionNotFound);
 
                         d->reply->close();
@@ -385,8 +390,8 @@ void QueryRevision::doWorkProcessReply()
 
             for (int i = 0; i < results.length(); i++)
             {
-                results[i].setParseTree(results[i].parseTree().replace(QChar(254), '>'));
-                results[i].setParseTree(results[i].parseTree().replace(QChar(255), '<'));
+                results[i].setParseTree(results[i].parseTree().replace(QChar(254), QStringLiteral(">")));
+                results[i].setParseTree(results[i].parseTree().replace(QChar(255), QStringLiteral("<")));
             }
 
             emit revision(results);

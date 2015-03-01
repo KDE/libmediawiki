@@ -25,12 +25,16 @@
  *
  * ============================================================ */
 
-#include "queryimages.moc"
+#include "queryimages.h"
+
 
 // Qt includes
 
 #include <QtCore/QTimer>
+#include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
 #include <QtCore/QXmlStreamReader>
+
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
@@ -59,7 +63,7 @@ public:
 };
 
 QueryImages::QueryImages(MediaWiki& mediawiki, QObject* const parent)
-    : Job(*new QueryImagesPrivate(mediawiki, "10"), parent)
+    : Job(*new QueryImagesPrivate(mediawiki, QStringLiteral("10")), parent)
 {
 }
 
@@ -90,15 +94,17 @@ void QueryImages::doWorkSendRequest()
 
     // Set the url
     QUrl url = d->mediawiki.url();
-    url.addQueryItem("format",  "xml");
-    url.addQueryItem("action",  "query");
-    url.addQueryItem("titles",  d->title);
-    url.addQueryItem("prop",    "images");
-    url.addQueryItem("imlimit", d->limit);
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("format"),  QStringLiteral("xml"));
+    query.addQueryItem(QStringLiteral("action"),  QStringLiteral("query"));
+    query.addQueryItem(QStringLiteral("titles"),  d->title);
+    query.addQueryItem(QStringLiteral("prop"),    QStringLiteral("images"));
+    query.addQueryItem(QStringLiteral("imlimit"), d->limit);
     if (!d->imcontinue.isNull())
     {
-        url.addQueryItem("imcontinue", d->imcontinue);
+        query.addQueryItem(QStringLiteral("imcontinue"), d->imcontinue);
     }
+    url.setQuery(query);
 
     // Set the request
     QNetworkRequest request(url);
@@ -129,22 +135,22 @@ void QueryImages::doWorkProcessReply()
             QXmlStreamReader::TokenType token = reader.readNext();
             if (token == QXmlStreamReader::StartElement)
             {
-                if (reader.name() == "images")
+                if (reader.name() == QLatin1String("images"))
                 {
-                    if (reader.attributes().value("imcontinue").isNull())
+                    if (reader.attributes().value(QStringLiteral("imcontinue")).isNull())
                     {
                         imagesReceived.clear();
                     }
                     else
                     {
-                        d->imcontinue = reader.attributes().value("imcontinue").toString();
+                        d->imcontinue = reader.attributes().value(QStringLiteral("imcontinue")).toString();
                     }
                 }
-                else if (reader.name() == "im")
+                else if (reader.name() == QLatin1String("im"))
                 {
                     Image image;
-                    image.setNamespaceId( reader.attributes().value("ns").toString().toUInt());
-                    image.setTitle(reader.attributes().value("title").toString());
+                    image.setNamespaceId( reader.attributes().value(QStringLiteral("ns")).toString().toUInt());
+                    image.setTitle(reader.attributes().value(QStringLiteral("title")).toString());
                     imagesReceived.push_back(image);
                 }
             }

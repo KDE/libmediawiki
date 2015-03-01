@@ -25,14 +25,18 @@
  *
  * ============================================================ */
 
-#include "logout.moc"
+#include "logout.h"
+
 
 // Qt includes
 
 #include <QtCore/QDateTime>
 #include <QtCore/QTimer>
 #include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
 #include <QtCore/QXmlStreamReader>
+
+#include <QtNetwork/QNetworkCookie>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
@@ -71,11 +75,14 @@ void Logout::start()
 void Logout::doWorkSendRequest()
 {
     Q_D(Logout);
-    // Set the url
-    QUrl url                               = d->mediawiki.url();
-    url.addQueryItem("format", "xml");
-    url.addQueryItem("action", "logout");
-    QByteArray cookie                      = "";
+    
+    QUrl url = d->mediawiki.url();
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
+    query.addQueryItem(QStringLiteral("action"), QStringLiteral("logout"));
+    url.setQuery(query);
+    
+    QByteArray cookie = "";
     QList<QNetworkCookie> mediawikiCookies = d->manager->cookieJar()->cookiesForUrl(d->mediawiki.url());
 
     for(int i = 0 ; i < mediawikiCookies.size(); ++i)

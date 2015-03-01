@@ -1,2 +1,7 @@
-Use KUrl instead QUrl in whole library to be more compatible with KDELibs API.
-Check UTF-8 encoding in mediawiki request. Grep TODO in source code for details.
+* Get the tests properly registered, "make test" is not working currently.
+* Get all tests to pass.
+* Grep TODO in source code.
+* Grep PIXME in source code.
+* Ensure that the documentation generation is correctly configured for a framework.
+* Rework the samplecode folder to integrate its content with the documentation.
+* Remove this TODO file and use KDE’s bug-tracking system instead.

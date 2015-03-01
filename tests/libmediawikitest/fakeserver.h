@@ -69,9 +69,9 @@ public:
     void startAndWait();
     virtual void run();
 
-    void setScenario( const QString& scenario, const QString& cookie = QString("empty"));
-    void addScenario( const QString& scenario, const QString& cookie = QString("empty"));
-    void addScenarioFromFile( const QString& fileName, const QString& cookie = QString("empty"));
+    void setScenario( const QString& scenario, const QString& cookie = QStringLiteral("empty"));
+    void addScenario( const QString& scenario, const QString& cookie = QStringLiteral("empty"));
+    void addScenarioFromFile( const QString& fileName, const QString& cookie = QStringLiteral("empty"));
 
     bool isScenarioDone( int scenarioNumber ) const;
     bool isAllScenarioDone() const;

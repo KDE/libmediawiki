@@ -27,19 +27,22 @@
  *
  * ============================================================ */
 
-#include "login.moc"
 
 // Qt includes
 
 #include <QtCore/QStringList>
 #include <QtCore/QTimer>
 #include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
 #include <QtCore/QXmlStreamReader>
+
+#include <QtNetwork/QNetworkCookie>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
 // Local includes
 
+#include "login.h"
 #include "mediawiki.h"
 #include "job_p.h"
 
@@ -61,16 +64,16 @@ public:
     static int error(const QString& error)
     {
         QStringList list;
-        list << "NoName"
-             << "Illegal"
-             << "NotExists"
-             << "EmptyPass"
-             << "WrongPass"
-             << "WrongPluginPass"
-             << "CreateBlocked"
-             << "Throttled"
-             << "Blocked"
-             << "NeedToken";
+        list << QStringLiteral("NoName")
+             << QStringLiteral("Illegal")
+             << QStringLiteral("NotExists")
+             << QStringLiteral("EmptyPass")
+             << QStringLiteral("WrongPass")
+             << QStringLiteral("WrongPluginPass")
+             << QStringLiteral("CreateBlocked")
+             << QStringLiteral("Throttled")
+             << QStringLiteral("Blocked")
+             << QStringLiteral("NeedToken");
 
         int ret = list.indexOf(error);
 
@@ -111,16 +114,18 @@ void Login::doWorkSendRequest()
 
     // Set the url
     QUrl url = d->mediawiki.url();
-    url.addQueryItem("format", "xml");
-    url.addQueryItem("action", "login");
-    url.addQueryItem("lgname", d->login);
-    url.addQueryItem("lgpassword", d->password);
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
+    query.addQueryItem(QStringLiteral("action"), QStringLiteral("login"));
+    query.addQueryItem(QStringLiteral("lgname"), d->login);
+    query.addQueryItem(QStringLiteral("lgpassword"), d->password);
+    url.setQuery(query);
     d->baseUrl = url;
 
     // Set the request
     QNetworkRequest request(url);
-    request.setRawHeader("User-Agent", d->mediawiki.userAgent().toUtf8());
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    request.setRawHeader(QByteArrayLiteral("User-Agent"), d->mediawiki.userAgent().toUtf8());
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
 
     // Send the request
     d->reply = d->manager->post(request, url.toString().toUtf8());
@@ -153,37 +158,37 @@ void Login::doWorkProcessReply()
         {
             QXmlStreamAttributes attrs = reader.attributes();
 
-            if (reader.name() == QString("login"))
+            if (reader.name() == QLatin1String("login"))
             {
-                if (attrs.value(QString("result")).toString() == "Success")
+                if (attrs.value(QStringLiteral("result")).toString() == QLatin1String("Success"))
                 {
                     this->setError(Job::NoError);
-                    d->lgtoken     = attrs.value(QString("lgtoken")).toString();
-                    d->lgsessionid = attrs.value(QString("sessionid")).toString();
+                    d->lgtoken     = attrs.value(QStringLiteral("lgtoken")).toString();
+                    d->lgsessionid = attrs.value(QStringLiteral("sessionid")).toString();
 
                     if(d->manager->cookieJar()->cookiesForUrl(d->mediawiki.url()).isEmpty())
                     {
                         QList<QNetworkCookie> cookies;
-                        QString prefix = attrs.value(QString("cookieprefix")).toString();
+                        QString prefix = attrs.value(QStringLiteral("cookieprefix")).toString();
 
                         QString prefixSession = prefix;
-                        prefixSession.append("_session");
-                        QNetworkCookie cookie1(prefixSession.toUtf8(),attrs.value(QString("sessionid")).toString().toUtf8());
+                        prefixSession.append(QStringLiteral("_session"));
+                        QNetworkCookie cookie1(prefixSession.toUtf8(),attrs.value(QStringLiteral("sessionid")).toString().toUtf8());
                         cookies.append(cookie1);
 
                         QString prefixUserName = prefix;
-                        prefixUserName.append("UserName");
-                        QNetworkCookie cookie2(prefixUserName.toUtf8(),attrs.value(QString("lgusername")).toString().toUtf8());
+                        prefixUserName.append(QStringLiteral("UserName"));
+                        QNetworkCookie cookie2(prefixUserName.toUtf8(),attrs.value(QStringLiteral("lgusername")).toString().toUtf8());
                         cookies.append(cookie2);
 
                         QString prefixUserID = prefix;
-                        prefixUserID.append("UserID");
-                        QNetworkCookie cookie3(prefixUserID.toUtf8(),attrs.value(QString("lguserid")).toString().toUtf8());
+                        prefixUserID.append(QStringLiteral("UserID"));
+                        QNetworkCookie cookie3(prefixUserID.toUtf8(),attrs.value(QStringLiteral("lguserid")).toString().toUtf8());
                         cookies.append(cookie3);
 
                         QString prefixToken = prefix;
-                        prefixToken.append("Token");
-                        QNetworkCookie cookie4(prefixToken.toUtf8(),attrs.value(QString("lgtoken")).toString().toUtf8());
+                        prefixToken.append(QStringLiteral("Token"));
+                        QNetworkCookie cookie4(prefixToken.toUtf8(),attrs.value(QStringLiteral("lgtoken")).toString().toUtf8());
                         cookies.append(cookie4);
 
                         d->manager->cookieJar()->setCookiesFromUrl(cookies, d->mediawiki.url());
@@ -194,16 +199,16 @@ void Login::doWorkProcessReply()
                     emitResult();
                     return;
                 }
-                else if (attrs.value(QString("result")).toString() == "NeedToken")
+                else if (attrs.value(QStringLiteral("result")).toString() == QLatin1String("NeedToken"))
                 {
                     this->setError(Job::NoError);
-                    d->lgtoken     = attrs.value(QString("token")).toString();
-                    d->lgsessionid = attrs.value(QString("sessionid")).toString();
+                    d->lgtoken     = attrs.value(QStringLiteral("token")).toString();
+                    d->lgsessionid = attrs.value(QStringLiteral("sessionid")).toString();
 
                     if(d->manager->cookieJar()->cookiesForUrl(d->mediawiki.url()).isEmpty())
                     {
-                        QString prefix = attrs.value(QString("cookieprefix")).toString();
-                        prefix.append("_session");
+                        QString prefix = attrs.value(QStringLiteral("cookieprefix")).toString();
+                        prefix.append(QStringLiteral("_session"));
                         QNetworkCookie cookie(prefix.toUtf8(),QString(d->lgsessionid).toUtf8());
                         QList<QNetworkCookie> cookies;
                         cookies.append(cookie);
@@ -212,7 +217,7 @@ void Login::doWorkProcessReply()
                 }
                 else
                 {
-                    this->setError(LoginPrivate::error(attrs.value(QString("result")).toString()));
+                    this->setError(LoginPrivate::error(attrs.value(QStringLiteral("result")).toString()));
                     d->reply->close();
                     d->reply->deleteLater();
                     emitResult();
@@ -221,7 +226,7 @@ void Login::doWorkProcessReply()
             }
             else if (reader.name() == QLatin1String("error"))
             {
-                this->setError(LoginPrivate::error(attrs.value(QString("code")).toString()));
+                this->setError(LoginPrivate::error(attrs.value(QStringLiteral("code")).toString()));
                 d->reply->close();
                 d->reply->deleteLater();
                 emitResult();
@@ -241,14 +246,16 @@ void Login::doWorkProcessReply()
     d->reply->deleteLater();
 
     QUrl url     = d->baseUrl;
-    url.addQueryItem("lgtoken", d->lgtoken);
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("lgtoken"), d->lgtoken);
+    url.setQuery(query);
     QString data = url.toString();
 
     // Set the request
     QNetworkRequest request(url);
     request.setRawHeader("User-Agent", d->mediawiki.userAgent().toUtf8());
     request.setRawHeader("Cookie", d->manager->cookieJar()->cookiesForUrl(d->mediawiki.url()).at(0).toRawForm());
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
 
     // Send the request
     d->reply = d->manager->post(request, data.toUtf8());
