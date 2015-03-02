@@ -36,7 +36,7 @@
 #include <QFile>
 #include <QTextStream>
 
-#include <KDE/KJob>
+#include <KCoreAddons/KJob>
 
 #include "libmediawikitest/fakeserver.h"
 

@@ -31,7 +31,7 @@
 #include <QtCore/QUrl>
 #include <QtTest/QTest>
 
-#include <KDE/KJob>
+#include <KCoreAddons/KJob>
 
 #include "libmediawikitest/fakeserver.h"
 
