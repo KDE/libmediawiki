@@ -1,5 +1,4 @@
 * Get all tests to pass.
     * libmediawiki-logintest: Fix once the following Qt bug is fixed: https://bugreports.qt.io/browse/QTBUG-44860
-* Ensure that the documentation generation is correctly configured for a framework.
 * Rework the samplecode folder to integrate its content with the documentation.
 * Remove this TODO file and use KDE’s bug-tracking system instead.

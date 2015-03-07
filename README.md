@@ -3,13 +3,6 @@
 ## Introduction
 
 This framework provides accecss to the API of MediaWiki sites.
-
-## Documentation
-
-The library documentation is available in the header and cpp files in doxygen style. You can use doxygen ( http://www.doxygen.org ) to generate documentation in HTML format:
-
-    cd libkmediawiki
-    doxygen Doxyfile
     
 ## Dependencies
 
