@@ -56,7 +56,7 @@ private Q_SLOTS:
         logoutCount = 0;
         this->m_mediaWiki = new MediaWiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
         this->m_server = new FakeServer;
-        this->request = QStringLiteral("?format=xml&action=logout");
+        this->request = QStringLiteral("/?format=xml&action=logout");
     }
 
     void logoutTestConnectTrue()
@@ -79,7 +79,7 @@ private Q_SLOTS:
         FakeServer::Request request = requests[0];
         QCOMPARE(request.agent, m_mediaWiki->userAgent());
         QCOMPARE(request.type, QStringLiteral("GET"));
-        QCOMPARE(request.value, QStringLiteral("?format=xml&action=logout"));
+        QCOMPARE(request.value, QStringLiteral("/?format=xml&action=logout"));
     }
 
     void cleanupTestCase()

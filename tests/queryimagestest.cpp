@@ -92,9 +92,9 @@ private Q_SLOTS:
             QCOMPARE(requests[i].agent, mediawiki.userAgent());
             QCOMPARE(requests[i].type, QStringLiteral("GET"));
             if (i == 0) {
-                QCOMPARE(requests[i].value, QString(QStringLiteral("?format=xml&action=query&titles=") + title + QStringLiteral("&prop=images&imlimit=") + QString::number(limit)));
+                QCOMPARE(requests[i].value, QString(QStringLiteral("/?format=xml&action=query&titles=") + title + QStringLiteral("&prop=images&imlimit=") + QString::number(limit)));
             } else {
-                QCOMPARE(requests[i].value, QString(QStringLiteral("?format=xml&action=query&titles=") + title + QStringLiteral("&prop=images&imlimit=") + QString::number(limit) + QStringLiteral("&imcontinue=1234%7C") + imagesExpectedList[i][0].title().remove(0, 5)));
+                QCOMPARE(requests[i].value, QString(QStringLiteral("/?format=xml&action=query&titles=") + title + QStringLiteral("&prop=images&imlimit=") + QString::number(limit) + QStringLiteral("&imcontinue=1234%7C") + imagesExpectedList[i][0].title().remove(0, 5)));
             }
         }
 

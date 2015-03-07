@@ -102,28 +102,28 @@ private Q_SLOTS:
         j1->setPageName(QStringLiteral("API"));
 
         QTest::newRow("Name pages")
-                << QStringLiteral("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&titles=API")
+                << QStringLiteral("/?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&titles=API")
                 << j1;
 
         QueryInfo* const j2 = new QueryInfo(*m_mediaWiki);
         j2->setToken( QStringLiteral("cecded1f35005d22904a35cc7b736e18+\\") );
 
         QTest::newRow("Token")
-                << QStringLiteral("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&intoken=cecded1f35005d22904a35cc7b736e18+\\")
+                << QStringLiteral("/?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&intoken=cecded1f35005d22904a35cc7b736e18+\\")
                 << j2;
 
         QueryInfo* const j3 = new QueryInfo(*m_mediaWiki);
         j3->setPageId(25255);
 
         QTest::newRow("Page Id")
-                << QStringLiteral("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&pageids=25255")
+                << QStringLiteral("/?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&pageids=25255")
                 << j3;
 
         QueryInfo *j4 = new QueryInfo(*m_mediaWiki);
         j4->setRevisionId(44545);
 
         QTest::newRow("Revision Id")
-                << QStringLiteral("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&revids=44545")
+                << QStringLiteral("/?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&revids=44545")
                 << j4;
     }
 

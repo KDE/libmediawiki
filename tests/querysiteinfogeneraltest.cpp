@@ -60,7 +60,7 @@ private Q_SLOTS:
 void initTestCase()
 {
     generalCount  = 0;
-    this->request = QStringLiteral("?format=xml&action=query&meta=siteinfo&siprop=general");
+    this->request = QStringLiteral("/?format=xml&action=query&meta=siteinfo&siprop=general");
 }
 void QuerySiteInfoGeneralTestConnectTrue()
 {

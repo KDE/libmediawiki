@@ -140,7 +140,7 @@ private Q_SLOTS:
 
         QTest::newRow("Text")
                 << QStringFromFile(QStringLiteral("./parsetest.rc"))
-                << QStringLiteral("?format=xml&action=parse&text=listedecharacteres")
+                << QStringLiteral("/?format=xml&action=parse&text=listedecharacteres")
                 << p1;
 
         Parse* const p2 = new Parse( *m_mediaWiki, NULL);
@@ -148,7 +148,7 @@ private Q_SLOTS:
 
         QTest::newRow("Page Name")
                 << QStringFromFile(QStringLiteral("./parsetest.rc"))
-                << QStringLiteral("?format=xml&action=parse&page=listedecharacteres")
+                << QStringLiteral("/?format=xml&action=parse&page=listedecharacteres")
                 << p2;
 
         Parse* const p3 = new Parse( *m_mediaWiki, NULL);
@@ -156,7 +156,7 @@ private Q_SLOTS:
 
         QTest::newRow("Title")
                 << QStringFromFile(QStringLiteral("./parsetest.rc"))
-                << QStringLiteral("?format=xml&action=parse&title=listedecharacteres")
+                << QStringLiteral("/?format=xml&action=parse&title=listedecharacteres")
                 << p3;
 
         Parse* const p4 = new Parse( *m_mediaWiki, NULL);
@@ -164,7 +164,7 @@ private Q_SLOTS:
 
         QTest::newRow("User Langue")
                 << QStringFromFile(QStringLiteral("./parsetest.rc"))
-                << QStringLiteral("?format=xml&action=parse&uselang=fr")
+                << QStringLiteral("/?format=xml&action=parse&uselang=fr")
                 << p4;
     }
 

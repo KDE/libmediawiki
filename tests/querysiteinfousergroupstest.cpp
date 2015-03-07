@@ -88,9 +88,9 @@ private Q_SLOTS:
         QCOMPARE(request.agent, mediawiki.userAgent());
         QCOMPARE(request.type, QStringLiteral("GET"));
         if (includeNumber) {
-            QCOMPARE(request.value, QStringLiteral("?format=xml&action=query&meta=siteinfo&siprop=usergroups&sinumberingroup="));
+            QCOMPARE(request.value, QStringLiteral("/?format=xml&action=query&meta=siteinfo&siprop=usergroups&sinumberingroup="));
         } else {
-            QCOMPARE(request.value, QStringLiteral("?format=xml&action=query&meta=siteinfo&siprop=usergroups"));
+            QCOMPARE(request.value, QStringLiteral("/?format=xml&action=query&meta=siteinfo&siprop=usergroups"));
         }
 
         QCOMPARE(job->error(), error);
