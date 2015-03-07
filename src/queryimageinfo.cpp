@@ -197,12 +197,21 @@ void QueryImageinfo::doWorkSendRequest()
 {
     Q_D(QueryImageinfo);
 
+    // Requirements.
+    if (d->title.isEmpty()) {
+        setError(QueryImageinfo::MissingMandatoryParameter);
+        setErrorText(QStringLiteral("You cannot query the information of an "
+            "image if you do not provide the title of that image."));
+        emitResult();
+        return;
+    }
+
     // Set the url
     QUrl url = d->mediawiki.url();
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
     query.addQueryItem(QStringLiteral("action"), QStringLiteral("query"));
-    query.addQueryItem(QStringLiteral("titles"), d->title); //FIXME: Job error because title is required
+    query.addQueryItem(QStringLiteral("titles"), d->title);
     query.addQueryItem(QStringLiteral("prop"),   QStringLiteral("imageinfo"));
     QueryImageinfoPrivate::addQueryItemIfNotNull(query, QStringLiteral("iiprop"),      d->iiprop);
     QueryImageinfoPrivate::addQueryItemIfNotNull(query, QStringLiteral("iilimit"),     d->limit);

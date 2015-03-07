@@ -45,6 +45,12 @@ public Q_SLOTS:
         imageinfosReceived.push_back(imageinfos);
     }
 
+    void missingTitleHandle(const QList<Imageinfo>& imageinfos)
+    {
+        Q_UNUSED(imageinfos)
+        requestWithMissingTitleHasBeenSent = true;
+    }
+
 private Q_SLOTS:
 
     void init()
@@ -64,14 +70,15 @@ private Q_SLOTS:
         MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
         QueryImageinfo* job = new QueryImageinfo(mediawiki);
         job->setTitle(QStringLiteral("Image:Image.bmp"));
-        job->setProperties(QueryImageinfo::Timestamp|
-                           QueryImageinfo::User|
-                           QueryImageinfo::Comment|
-                           QueryImageinfo::Url|
-                           QueryImageinfo::Size|
-                           QueryImageinfo::Sha1|
-                           QueryImageinfo::Mime|
-                           QueryImageinfo::Metadata);
+        job->setProperties(
+            QueryImageinfo::Timestamp|
+            QueryImageinfo::User|
+            QueryImageinfo::Comment|
+            QueryImageinfo::Url|
+            QueryImageinfo::Size|
+            QueryImageinfo::Sha1|
+            QueryImageinfo::Mime|
+            QueryImageinfo::Metadata);
         job->setLimit(1u);
         job->setBeginTimestamp(QDateTime(QDate(2008, 06, 06), QTime(22, 27, 45, 0)));
         job->setEndTimestamp(QDateTime(QDate(2007, 06, 06), QTime(22, 27, 45, 0)));
@@ -140,9 +147,43 @@ private Q_SLOTS:
         QCOMPARE(imageinfosReceived, imageinfosExpected);
     }
 
+    void testMissingTitle()
+    {
+        // Constructs the fakeserver
+        FakeServer fakeserver;
+        fakeserver.startAndWait();
+
+        // Prepare the job
+        MediaWiki mediawiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
+        QueryImageinfo* job = new QueryImageinfo(mediawiki);
+        job->setProperties(
+            QueryImageinfo::Timestamp|
+            QueryImageinfo::User|
+            QueryImageinfo::Comment|
+            QueryImageinfo::Url|
+            QueryImageinfo::Size|
+            QueryImageinfo::Sha1|
+            QueryImageinfo::Mime|
+            QueryImageinfo::Metadata);
+        job->setLimit(1u);
+        job->setBeginTimestamp(QDateTime(QDate(2008, 06, 06), QTime(22, 27, 45, 0)));
+        job->setEndTimestamp(QDateTime(QDate(2007, 06, 06), QTime(22, 27, 45, 0)));
+        job->setWidthScale(78u);
+        job->setHeightScale(102u);
+        connect(job, SIGNAL(result(QList<Imageinfo>)), this, SLOT(missingTitleHandle(QList<Imageinfo>)));
+        job->exec();
+
+        // Test job
+        QCOMPARE(job->error(), int(QueryImageinfo::MissingMandatoryParameter));
+
+        // Test fakeserver
+        QCOMPARE(requestWithMissingTitleHasBeenSent, false);
+    }
+
 private:
 
     QList<QList<Imageinfo> > imageinfosReceived;
+    bool requestWithMissingTitleHasBeenSent;
 };
 
 QTEST_MAIN(QueryImageinfoTest)
