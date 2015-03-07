@@ -122,7 +122,7 @@ private Q_SLOTS:
         fakeserver.startAndWait();
 
         QueryRevision * job = new QueryRevision(mediawiki);
-        job->setProperties( rvprop );
+        job->setProperties(rvprop);
         job->setPageName(title);
 
         connect(job, SIGNAL(revision(QList<Revision>)), this, SLOT(revisionHandle(QList<Revision>)));
@@ -153,8 +153,8 @@ private Q_SLOTS:
         QTest::addColumn< QList<Revision> >("results");
 
         QTest::newRow("All rvprop enable")
-                << QStringFromFile(QStringLiteral("./queryrevisiontest.rc"))
-                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvprop=ids|flags|timestamp|user|comment|size|content&titles=API|Main%20Page"))
+        << QStringFromFile(QCoreApplication::applicationFilePath() + QStringLiteral(".rc"))
+                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvprop=ids%7Cflags%7Ctimestamp%7Cuser%7Ccomment%7Csize%7Ccontent&titles=API%7CMain%20Page"))
                 << QStringLiteral("API|Main%20Page")
                 << int(KJob::NoError)
                 << QueryRevision::Properties(QueryRevision::Ids | QueryRevision::Flags | QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Size | QueryRevision::Content)
@@ -167,11 +167,11 @@ private Q_SLOTS:
                         << constructRevision(387545037, 387542946, 5074, false, QStringLiteral("Rich Farmbrough"),
                                                  QDateTime::fromString(QStringLiteral("2010-09-28T15:21:07Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")),
                                                  QStringLiteral("[[Help:Reverting|Reverted]] edits by [[Special:Contributions/Rich Farmbrough|Rich Farmbrough]] ([[User talk:Rich Farmbrough|talk]]) to last version by David Levy"),
-                                                 QStringFromFile(QStringLiteral("./queryrevisiontest_content.rc")),QString(),QString()));
+                                                 QStringFromFile(QCoreApplication::applicationFilePath() + QStringLiteral("_content.rc")),QString(),QString()));
 
         QTest::newRow("One title")
-                << QStringFromFile(QStringLiteral("./queryrevisiontest_onetitle.rc"))
-                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvprop=ids|flags|timestamp|user|comment|size|content&titles=API"))
+                << QStringFromFile(QCoreApplication::applicationFilePath() + QStringLiteral("_onetitle.rc"))
+                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvprop=ids%7Cflags%7Ctimestamp%7Cuser%7Ccomment%7Csize%7Ccontent&titles=API"))
                 << QStringLiteral("API")
                 << int(KJob::NoError)
                 << QueryRevision::Properties(QueryRevision::Ids | QueryRevision::Flags | QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Size | QueryRevision::Content)
@@ -183,8 +183,8 @@ private Q_SLOTS:
                                                  QStringLiteral("#REDIRECT [[Application programming interface]]{{R from abbreviation}}"),QString(),QString()));
 
         QTest::newRow("Timestamp only")
-                << QStringFromFile(QStringLiteral("./queryrevisiontest_timestamponly.rc"))
-                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvprop=timestamp&titles=API|Main%20Page"))
+                << QStringFromFile(QCoreApplication::applicationFilePath() + QStringLiteral("_timestamponly.rc"))
+                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvprop=timestamp&titles=API%7CMain%20Page"))
                 << QStringLiteral("API|Main%20Page")
                 << int(KJob::NoError)
                 << QueryRevision::Properties(QueryRevision::Timestamp)
@@ -199,8 +199,8 @@ private Q_SLOTS:
                                              QString(),
                                              QString(),QString(),QString()));
         QTest::newRow("User only")
-                << QStringFromFile(QStringLiteral("./queryrevisiontest_useronly.rc"))
-                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvprop=user&titles=API|Main%20Page"))
+                << QStringFromFile(QCoreApplication::applicationFilePath() + QStringLiteral("_useronly.rc"))
+                << FakeServer::Request(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvprop=user&titles=API%7CMain%20Page"))
                 << QStringLiteral("API|Main%20Page")
                 << int(KJob::NoError)
                 << QueryRevision::Properties(QueryRevision::User)
@@ -259,7 +259,7 @@ private Q_SLOTS:
         QTest::addColumn<int>("error");
 
         QTest::newRow("XML")
-                << QStringFromFile(QStringLiteral("./queryrevisiontest_cuted.rc"))
+                << QStringFromFile(QCoreApplication::applicationFilePath() + QStringLiteral("_cuted.rc"))
                 << int(QueryRevision::XmlError);
 
         QTest::newRow("Network")
@@ -484,8 +484,8 @@ private Q_SLOTS:
     }
     void testGenerateXML()
     {
-        QString scenario = QStringFromFile(QStringLiteral("./queryrevisiontest_parsetree.rc"));
-        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvgeneratexml=on&rvprop=timestamp|user|comment|content&titles=API"));
+        QString scenario = QStringFromFile(QCoreApplication::applicationFilePath() + QStringLiteral("_parsetree.rc"));
+        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvgeneratexml=on&rvprop=timestamp%7Cuser%7Ccomment%7Ccontent&titles=API"));
         QString title = QStringLiteral("API");
         int error = 0;
         QueryRevision::Properties rvprop = QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Content;
@@ -525,16 +525,12 @@ private Q_SLOTS:
         QCOMPARE(requests.size(), 1);
 
         FakeServer::Request request = requests[0];
-        QCOMPARE( requestTrue.type, request.type);
+        QCOMPARE(request.type, requestTrue.type);
         QCOMPARE(revisionCount, 1);
-        QCOMPARE(requestTrue.value, request.value);
+        QCOMPARE(request.value, requestTrue.value);
 
         QCOMPARE(job->error(), error);
         QCOMPARE(revisionResults.size(), size);
-//        debugRev(revisionResults[0]);
-//        debugRev(results[0]);
-//        debugRev(revisionResults[1]);
-//        debugRev(results[1]);
         QCOMPARE(revisionResults, results);
 
         QVERIFY(fakeserver.isAllScenarioDone());
@@ -562,7 +558,7 @@ private Q_SLOTS:
     }
     void testRvToken()
     {
-        QString scenario = QStringFromFile(QStringLiteral("queryrevisiontest_rollback.rc"));
+        QString scenario = QStringFromFile(QCoreApplication::applicationFilePath() + QStringLiteral("_rollback.rc"));
         FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&rvtoken=rollback&titles=API"));
         QString title = QStringLiteral("API");
         int error = 0;
@@ -627,7 +623,7 @@ private Q_SLOTS:
         QVERIFY(fakeserver.isAllScenarioDone());
     }
     void testRvPageId(){
-        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&pageids=2993&rvprop=timestamp|user|comment|content"));
+        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&pageids=2993&rvprop=timestamp%7Cuser%7Ccomment%7Ccontent"));
         QueryRevision::Properties rvprop = QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Content;
         int id= 2993;
 
@@ -658,7 +654,7 @@ private Q_SLOTS:
     }
 
     void testRvRevisionId(){
-        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&revids=2993&rvprop=timestamp|user|comment|content"));
+        FakeServer::Request requestTrue(QStringLiteral("GET"),QString(),QStringLiteral("/?format=xml&action=query&prop=revisions&revids=2993&rvprop=timestamp%7Cuser%7Ccomment%7Ccontent"));
         QueryRevision::Properties rvprop = QueryRevision::Timestamp |QueryRevision::User | QueryRevision::Comment | QueryRevision::Content;
         int id= 2993;
 
