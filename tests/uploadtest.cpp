@@ -58,7 +58,7 @@ private Q_SLOTS:
         uploadCount = 0;
         this->m_mediaWiki = new MediaWiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
         this->m_infoScenario = QStringLiteral("<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"cecded1f35005d22904a35cc7b736e18%2B\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection /></page></pages></query></api>");
-        this->m_file = new QFile(QStringLiteral("/home/alex/Documents/MediaWiki-Silk/src/mediawiki/libmediawiki/tests/Test.jpeg"));
+        this->m_file = new QFile(QCoreApplication::applicationFilePath() + QStringLiteral("_image.jpg"));
         this->m_file->open(QIODevice::ReadOnly);
     }
 
@@ -93,7 +93,7 @@ private Q_SLOTS:
         e1->setComment(QStringLiteral("Test"));
         e1->setText(QStringLiteral("{{Information|Description=Ajout du logo de l'IUP ISI, Toulouse.|Source=http://www.iupisi.ups-tlse.fr/|Date=1992-01-01|Author=iup|Permission={{PD-EEA}}|other_versions=}}"));
         QTest::newRow("Text")
-                << QStringLiteral("?action=upload&format=xml")
+                << QStringLiteral("/?action=upload&format=xml")
                 << QStringLiteral("<api><upload result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e1;
     }

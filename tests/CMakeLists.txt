@@ -57,6 +57,7 @@ MEDIAWIKI_TEST_RESOURCES(
     queryrevisiontest_rollback.rc
     queryrevisiontest_timestamponly.rc
     queryrevisiontest_useronly.rc
+    uploadtest_image.jpg
 )
 
 add_custom_target(TestResources ALL DEPENDS ${test_resources_dest})
