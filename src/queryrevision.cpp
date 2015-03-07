@@ -263,8 +263,7 @@ void QueryRevision::doWorkSendRequest()
     while (i.hasNext())
     {
         i.next();
-        query.addQueryItem(i.key(),           // TODO : check UTF-8 support
-                           i.value());        // TODO : check UTF-8 support
+        query.addQueryItem(i.key(), i.value());
     }
     url.setQuery(query);
 

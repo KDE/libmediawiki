@@ -172,11 +172,12 @@ void Upload::doWorkSendRequest(Page page)
 
     // Set the request
     QNetworkRequest request( url );
-    request.setRawHeader( "User-Agent", d->mediawiki.userAgent().toUtf8());
+    request.setRawHeader("User-Agent", d->mediawiki.userAgent().toUtf8());
+    request.setRawHeader("Accept-Charset", "utf-8");
 
     QByteArray boundary = "-----------------------------15827188141577679942014851228";
-    request.setRawHeader( "Content-Type", "multipart/form-data; boundary="  + boundary);
-    request.setRawHeader( "Cookie", cookie );
+    request.setRawHeader("Content-Type", "multipart/form-data; boundary="  + boundary);
+    request.setRawHeader("Cookie", cookie );
 
     // send data
     boundary = "--" + boundary + "\r\n";
@@ -210,10 +211,10 @@ void Upload::doWorkSendRequest(Page page)
 
     // the actual file
     out += "Content-Disposition: form-data; name=\"file\"; filename=\"";
-    out += d->filename.toUtf8();   // TODO : check UTF-8 support
+    out += d->filename.toUtf8();
     out += "\"\r\n";
     out += "Content-Type: image/";
-    out += extension.toUtf8();     // TODO : check UTF-8 support
+    out += extension.toUtf8();
     out += "\r\n\r\n";
     out += d->file->readAll();
     out += "\r\n";
@@ -222,7 +223,7 @@ void Upload::doWorkSendRequest(Page page)
     // description page
     out += "Content-Disposition: form-data; name=\"text\"\r\n";
     out += "Content-Type: text/plain\r\n\r\n";
-    out += d->text.toUtf8();       // TODO : check UTF-8 support
+    out += d->text.toUtf8();
     out += "\r\n";
     out += boundary.mid(0, boundary.length() - 2);
     out += "--\r\n";

@@ -83,7 +83,10 @@ protected:
      */
     Job(JobPrivate& dd, QObject* const parent = 0);
 
-    //TODO comment
+    /**
+     * @brief Connects signals of the reply object (in the private object) to
+     * slots of this base class.
+     */
     void connectReply();
 
     /**
