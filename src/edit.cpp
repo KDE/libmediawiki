@@ -319,7 +319,7 @@ void Edit::doWorkSendRequest(Page page)
             d->requestParameter[QStringLiteral("text")] = text;
         }
         QByteArray hash = QCryptographicHash::hash(textmd5.toUtf8(),QCryptographicHash::Md5);
-        d->requestParameter[QStringLiteral("md5")] = QString::fromUtf8(hash);
+        d->requestParameter[QStringLiteral("md5")] = QString::fromLatin1(hash.toHex());
     }
 
     QMapIterator<QString, QString> i(d->requestParameter);
