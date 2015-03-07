@@ -74,7 +74,7 @@ private Q_SLOTS:
     {
         editCount            = 0;
         this->m_mediaWiki    = new MediaWiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
-        this->m_infoScenario = QStringLiteral("<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"cecded1f35005d22904a35cc7b736e18%2B\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection /></page></pages></query></api>");
+        this->m_infoScenario = QStringLiteral("<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"cecded1f35005d22904a35cc7b736e18+\\\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection /></page></pages></query></api>");
     }
 
     void editSetters()
@@ -114,7 +114,7 @@ private Q_SLOTS:
         e1->setStartTimestamp( QDateTime::fromString(QStringLiteral("2008-03-27T21:15:39Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")) );
         e1->setText( QStringLiteral("Hello everyone!") );
         QTest::newRow("Text")
-                << QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18%252B")
+                << QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e1;
 
@@ -127,7 +127,7 @@ private Q_SLOTS:
         e2->setStartTimestamp( QDateTime::fromString(QStringLiteral("2008-03-27T21:15:39Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")) );
         e2->setAppendText( QStringLiteral("Hello everyone!") );
         QTest::newRow("Append")
-                << QStringLiteral("?format=xml&action=edit&appendtext=Hello%20everyone!&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18%252B")
+                << QStringLiteral("/?format=xml&action=edit&appendtext=Hello%20everyone!&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e2;
 
@@ -140,7 +140,7 @@ private Q_SLOTS:
         e3->setStartTimestamp( QDateTime::fromString(QStringLiteral("2008-03-27T21:15:39Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")) );
         e3->setPrependText( QStringLiteral("Hello everyone!") );
         QTest::newRow("Prepend")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&prependtext=Hello%20everyone!&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&prependtext=Hello%20everyone!&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e3;
 
@@ -152,7 +152,7 @@ private Q_SLOTS:
         e4->setStartTimestamp( QDateTime::fromString(QStringLiteral("2008-03-27T21:15:39Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")) );
         e4->setUndo(13585);
         QTest::newRow("Undo")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&title=Talk:Main%20Page&undo=13585&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&title=Talk:Main%20Page&undo=13585&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e4;
 
@@ -164,7 +164,7 @@ private Q_SLOTS:
         e5->setStartTimestamp( QDateTime::fromString(QStringLiteral("2008-03-27T21:15:39Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")) );
         e5->setUndoAfter(13585);
         QTest::newRow("Undo After")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&title=Talk:Main%20Page&undoafter=13585&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&title=Talk:Main%20Page&undoafter=13585&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e5;
 
@@ -178,7 +178,7 @@ private Q_SLOTS:
         e6->setSection(QStringLiteral("new"));
         e6->setStartTimestamp( QDateTime::fromString(QStringLiteral("2008-03-27T21:15:39Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")) );
         QTest::newRow("Recreate")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&recreate=on&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&recreate=on&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e6;
 
@@ -192,7 +192,7 @@ private Q_SLOTS:
         e7->setSection(QStringLiteral("new"));
         e7->setStartTimestamp( QDateTime::fromString(QStringLiteral("2008-03-27T21:15:39Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")) );
         QTest::newRow("CreateOnly")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&createonly=on&md5=4d184ec6e8fe61abccb8ff62c4583cd0&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&createonly=on&md5=4d184ec6e8fe61abccb8ff62c4583cd0&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e7;
 
@@ -206,7 +206,7 @@ private Q_SLOTS:
         e8->setSection(QStringLiteral("new"));
         e8->setStartTimestamp( QDateTime::fromString(QStringLiteral("2008-03-27T21:15:39Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")) );
         QTest::newRow("No Create")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&nocreate=on&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&nocreate=on&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e8;
 
@@ -220,7 +220,7 @@ private Q_SLOTS:
         e9->setSection(QStringLiteral("new"));
         e9->setStartTimestamp( QDateTime::fromString(QStringLiteral("2008-03-27T21:15:39Z"),QStringLiteral("yyyy-MM-ddThh:mm:ssZ")) );
         QTest::newRow("Minor")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&minor=on&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&minor=on&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e9;
 
@@ -232,7 +232,7 @@ private Q_SLOTS:
         e10->setText( QStringLiteral("Hello everyone!") );
         e10->setWatchList(Edit::watch);
         QTest::newRow("WatchList watch")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&watchlist=watch&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&watchlist=watch&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e10;
 
@@ -244,7 +244,7 @@ private Q_SLOTS:
         e11->setText( QStringLiteral("Hello everyone!") );
         e11->setWatchList(Edit::unwatch);
         QTest::newRow("WatchList unwatch")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&watchlist=unwatch&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&watchlist=unwatch&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e11;
 
@@ -256,7 +256,7 @@ private Q_SLOTS:
         e12->setText( QStringLiteral("Hello everyone!") );
         e12->setWatchList(Edit::preferences);
         QTest::newRow("WatchList preferences")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&watchlist=preferences&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&watchlist=preferences&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e12;
 
@@ -268,7 +268,7 @@ private Q_SLOTS:
         e13->setText( QStringLiteral("Hello everyone!") );
         e13->setWatchList(Edit::nochange);
         QTest::newRow("WatchList nochange")
-                <<  QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&watchlist=nochange&token=cecded1f35005d22904a35cc7b736e18%252B")
+                <<  QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&watchlist=nochange&token=cecded1f35005d22904a35cc7b736e18+%5C")
                 << QStringLiteral("<api><edit result=\"Success\" pageid=\"12\" title=\"Talk:Main Page\" oldrevid=\"465\" newrevid=\"471\" /></api>")
                 << e13;
     }
@@ -393,7 +393,7 @@ private Q_SLOTS:
         editCount = 0;
         FakeServer fakeserver;
 
-        this->request = QStringLiteral("?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18%252B");
+        this->request = QStringLiteral("/?format=xml&action=edit&basetimestamp=2008-03-20T17:26:39Z&md5=4d184ec6e8fe61abccb8ff62c4583cd0&section=new&starttimestamp=2008-03-27T21:15:39Z&summary=Hello%20World&text=Hello%20everyone!&title=Talk:Main%20Page&token=cecded1f35005d22904a35cc7b736e18+%5C");
         QString senario(QStringLiteral("<api><edit result=\"Failure\"><captcha type=\"math\" mime=\"text/tex\" id=\"509895952\" question=\"36 + 4 = \" /></edit></api>"));
 
         fakeserver.setScenario(m_infoScenario);
