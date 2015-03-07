@@ -268,57 +268,14 @@ void Edit::doWorkSendRequest(Page page)
     // Add params
     if(d->requestParameter.contains(QStringLiteral("md5")))
     {
-        QString textmd5;
         QString text;
         if(d->requestParameter.contains(QStringLiteral("prependtext")))
-        {
-            textmd5 += d->requestParameter[QStringLiteral("prependtext")];
-            text    += textmd5;
-            text.replace(QStringLiteral("$"), QStringLiteral("%24"));
-            text.replace(QStringLiteral("&"), QStringLiteral("%26"));
-            text.replace(QStringLiteral("+"), QStringLiteral("%2B"));
-            text.replace(QStringLiteral(","), QStringLiteral("%2C"));
-            text.replace(QStringLiteral("/"), QStringLiteral("%2F"));
-            text.replace(QStringLiteral(":"), QStringLiteral("%3A"));
-            text.replace(QStringLiteral(";"), QStringLiteral("%3B"));
-            text.replace(QStringLiteral("="), QStringLiteral("%3D"));
-            text.replace(QStringLiteral("?"), QStringLiteral("%3F"));
-            text.replace(QStringLiteral("@"), QStringLiteral("%40"));
-            d->requestParameter[QStringLiteral("prependtext")] = text;
-        }
+            text += d->requestParameter[QStringLiteral("prependtext")];
         if(d->requestParameter.contains(QStringLiteral("appendtext")))
-        {
-            textmd5 += d->requestParameter[QStringLiteral("appendtext")];
-            text    += textmd5;
-            text.replace(QStringLiteral("$"), QStringLiteral("%24"));
-            text.replace(QStringLiteral("&"), QStringLiteral("%26"));
-            text.replace(QStringLiteral("+"), QStringLiteral("%2B"));
-            text.replace(QStringLiteral(","), QStringLiteral("%2C"));
-            text.replace(QStringLiteral("/"), QStringLiteral("%2F"));
-            text.replace(QStringLiteral(":"), QStringLiteral("%3A"));
-            text.replace(QStringLiteral(";"), QStringLiteral("%3B"));
-            text.replace(QStringLiteral("="), QStringLiteral("%3D"));
-            text.replace(QStringLiteral("?"), QStringLiteral("%3F"));
-            text.replace(QStringLiteral("@"), QStringLiteral("%40"));
-            d->requestParameter[QStringLiteral("appendtext")] = text;
-         }
+            text += d->requestParameter[QStringLiteral("appendtext")];
         if(d->requestParameter.contains(QStringLiteral("text")))
-        {
-            textmd5 = d->requestParameter[QStringLiteral("text")];
-            text    = textmd5;
-            text.replace(QStringLiteral("$"), QStringLiteral("%24"));
-            text.replace(QStringLiteral("&"), QStringLiteral("%26"));
-            text.replace(QStringLiteral("+"), QStringLiteral("%2B"));
-            text.replace(QStringLiteral(","), QStringLiteral("%2C"));
-            text.replace(QStringLiteral("/"), QStringLiteral("%2F"));
-            text.replace(QStringLiteral(":"), QStringLiteral("%3A"));
-            text.replace(QStringLiteral(";"), QStringLiteral("%3B"));
-            text.replace(QStringLiteral("="), QStringLiteral("%3D"));
-            text.replace(QStringLiteral("?"), QStringLiteral("%3F"));
-            text.replace(QStringLiteral("@"), QStringLiteral("%40"));
-            d->requestParameter[QStringLiteral("text")] = text;
-        }
-        QByteArray hash = QCryptographicHash::hash(textmd5.toUtf8(),QCryptographicHash::Md5);
+            text = d->requestParameter[QStringLiteral("text")];
+        QByteArray hash = QCryptographicHash::hash(text.toUtf8(),QCryptographicHash::Md5);
         d->requestParameter[QStringLiteral("md5")] = QString::fromLatin1(hash.toHex());
     }
 
@@ -338,10 +295,7 @@ void Edit::doWorkSendRequest(Page page)
         cookie += ';';
     }
     // Add the token
-    QString token = d->requestParameter[QStringLiteral("token")];
-    token.replace(QStringLiteral("+"), QStringLiteral("%2B"));
-    token.replace(QStringLiteral("\\"), QStringLiteral("%5C"));
-    query.addQueryItem(QStringLiteral("token"), token);
+    query.addQueryItem(QStringLiteral("token"), d->requestParameter[QStringLiteral("token")]);
     url.setQuery(query);
     d->baseUrl = url;
 
