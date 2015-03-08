@@ -27,14 +27,7 @@
  *
  * ============================================================ */
 
-#include "mainwindow.moc"
-
-// Qt includes
-
-#include <QDebug>
-
-// Local includes
-
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget* const parent)

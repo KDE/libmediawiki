@@ -28,7 +28,7 @@ add_library(KF5::MediaWiki ALIAS KF5MediaWiki)
 target_include_directories(KF5MediaWiki INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/MediaWiki>")
 
 target_link_libraries(KF5MediaWiki
-    PUBLIC
+    PRIVATE
         Qt5::Core
         Qt5::Network
         KF5::CoreAddons
