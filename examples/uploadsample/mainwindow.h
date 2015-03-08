@@ -28,18 +28,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-// Qt includes
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMessageBox>
 
-#include <QMainWindow>
-#include <QMessageBox>
-
-// Local includes
-
-#include "upload.h"
-#include "mediawiki.h"
-#include "login.h"
-#include "queryinfo.h"
-#include "queryrevision.h"
+#include <MediaWiki/Upload>
+#include <MediaWiki/MediaWiki>
+#include <MediaWiki/Login>
+#include <MediaWiki/QueryInfo>
+#include <MediaWiki/QueryRevision>
 
 namespace Ui
 {

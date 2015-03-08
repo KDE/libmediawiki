@@ -25,16 +25,11 @@
  *
  * ============================================================ */
 
-// Qt includes
-
-#include <QDebug>
-#include <QFileDialog>
-#include <QFile>
-
-// Local includes
-
-#include "mainwindow.moc"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
+
+#include <QtCore/QFile>
+#include <QtWidgets/QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
