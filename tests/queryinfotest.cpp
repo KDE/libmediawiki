@@ -26,10 +26,10 @@
 #ifndef TEST_QUERYINFO_H
 #define TEST_QUERYINFO_H
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QtTest/QtTest>
 
-#include <kjob.h>
+#include <KCoreAddons/KJob>
 
 #include "mediawiki.h"
 #include "queryinfo.h"

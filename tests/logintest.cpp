@@ -30,10 +30,10 @@
 #ifndef TEST_LOGIN_H
 #define TEST_LOGIN_H
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QtTest/QtTest>
 
-#include <kjob.h>
+#include <KCoreAddons/KJob>
 
 #include "mediawiki.h"
 #include "login.h"

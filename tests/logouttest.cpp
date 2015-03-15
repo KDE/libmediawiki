@@ -26,10 +26,10 @@
 #ifndef TEST_LOGOUT_H
 #define TEST_LOGOUT_H
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QtTest/QtTest>
 
-#include <kjob.h>
+#include <KCoreAddons/KJob>
 
 #include "mediawiki.h"
 #include "logout.h"

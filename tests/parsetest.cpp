@@ -26,11 +26,10 @@
 #ifndef TEST_PARSE_H
 #define TEST_PARSE_H
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QtTest/QtTest>
-#include <QDebug>
 
-#include <kjob.h>
+#include <KCoreAddons/KJob>
 
 #include "mediawiki.h"
 #include "parse.h"

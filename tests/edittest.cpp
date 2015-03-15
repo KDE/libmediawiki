@@ -30,10 +30,10 @@
 #ifndef TEST_EDIT_H
 #define TEST_EDIT_H
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QtTest/QtTest>
 
-#include <kjob.h>
+#include <KCoreAddons/KJob>
 
 #include "mediawiki.h"
 #include "edit.h"

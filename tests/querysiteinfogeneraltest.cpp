@@ -28,10 +28,10 @@
 #ifndef TEST_GENERAL_H
 #define TEST_GENERAL_H
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QtTest/QtTest>
 
-#include <kjob.h>
+#include <KCoreAddons/KJob>
 
 #include "libmediawikitest/fakeserver.h"
 

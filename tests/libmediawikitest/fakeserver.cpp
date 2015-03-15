@@ -25,9 +25,9 @@
 
 #include "fakeserver.h"
 
-#include <QtNetwork>
 #include <iostream>
-#include <QDebug>
+
+#include <QtCore/QFile>
 
 FakeServer::FakeServer(QObject* const parent)
 :  QThread( parent )
