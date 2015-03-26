@@ -61,6 +61,7 @@ private Q_SLOTS:
         this->m_server = new FakeServer;
     }
 
+    // Failing due to https://bugreports.qt.io/browse/QTBUG-44860
     void loginTestConnectTrue()
     {
         loginCount = 0;
