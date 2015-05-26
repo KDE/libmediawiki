@@ -21,7 +21,7 @@ include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
 
-set(KF5_VERSION "5.7.0")
+set(KF5_VERSION "5.5.0")
 
 ecm_setup_version(${KF5_VERSION}
     VARIABLE_PREFIX MEDIAWIKI
