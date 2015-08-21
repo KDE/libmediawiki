@@ -45,7 +45,10 @@ Q_DECLARE_METATYPE(Parse*)
 QString QStringFromFile(const QString& fileName)
 {
     QFile file( fileName );
-    file.open( QFile::ReadOnly );
+
+    if (!file.open( QFile::ReadOnly ))
+        return QString();
+    
     QTextStream in(&file);
     QString scenario;
     // When loading from files we never have the authentication phase
