@@ -40,15 +40,15 @@ FakeServer::FakeServer(QObject* const parent)
 
 FakeServer::~FakeServer()
 {
-  quit();
-  wait();
+    quit();
+    wait();
 }
 
 void FakeServer::startAndWait()
 {
-  start();
-  // this will block until the event queue starts
-  QMetaObject::invokeMethod( this, "started", Qt::BlockingQueuedConnection );
+    start();
+    // this will block until the event queue starts
+    QMetaObject::invokeMethod( this, "started", Qt::BlockingQueuedConnection );
 }
 
 void FakeServer::newConnection()
@@ -67,7 +67,8 @@ void FakeServer::dataAvailable()
     if (m_clientSocket->canReadLine())
     {
         QStringList token = QString::fromUtf8(m_clientSocket->readAll()).split(QRegExp(QStringLiteral("[ \r\n][ \r\n]*")));
-        if(!token.empty())
+
+        if (!token.empty())
         {
             FakeServer::Request request;
             request.type  = token[0];
@@ -90,13 +91,14 @@ void FakeServer::dataAvailable()
             }
         }
     }
+
     m_clientSocket->close();
 }
 
 void FakeServer::run()
 {
     m_tcpServer = new QTcpServer();
-    
+
     if ( !m_tcpServer->listen( QHostAddress( QHostAddress::LocalHost ), 12566 ) )
     {
     }
@@ -136,23 +138,27 @@ void FakeServer::addScenario(const QString& scenario, const QString& cookie )
 
 void FakeServer::addScenarioFromFile(const QString& fileName, const QString& cookie )
 {
-  QFile file( fileName );
-  file.open( QFile::ReadOnly );
-  QTextStream in(&file);
+    QFile file( fileName );
 
-  QString scenario;
+    if (!file.open( QFile::ReadOnly ))
+    {
+        return;
+    }
 
-  // When loading from files we never have the authentication phase
-  // force jumping directly to authenticated state.
+    QTextStream in(&file);
+    QString scenario;
 
-  while ( !in.atEnd() )
-  {
-        scenario.append( in.readLine() );
-  }
+    // When loading from files we never have the authentication phase
+    // force jumping directly to authenticated state.
 
-  file.close();
+    while ( !in.atEnd() )
+    {
+            scenario.append( in.readLine() );
+    }
 
-  addScenario( scenario , cookie);
+    file.close();
+
+    addScenario( scenario , cookie);
 }
 
 bool FakeServer::isScenarioDone( int scenarioNumber ) const
@@ -180,6 +186,6 @@ bool FakeServer::isAllScenarioDone() const
             return false;
         }
     }
-    
+
     return true;
 }
