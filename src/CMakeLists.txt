@@ -25,7 +25,7 @@ add_library(KF5MediaWiki ${mediawiki_SRCS})
 generate_export_header(KF5MediaWiki BASE_NAME MediaWiki)
 add_library(KF5::MediaWiki ALIAS KF5MediaWiki)
 
-target_include_directories(KF5MediaWiki INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/MediaWiki>")
+target_include_directories(KF5MediaWiki INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/MediaWiki>")
 
 target_link_libraries(KF5MediaWiki
     PRIVATE
@@ -73,7 +73,7 @@ install(TARGETS KF5MediaWiki
 install(FILES
             ${CMAKE_CURRENT_BINARY_DIR}/mediawiki_export.h
             ${MediaWiki_HEADERS}
-        DESTINATION ${INCLUDE_INSTALL_DIR}/MediaWiki
+	    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/MediaWiki
         COMPONENT Devel)
 
 include(ECMGeneratePriFile)

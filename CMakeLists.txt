@@ -69,7 +69,7 @@ install(EXPORT KF5MediaWikiTargets
         NAMESPACE KF5::)
 
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mediawiki_version.h"
-        DESTINATION "${INCLUDE_INSTALL_DIR}"
+	DESTINATION "${KF5_INCLUDE_INSTALL_DIR}"
         COMPONENT Devel)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
