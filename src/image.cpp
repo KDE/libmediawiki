@@ -36,7 +36,7 @@
 namespace mediawiki
 {
 
-class Image::ImagePrivate
+class Q_DECL_HIDDEN Image::ImagePrivate
 {
 public:
 

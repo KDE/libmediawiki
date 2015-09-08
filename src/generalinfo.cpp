@@ -38,7 +38,7 @@
 namespace mediawiki
 {
 
-class Generalinfo::GeneralinfoPrivate
+class Q_DECL_HIDDEN Generalinfo::GeneralinfoPrivate
 {
 public:
 

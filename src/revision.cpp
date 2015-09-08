@@ -34,7 +34,7 @@
 namespace mediawiki
 {
 
-class Revision::RevisionPrivate
+class Q_DECL_HIDDEN Revision::RevisionPrivate
 {
 public:
 

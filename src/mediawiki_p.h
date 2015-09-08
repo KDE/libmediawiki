@@ -37,7 +37,7 @@
 namespace mediawiki
 {
 
-class MediaWiki::MediaWikiPrivate
+class Q_DECL_HIDDEN MediaWiki::MediaWikiPrivate
 {
 
 public:

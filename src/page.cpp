@@ -38,7 +38,7 @@
 namespace mediawiki
 {
 
-class Page::PagePrivate
+class Q_DECL_HIDDEN Page::PagePrivate
 {
 public:
 

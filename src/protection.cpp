@@ -31,7 +31,7 @@
 namespace mediawiki
 {
 
-class Protection::ProtectionPrivate
+class Q_DECL_HIDDEN Protection::ProtectionPrivate
 {
 public:
 

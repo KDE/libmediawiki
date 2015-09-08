@@ -34,7 +34,7 @@
 namespace mediawiki
 {
 
-class UserGroup::UserGroupPrivate
+class Q_DECL_HIDDEN UserGroup::UserGroupPrivate
 {
 public:
 
