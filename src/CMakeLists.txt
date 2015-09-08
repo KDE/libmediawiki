@@ -65,7 +65,6 @@ ecm_generate_headers(MediaWiki_CamelCase_HEADERS
                      Upload
                      UserGroup
 
-                     PREFIX           MediaWiki
                      REQUIRED_HEADERS MediaWiki_HEADERS
 )
 
@@ -77,6 +76,7 @@ install(TARGETS KF5MediaWiki
 install(FILES
             ${CMAKE_CURRENT_BINARY_DIR}/mediawiki_export.h
             ${MediaWiki_HEADERS}
+            ${MediaWiki_CamelCase_HEADERS}
         DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/MediaWiki
         COMPONENT Devel)
 
