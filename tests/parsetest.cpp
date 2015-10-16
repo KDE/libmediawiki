@@ -26,11 +26,10 @@
 #ifndef TEST_PARSE_H
 #define TEST_PARSE_H
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QtTest/QtTest>
-#include <QDebug>
 
-#include <kjob.h>
+#include <KCoreAddons/KJob>
 
 #include "mediawiki.h"
 #include "parse.h"
@@ -46,7 +45,10 @@ Q_DECLARE_METATYPE(Parse*)
 QString QStringFromFile(const QString& fileName)
 {
     QFile file( fileName );
-    file.open( QFile::ReadOnly );
+
+    if (!file.open( QFile::ReadOnly ))
+        return QString();
+    
     QTextStream in(&file);
     QString scenario;
     // When loading from files we never have the authentication phase
@@ -78,18 +80,18 @@ public Q_SLOTS:
         parseResult = result;
     }
 
-private slots:
+private Q_SLOTS:
 
     void initTestCase()
     {
         parseCount        = 0;
-        this->m_mediaWiki = new MediaWiki(QUrl("http://127.0.0.1:12566"));
+        this->m_mediaWiki = new MediaWiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
     }
 
     void result()
     {
-        QString scenario = QStringFromFile("./parsetest_result.rc");
-        QString result   = QStringFromFile("./parsetest_resulttrue.rc");
+        QString scenario = QStringFromFile(QStringLiteral("./parsetest_result.rc"));
+        QString result   = QStringFromFile(QStringLiteral("./parsetest_resulttrue.rc"));
 
         Parse* const job = new Parse(*m_mediaWiki, NULL);
         parseCount = 0;
@@ -124,7 +126,7 @@ private slots:
 
         job->exec();
         FakeServer::Request serverrequest = fakeserver.getRequest()[0];
-        QCOMPARE(serverrequest.type, QString("GET"));
+        QCOMPARE(serverrequest.type, QStringLiteral("GET"));
         QCOMPARE(serverrequest.value, request);        
         QCOMPARE(this->parseCount, 1);
     }
@@ -136,35 +138,35 @@ private slots:
         QTest::addColumn<Parse*>("job");
 
         Parse* const p1 = new Parse( *m_mediaWiki, NULL);
-        p1->setText("listedecharacteres");
+        p1->setText(QStringLiteral("listedecharacteres"));
 
         QTest::newRow("Text")
-                << QStringFromFile("./parsetest.rc")
-                << "?format=xml&action=parse&text=listedecharacteres"
+                << QStringFromFile(QStringLiteral("./parsetest.rc"))
+                << QStringLiteral("/?format=xml&action=parse&text=listedecharacteres")
                 << p1;
 
         Parse* const p2 = new Parse( *m_mediaWiki, NULL);
-        p2->setPageName("listedecharacteres");
+        p2->setPageName(QStringLiteral("listedecharacteres"));
 
         QTest::newRow("Page Name")
-                << QStringFromFile("./parsetest.rc")
-                << "?format=xml&action=parse&page=listedecharacteres"
+                << QStringFromFile(QStringLiteral("./parsetest.rc"))
+                << QStringLiteral("/?format=xml&action=parse&page=listedecharacteres")
                 << p2;
 
         Parse* const p3 = new Parse( *m_mediaWiki, NULL);
-        p3->setTitle("listedecharacteres");
+        p3->setTitle(QStringLiteral("listedecharacteres"));
 
         QTest::newRow("Title")
-                << QStringFromFile("./parsetest.rc")
-                << "?format=xml&action=parse&title=listedecharacteres"
+                << QStringFromFile(QStringLiteral("./parsetest.rc"))
+                << QStringLiteral("/?format=xml&action=parse&title=listedecharacteres")
                 << p3;
 
         Parse* const p4 = new Parse( *m_mediaWiki, NULL);
-        p4->setUseLang("fr");
+        p4->setUseLang(QStringLiteral("fr"));
 
         QTest::newRow("User Langue")
-                << QStringFromFile("./parsetest.rc")
-                << "?format=xml&action=parse&uselang=fr"
+                << QStringFromFile(QStringLiteral("./parsetest.rc"))
+                << QStringLiteral("/?format=xml&action=parse&uselang=fr")
                 << p4;
     }
 
@@ -175,21 +177,21 @@ private slots:
         parseCount = 0;
         FakeServer fakeserver;
 
-        if(scenario != QString("error serveur"))
+        if(scenario != QStringLiteral("error serveur"))
         {
             fakeserver.addScenario(scenario);
             fakeserver.startAndWait();
         }
 
         Parse* const job = new Parse(*m_mediaWiki);
-        job->setTitle( "title" );
+        job->setTitle( QStringLiteral("title") );
 
         connect(job, SIGNAL(result(KJob*)),
                 this, SLOT(parseHandle(KJob*)));
 
         job->exec();
 
-        if(scenario != QString("error serveur"))
+        if(scenario != QStringLiteral("error serveur"))
         {
             QList<FakeServer::Request> requests = fakeserver.getRequest();
             QCOMPARE(requests.size(), 1);
@@ -198,7 +200,7 @@ private slots:
         QCOMPARE(job->error(), error);
         QCOMPARE(parseCount, 1);
 
-        if(scenario != QString("error serveur"))
+        if(scenario != QStringLiteral("error serveur"))
         {
             QVERIFY(fakeserver.isAllScenarioDone());
         }
@@ -210,19 +212,19 @@ private slots:
         QTest::addColumn<int>("error");
 
         QTest::newRow("XML")
-                << "<?xml version=\"1.0\" encoding=\"utf-8\"?><api><parse><text>"
+                << QStringLiteral("<?xml version=\"1.0\" encoding=\"utf-8\"?><api><parse><text>")
                 << int(Parse::XmlError);
 
         QTest::newRow("Network")
-                << "error serveur"
+                << QStringLiteral("error serveur")
                 << int(Parse::NetworkError);
 
         QTest::newRow("Params")
-                << "<api><error code=\"params\" info=\"\"/></api>"
+                << QStringLiteral("<api><error code=\"params\" info=\"\"/></api>")
                 << int(Parse::TooManyParams);
 
         QTest::newRow("Missing Title")
-                << "<api><error code=\"missingtitle\" info=\"\"/></api>"
+                << QStringLiteral("<api><error code=\"missingtitle\" info=\"\"/></api>")
                 << int(Parse::MissingPage);
     }
 

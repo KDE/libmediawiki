@@ -1,0 +1,13 @@
+maintainer: adrianchavesfernandez
+description: MediaWiki API
+tier: 2
+type: functional
+platforms:
+    - name: All
+portingAid: true
+deprecated: false
+release: false
+libraries:
+    - qmake: MediaWiki
+      cmake: "KF5::MediaWiki"
+cmakename: KF5MediaWiki

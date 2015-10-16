@@ -26,10 +26,10 @@
 #ifndef TEST_LOGOUT_H
 #define TEST_LOGOUT_H
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QtTest/QtTest>
 
-#include <kjob.h>
+#include <KCoreAddons/KJob>
 
 #include "mediawiki.h"
 #include "logout.h"
@@ -42,7 +42,7 @@ class LogoutTest : public QObject
 {
     Q_OBJECT
 
-public slots:
+public Q_SLOTS:
 
     void logoutHandle(KJob* job) {
         Q_UNUSED(job)
@@ -54,15 +54,15 @@ private Q_SLOTS:
     void initTestCase()
     {
         logoutCount = 0;
-        this->m_mediaWiki = new MediaWiki(QUrl("http://127.0.0.1:12566"));
+        this->m_mediaWiki = new MediaWiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
         this->m_server = new FakeServer;
-        this->request = "?format=xml&action=logout";
+        this->request = QStringLiteral("/?format=xml&action=logout");
     }
 
     void logoutTestConnectTrue()
     {
-        QString senario("<api />" );
-        QString cookie( "cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" expires=\"Sat, 12-Feb-2011 21:39:30 GMT\"");
+        QString senario(QStringLiteral("<api />") );
+        QString cookie( QStringLiteral("cookieprefix=\"enwiki\" sessionid=\"17ab96bd8ffbe8ca58a78657a918558e\" expires=\"Sat, 12-Feb-2011 21:39:30 GMT\""));
         m_server->setScenario(senario, cookie);
         m_server->startAndWait();
 
@@ -78,8 +78,8 @@ private Q_SLOTS:
 
         FakeServer::Request request = requests[0];
         QCOMPARE(request.agent, m_mediaWiki->userAgent());
-        QCOMPARE(request.type, QString("GET"));
-        QCOMPARE(request.value, QString("?format=xml&action=logout"));
+        QCOMPARE(request.type, QStringLiteral("GET"));
+        QCOMPARE(request.value, QStringLiteral("/?format=xml&action=logout"));
     }
 
     void cleanupTestCase()

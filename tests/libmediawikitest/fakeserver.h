@@ -26,20 +26,14 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <QObject>
-#include <QStringList>
-#include <QList>
-#include <QString>
-#include <QTcpSocket>
-#include <QThread>
-#include <QMutex>
-
-QT_BEGIN_NAMESPACE
-class QTcpServer;
-class QNetworkSession;
-QT_END_NAMESPACE
-
-//! [0]
+#include <QtCore/QList>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QThread>
+#include <QtNetwork/QTcpServer>
+#include <QtNetwork/QTcpSocket>
 
 class FakeServer : QThread
 {
@@ -69,9 +63,9 @@ public:
     void startAndWait();
     virtual void run();
 
-    void setScenario( const QString& scenario, const QString& cookie = QString("empty"));
-    void addScenario( const QString& scenario, const QString& cookie = QString("empty"));
-    void addScenarioFromFile( const QString& fileName, const QString& cookie = QString("empty"));
+    void setScenario( const QString& scenario, const QString& cookie = QStringLiteral("empty"));
+    void addScenario( const QString& scenario, const QString& cookie = QStringLiteral("empty"));
+    void addScenarioFromFile( const QString& fileName, const QString& cookie = QStringLiteral("empty"));
 
     bool isScenarioDone( int scenarioNumber ) const;
     bool isAllScenarioDone() const;

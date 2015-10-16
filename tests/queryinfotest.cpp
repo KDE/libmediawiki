@@ -26,11 +26,10 @@
 #ifndef TEST_QUERYINFO_H
 #define TEST_QUERYINFO_H
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QtTest/QtTest>
 
-#include <kjob.h>
-#include <kdebug.h>
+#include <KCoreAddons/KJob>
 
 #include "mediawiki.h"
 #include "queryinfo.h"
@@ -47,35 +46,6 @@ Q_DECLARE_METATYPE(Page)
 Q_DECLARE_METATYPE(Protection)
 Q_DECLARE_METATYPE(QueryInfo*)
 Q_DECLARE_METATYPE(QVector <Protection>)
-
-void debugPages(Page p)
-{
-    kDebug() << p.pageId();
-    kDebug() << p.pageTitle();
-    kDebug() << p.pageNs();
-    kDebug() << p.pageLastRevId();
-    kDebug() << p.pageCounter();
-    kDebug() << p.pageLength();
-    kDebug() << p.pageEditToken();
-    kDebug() << p.pageTalkid();
-    kDebug() << p.pageFullurl();
-    kDebug() << p.pageEditurl();
-    kDebug() << p.pageReadable();
-    kDebug() << p.pagePreload();
-    kDebug() << p.pageTouched();
-    kDebug() << p.pageStarttimestamp();
-}
-
-void debugProtection(QVector <Protection> p)
-{
-    foreach(const Protection& pr, p)
-    {
-        kDebug() << pr.type();
-        kDebug() << pr.level();
-        kDebug() << pr.expiry();
-        kDebug() << pr.source();
-    }
-}
 
 class QueryInfoTest : public QObject
 {
@@ -100,7 +70,7 @@ private Q_SLOTS:
     void initTestCase()
     {
         queryInfoCount    = 0;
-        this->m_mediaWiki = new MediaWiki(QUrl("http://127.0.0.1:12566"));
+        this->m_mediaWiki = new MediaWiki(QUrl(QStringLiteral("http://127.0.0.1:12566")));
     }
 
     void constructQuery()
@@ -119,7 +89,7 @@ private Q_SLOTS:
 
         FakeServer::Request requestServeur = requests[0];
         QCOMPARE(requestServeur.agent, m_mediaWiki->userAgent());
-        QCOMPARE(requestServeur.type, QString("GET"));
+        QCOMPARE(requestServeur.type, QStringLiteral("GET"));
         QCOMPARE(requestServeur.value, request);
     }
 
@@ -129,31 +99,31 @@ private Q_SLOTS:
         QTest::addColumn<QueryInfo*>("job");
 
         QueryInfo* const j1 = new QueryInfo(*m_mediaWiki);
-        j1->setPageName("API");
+        j1->setPageName(QStringLiteral("API"));
 
         QTest::newRow("Name pages")
-                << QString("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&titles=API")
+                << QStringLiteral("/?format=xml&action=query&prop=info&inprop=protection%7Ctalkid%7Cwatched%7Csubjectid%7Curl%7Creadable%7Cpreload&titles=API")
                 << j1;
 
         QueryInfo* const j2 = new QueryInfo(*m_mediaWiki);
-        j2->setToken( "cecded1f35005d22904a35cc7b736e18+\\" );
+        j2->setToken( QStringLiteral("cecded1f35005d22904a35cc7b736e18+\\") );
 
         QTest::newRow("Token")
-                << QString("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&intoken=cecded1f35005d22904a35cc7b736e18+\\")
+                << QStringLiteral("/?format=xml&action=query&prop=info&inprop=protection%7Ctalkid%7Cwatched%7Csubjectid%7Curl%7Creadable%7Cpreload&intoken=cecded1f35005d22904a35cc7b736e18+%5C")
                 << j2;
 
         QueryInfo* const j3 = new QueryInfo(*m_mediaWiki);
         j3->setPageId(25255);
 
         QTest::newRow("Page Id")
-                << QString("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&pageids=25255")
+                << QStringLiteral("/?format=xml&action=query&prop=info&inprop=protection%7Ctalkid%7Cwatched%7Csubjectid%7Curl%7Creadable%7Cpreload&pageids=25255")
                 << j3;
 
         QueryInfo *j4 = new QueryInfo(*m_mediaWiki);
         j4->setRevisionId(44545);
 
         QTest::newRow("Revision Id")
-                << QString("?format=xml&action=query&prop=info&inprop=protection|talkid|watched|subjectid|url|readable|preload&revids=44545")
+                << QStringLiteral("/?format=xml&action=query&prop=info&inprop=protection%7Ctalkid%7Cwatched%7Csubjectid%7Curl%7Creadable%7Cpreload&revids=44545")
                 << j4;
     }
 
@@ -193,45 +163,45 @@ private Q_SLOTS:
         QTest::addColumn< QVector<Protection> >("protections");
 
         Protection pr1;
-        pr1.setType("edit");
-        pr1.setLevel("sysop");
-        pr1.setExpiry("infinity");
-        pr1.setSource("");
+        pr1.setType(QStringLiteral("edit"));
+        pr1.setLevel(QStringLiteral("sysop"));
+        pr1.setExpiry(QStringLiteral("infinity"));
+        pr1.setSource(QString());
 
         Protection pr2;
-        pr2.setType("move");
-        pr2.setLevel("sysop");
-        pr2.setExpiry("infinity");
-        pr2.setSource("");
+        pr2.setType(QStringLiteral("move"));
+        pr2.setLevel(QStringLiteral("sysop"));
+        pr2.setExpiry(QStringLiteral("infinity"));
+        pr2.setSource(QString());
 
         Page page;
         page.setPageId(27697087);
-        page.setTitle("API");
+        page.setTitle(QStringLiteral("API"));
         page.setNs(0);
-        page.setTouched( QDateTime::fromString("2010-11-25T13:59:03Z", "yyyy'-'MM'-'dd'T'hh':'mm':'ss'Z'") );
+        page.setTouched( QDateTime::fromString(QStringLiteral("2010-11-25T13:59:03Z"), QStringLiteral("yyyy'-'MM'-'dd'T'hh':'mm':'ss'Z'")) );
         page.setLastRevId(367741756);
         page.setCounter(0);
         page.setLength(70);
-        page.setStarttimestamp(QDateTime::fromString("2010-11-25T16:14:51Z", "yyyy'-'MM'-'dd'T'hh':'mm':'ss'Z'"));
-        page.setEditToken("+\\");
+        page.setStarttimestamp(QDateTime::fromString(QStringLiteral("2010-11-25T16:14:51Z"), QStringLiteral("yyyy'-'MM'-'dd'T'hh':'mm':'ss'Z'")));
+        page.setEditToken(QStringLiteral("+\\"));
         page.setTalkid(5477418);
-        page.setFullurl(QUrl("http://en.wikipedia.org/wiki/API"));
-        page.setEditurl(QUrl("http://en.wikipedia.org/w/index.php?title=API&action=edit"));
-        page.setReadable("");
-        page.setPreload("");
+        page.setFullurl(QUrl(QStringLiteral("http://en.wikipedia.org/wiki/API")));
+        page.setEditurl(QUrl(QStringLiteral("http://en.wikipedia.org/w/index.php?title=API&action=edit")));
+        page.setReadable(QString());
+        page.setPreload(QString());
 
         QTest::newRow("No protection")
-                << "<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"+\\\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection /></page></pages></query></api>"
+                << QStringLiteral("<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"+\\\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection /></page></pages></query></api>")
                 << page
                 << QVector<Protection>();
 
         QTest::newRow("One pages and one protection")
-                << "<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"+\\\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection><pr type=\"edit\" level=\"sysop\" expiry=\"infinity\"/></protection></page></pages></query></api>"
+                << QStringLiteral("<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"+\\\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection><pr type=\"edit\" level=\"sysop\" expiry=\"infinity\"/></protection></page></pages></query></api>")
                 << page
                 << (QVector<Protection>() << pr1);
 
         QTest::newRow("One pages and two protection")
-                << "<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"+\\\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection><pr type=\"edit\" level=\"sysop\" expiry=\"infinity\"/><pr type=\"move\" level=\"sysop\" expiry=\"infinity\"/></protection></page></pages></query></api>"
+                << QStringLiteral("<api><query><pages><page pageid=\"27697087\" ns=\"0\" title=\"API\" touched=\"2010-11-25T13:59:03Z\" lastrevid=\"367741756\" counter=\"0\" length=\"70\" redirect=\"\" starttimestamp=\"2010-11-25T16:14:51Z\" edittoken=\"+\\\" talkid=\"5477418\" fullurl=\"http://en.wikipedia.org/wiki/API\" editurl=\"http://en.wikipedia.org/w/index.php?title=API&action=edit\" ><protection><pr type=\"edit\" level=\"sysop\" expiry=\"infinity\"/><pr type=\"move\" level=\"sysop\" expiry=\"infinity\"/></protection></page></pages></query></api>")
                 << page
                 << (QVector<Protection>() << pr1 << pr2);
     }

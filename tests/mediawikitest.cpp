@@ -57,10 +57,10 @@ private Q_SLOTS:
         QTest::addColumn<QString>("customUserAgent");
         QTest::addColumn<QString>("userAgent");
 
-        QTest::newRow("") << QUrl("http://127.0.0.1:12566") << QString() << "mediawiki-silk";
-        QTest::newRow("") << QUrl("commons.wikimedia.org/w/api.php") << "" << "mediawiki-silk";
-        QTest::newRow("") << QUrl("http://commons.wikimedia.org/w/api.php") << "test1" << "test1-mediawiki-silk";
-        QTest::newRow("") << QUrl("http://commons.wikimedia.org/w/api.php/") << "test2" << "test2-mediawiki-silk";
+        QTest::newRow("") << QUrl(QStringLiteral("http://127.0.0.1:12566")) << QString() << QStringLiteral("mediawiki-silk");
+        QTest::newRow("") << QUrl(QStringLiteral("commons.wikimedia.org/w/api.php")) << QString() << QStringLiteral("mediawiki-silk");
+        QTest::newRow("") << QUrl(QStringLiteral("http://commons.wikimedia.org/w/api.php")) << QStringLiteral("test1") << QStringLiteral("test1-mediawiki-silk");
+        QTest::newRow("") << QUrl(QStringLiteral("http://commons.wikimedia.org/w/api.php/")) << QStringLiteral("test2") << QStringLiteral("test2-mediawiki-silk");
     }
 
 };
