@@ -40,6 +40,7 @@ find_package(KF5DocTools ${KF5_VERSION} REQUIRED)
 # Translations
 add_definitions(-DTRANSLATION_DOMAIN=\"mediawiki5\")
 if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
+    find_package(KF5DocTools ${KF5_VERSION} REQUIRED)
     kdoctools_install(po)
 endif()
 
