@@ -35,7 +35,6 @@ set(REQUIRED_QT_VERSION "5.2.0")
 # Required Qt5 components to build this framework
 find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
 find_package(KF5CoreAddons ${KF5_VERSION} REQUIRED)
-find_package(KF5DocTools ${KF5_VERSION} REQUIRED)
 
 # Translations
 add_definitions(-DTRANSLATION_DOMAIN=\"mediawiki5\")
