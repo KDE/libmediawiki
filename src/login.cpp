@@ -114,13 +114,13 @@ void Login::doWorkSendRequest()
 
     // Set the url
     QUrl url = d->mediawiki.url();
+    d->baseUrl = url;
+
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
     query.addQueryItem(QStringLiteral("action"), QStringLiteral("login"));
     query.addQueryItem(QStringLiteral("lgname"), d->login);
     query.addQueryItem(QStringLiteral("lgpassword"), d->password);
-    url.setQuery(query);
-    d->baseUrl = url;
 
     // Set the request
     QNetworkRequest request(url);
@@ -128,8 +128,8 @@ void Login::doWorkSendRequest()
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
 
     // Send the request
-    d->reply = d->manager->post(request, url.toString().toUtf8());
-    connect(d->reply, SIGNAL(finished()), 
+    d->reply = d->manager->post(request, query.toString().toUtf8());
+    connect(d->reply, SIGNAL(finished()),
             this, SLOT(doWorkProcessReply()));
 }
 
@@ -245,11 +245,14 @@ void Login::doWorkProcessReply()
     d->reply->close();
     d->reply->deleteLater();
 
-    QUrl url     = d->baseUrl;
+    QUrl url = d->baseUrl;
+
     QUrlQuery query;
+    query.addQueryItem(QStringLiteral("format"), QStringLiteral("xml"));
+    query.addQueryItem(QStringLiteral("action"), QStringLiteral("login"));
+    query.addQueryItem(QStringLiteral("lgname"), d->login);
+    query.addQueryItem(QStringLiteral("lgpassword"), d->password);
     query.addQueryItem(QStringLiteral("lgtoken"), d->lgtoken);
-    url.setQuery(query);
-    QString data = url.toString();
 
     // Set the request
     QNetworkRequest request(url);
@@ -258,10 +261,10 @@ void Login::doWorkProcessReply()
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
 
     // Send the request
-    d->reply = d->manager->post(request, data.toUtf8());
+    d->reply = d->manager->post(request, query.toString().toUtf8());
     connectReply();
 
-    connect(d->reply, SIGNAL(finished()), 
+    connect(d->reply, SIGNAL(finished()),
             this, SLOT(doWorkProcessReply()));
 }
 
