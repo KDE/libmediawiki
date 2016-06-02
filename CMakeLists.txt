@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2010-2015, Gilles Caulier, <caulier dot gilles at gmail dot com>
+# Copyright (c) 2010-2016, Gilles Caulier, <caulier dot gilles at gmail dot com>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
@@ -35,13 +35,6 @@ set(REQUIRED_QT_VERSION "5.2.0")
 # Required Qt5 components to build this framework
 find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
 find_package(KF5CoreAddons ${KF5_VERSION} REQUIRED)
-
-# Translations
-add_definitions(-DTRANSLATION_DOMAIN=\"mediawiki5\")
-if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
-    find_package(KF5DocTools ${KF5_VERSION} REQUIRED)
-    kdoctools_install(po)
-endif()
 
 # Subdirectories
 add_subdirectory(src)
