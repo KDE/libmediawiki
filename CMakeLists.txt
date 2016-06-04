@@ -4,33 +4,40 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-cmake_minimum_required(VERSION 3.0.0)
-
 project(MediaWiki)
 
-# ECM setup
-find_package(ECM 0.0.10 REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+message(STATUS "----------------------------------------------------------------------------------")
+message(STATUS "Starting CMake configuration for: ${PROJECT_NAME}")
 
-include(FeatureSummary)
-include(GenerateExportHeader)
-include(ECMSetupVersion)
+set(CMAKE_MIN_VERSION   "2.8.12")
+set(ECM_MIN_VERSION     "1.5.0")
+set(KF5_VERSION         "5.5.0")
+set(REQUIRED_QT_VERSION "5.2.0")
+
+cmake_minimum_required(VERSION ${CMAKE_MIN_VERSION})
+
+############## ECM setup #################################################################################################################
+
+find_package(ECM ${ECM_MIN_VERSION} CONFIG REQUIRED)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+
 include(ECMGenerateHeaders)
-include(ECMPackageConfigHelpers)
+include(ECMGeneratePriFile)
+include(ECMSetupVersion)
+include(ECMMarkNonGuiExecutable)
+include(ECMOptionalAddSubdirectory)
 include(KDEInstallDirs)
-include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
-
-set(KF5_VERSION "5.5.0")
+include(KDEFrameworkCompilerSettings)
+include(CMakePackageConfigHelpers)
+include(GenerateExportHeader)
+include(FeatureSummary)
 
 ecm_setup_version(${KF5_VERSION}
     VARIABLE_PREFIX MEDIAWIKI
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/mediawiki_version.h"
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5MediaWikiConfigVersion.cmake"
 )
-
-# Dependencies
-set(REQUIRED_QT_VERSION "5.2.0")
 
 # Required Qt5 components to build this framework
 find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
