@@ -29,7 +29,7 @@ include(ECMOptionalAddSubdirectory)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
-include(CMakePackageConfigHelpers)
+include(ECMPackageConfigHelpers)
 include(GenerateExportHeader)
 include(FeatureSummary)
 
