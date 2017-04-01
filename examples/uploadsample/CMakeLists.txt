@@ -28,3 +28,4 @@ target_link_libraries(UploadSample
         KF5::MediaWiki
         KF5::CoreAddons
 )
+set_target_properties(UploadSample PROPERTIES COMPILE_FLAGS "-std=c++11")

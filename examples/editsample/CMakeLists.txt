@@ -28,3 +28,4 @@ target_link_libraries(EditSample
         KF5::MediaWiki
         KF5::CoreAddons
 )
+set_target_properties(EditSample PROPERTIES COMPILE_FLAGS "-std=c++11")

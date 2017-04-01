@@ -37,7 +37,7 @@
       <item row="0" column="1" colspan="3">
        <widget class="QLineEdit" name="mWikiEdit">
         <property name="text">
-         <string>http://test.wikipedia.org/w/api.php</string>
+         <string>https://test.wikipedia.org/w/api.php</string>
         </property>
        </widget>
       </item>

@@ -34,7 +34,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
-      mediawiki(QUrl("http://test.wikipedia.org/w/api.php"))
+      mediawiki(QUrl("https://test.wikipedia.org/w/api.php"))
 {
     ui->setupUi(this);
     init();
