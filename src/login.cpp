@@ -7,6 +7,8 @@
  * @date   2011-03-22
  * @brief  a MediaWiki C++ interface for KDE
  *
+ * @author Copyright (C) 2016-2017 by Peter Potrowl
+ *         <a href="mailto:peter dot potrowl at gmail dot com">peter dot potrowl at gmail dot com</a>
  * @author Copyright (C) 2011-2012 by Gilles Caulier
  *         <a href="mailto:caulier dot gilles at gmail dot com">caulier dot gilles at gmail dot com</a>
  * @author Copyright (C) 2011 by Manuel Campomanes
@@ -215,7 +217,15 @@ void Login::doWorkProcessReply()
                         d->manager->cookieJar()->setCookiesFromUrl(cookies, d->mediawiki.url());
                     }
                 }
-                else
+                else if (attrs.value(QStringLiteral("result")).toString() == QLatin1String("WrongToken"))
+                {
+                    this->setError(LoginPrivate::error(attrs.value(QStringLiteral("result")).toString()));
+                    d->reply->close();
+                    d->reply->deleteLater();
+                    emitResult();
+                    return;
+                }
+                else if (attrs.value(QStringLiteral("result")).toString() == QLatin1String("Failed"))
                 {
                     this->setError(LoginPrivate::error(attrs.value(QStringLiteral("result")).toString()));
                     d->reply->close();
@@ -252,7 +262,7 @@ void Login::doWorkProcessReply()
     query.addQueryItem(QStringLiteral("action"), QStringLiteral("login"));
     query.addQueryItem(QStringLiteral("lgname"), d->login);
     query.addQueryItem(QStringLiteral("lgpassword"), d->password);
-    query.addQueryItem(QStringLiteral("lgtoken"), d->lgtoken);
+    query.addQueryItem(QStringLiteral("lgtoken"), (d->lgtoken).replace(QStringLiteral("+"), QStringLiteral("%2B")));
 
     // Set the request
     QNetworkRequest request(url);
