@@ -37,6 +37,4 @@ See the AUTHORS file for details.
 
 ## Links
 
-- Mailing list: <https://mail.kde.org/mailman/listinfo/kde-imaging>
-- IRC channel: #kde-imaging on Freenode
-- Git repository: <https://projects.kde.org/projects/frameworks/mediawiki/repository>
+- Git repository: https://cgit.kde.org/libmediawiki.git
