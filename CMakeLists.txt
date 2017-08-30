@@ -15,7 +15,7 @@ set(KF5_VERSION         "5.5.0")
 set(REQUIRED_QT_VERSION "5.2.0")
 
 # Used to set library's SONAME, change first digit on API/ABI break
-set(LIBMEDIAWIKI_LIBVERSION         "5.5.0")
+set(LIBMEDIAWIKI_LIBVERSION         "5.37.0")
 
 cmake_minimum_required(VERSION ${CMAKE_MIN_VERSION})
 
