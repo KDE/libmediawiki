@@ -14,6 +14,9 @@ set(ECM_MIN_VERSION     "1.5.0")
 set(KF5_VERSION         "5.5.0")
 set(REQUIRED_QT_VERSION "5.2.0")
 
+# Used to set library's SONAME, change first digit on API/ABI break
+set(LIBMEDIAWIKI_LIBVERSION         "5.5.0")
+
 cmake_minimum_required(VERSION ${CMAKE_MIN_VERSION})
 
 ############## ECM setup #################################################################################################################
@@ -33,7 +36,7 @@ include(ECMPackageConfigHelpers)
 include(GenerateExportHeader)
 include(FeatureSummary)
 
-ecm_setup_version(${KF5_VERSION}
+ecm_setup_version(${LIBMEDIAWIKI_LIBVERSION}
     VARIABLE_PREFIX MEDIAWIKI
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/mediawiki_version.h"
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5MediaWikiConfigVersion.cmake"
