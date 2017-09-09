@@ -73,7 +73,7 @@ public:
     /**
      * @brief Aborts this job quietly.
      */
-    virtual bool doKill();
+    bool doKill() Q_DECL_OVERRIDE;
 
 protected:
 

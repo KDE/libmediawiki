@@ -143,7 +143,7 @@ public:
     /**
      * @brief Starts the job asynchronously.
      */
-    virtual void start();
+    void start() Q_DECL_OVERRIDE;
 
     /**
      * @brief Set the target filename.

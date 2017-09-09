@@ -85,7 +85,7 @@ public:
 
     void setUseLang(const QString& param);
 
-    virtual void start();
+    void start() Q_DECL_OVERRIDE;
 
     Q_SIGNALS:
 
