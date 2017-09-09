@@ -46,11 +46,6 @@ ecm_setup_version(${LIBMEDIAWIKI_LIBVERSION}
 find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
 find_package(KF5CoreAddons ${KF5_VERSION} REQUIRED)
 
-# Remove Wsuggest-override GCC flag which generate a lots of compile warnings
-while(CMAKE_CXX_FLAGS MATCHES "-Wsuggest-override")
-    string(REPLACE "-Wsuggest-override" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-endwhile()
-
 # Subdirectories
 add_subdirectory(src)
 add_subdirectory(autotests)
