@@ -307,8 +307,8 @@ void QueryRevision::doWorkProcessReply()
                 while (count < 2)
                 {
                     if (replytmp[i] == QLatin1Char('"') && replytmp[i-1] != QLatin1Char('\\')) count++;
-                    if (replytmp[i] == QLatin1Char('<'))                          replytmp[i] = char(255);
-                    if (replytmp[i] == QLatin1Char('>'))                          replytmp[i] = char(254);
+                    if (replytmp[i] == QLatin1Char('<'))                          replytmp[i] = QChar(255);
+                    if (replytmp[i] == QLatin1Char('>'))                          replytmp[i] = QChar(254);
                     ++i;
                 }
             }
