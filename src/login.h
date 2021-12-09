@@ -120,7 +120,7 @@ public:
      * @param password the QObject parent
      * @param parent the QObject parent
      */
-    explicit Login(MediaWiki& mediawiki, const QString& login, const QString& password, QObject* const parent = 0);
+    explicit Login(MediaWiki& mediawiki, const QString& login, const QString& password, QObject* const parent = nullptr);
 
     /**
      * @brief Destroys the Login job.

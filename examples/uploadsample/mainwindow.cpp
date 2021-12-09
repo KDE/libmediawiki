@@ -142,7 +142,7 @@ void MainWindow::TotalUploadSize(KJob* job, qulonglong size)
 void MainWindow::on_parcourir_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, QLatin1String("Open Image"), "~", QLatin1String("Image Files (*.png *.jpg *.bmp *.jpeg *.gif)"));
-    if(fileName != NULL)
+    if(fileName != nullptr)
     {
         QPixmap preview(fileName);
         QSize size(preview.size());

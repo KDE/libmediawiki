@@ -133,7 +133,7 @@ public:
      * @brief Constructs an Upload job.
      * @param parent the QObject parent
      */
-    Upload(MediaWiki& mediawiki, QObject* const parent = 0);
+    Upload(MediaWiki& mediawiki, QObject* const parent = nullptr);
 
     /**
      * @brief Destroys the Upload job.

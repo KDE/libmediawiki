@@ -56,7 +56,7 @@ public:
     UploadPrivate(MediaWiki& mediawiki)
         : JobPrivate(mediawiki)
     {
-        file = 0;
+        file = nullptr;
     }
 
     static int error(const QString& error)

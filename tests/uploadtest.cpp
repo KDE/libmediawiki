@@ -87,7 +87,7 @@ private Q_SLOTS:
         QTest::addColumn<QString>("senario");
         QTest::addColumn<Upload*>("job");
 
-        Upload * e1 = new Upload( *m_mediaWiki, NULL);
+        Upload * e1 = new Upload( *m_mediaWiki, nullptr);
         e1->setFile(this->m_file);
         e1->setFilename(QStringLiteral("Test.jpeg"));
         e1->setComment(QStringLiteral("Test"));
@@ -113,7 +113,7 @@ private Q_SLOTS:
             fakeserver.startAndWait();
         }
 
-        Upload * job = new Upload(mediawiki, NULL);
+        Upload * job = new Upload(mediawiki, nullptr);
         job->setFile(this->m_file);
         job->setFilename(QStringLiteral("Test.jpeg"));
         job->setComment(QStringLiteral("Test"));

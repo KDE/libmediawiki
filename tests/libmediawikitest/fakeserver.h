@@ -57,7 +57,7 @@ public:
         }
     };
 
-    FakeServer(QObject* const parent = 0);
+    FakeServer(QObject* const parent = nullptr);
     ~FakeServer();
 
     void startAndWait();

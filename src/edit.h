@@ -169,7 +169,7 @@ public:
      * @brief Constructs an Edit job.
      * @param parent the QObject parent
      */
-    explicit Edit(MediaWiki& media, QObject* parent = 0);
+    explicit Edit(MediaWiki& media, QObject* parent = nullptr);
     /**
      * @brief Destroys the Edit job.
      */

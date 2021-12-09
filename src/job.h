@@ -82,7 +82,7 @@ protected:
      * @param dd a private class
      * @param parent the QObject parent
      */
-    Job(JobPrivate& dd, QObject* const parent = 0);
+    Job(JobPrivate& dd, QObject* const parent = nullptr);
 
     /**
      * @brief Connects signals of the reply object (in the private object) to

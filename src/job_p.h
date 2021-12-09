@@ -40,7 +40,7 @@ public:
     explicit JobPrivate(MediaWiki& mediawiki)
         : mediawiki(mediawiki),
           manager(mediawiki.manager()),
-          reply(0)
+          reply(nullptr)
     {
     }
 

@@ -74,7 +74,7 @@ public:
         MissingPage
     };
 
-    explicit Parse(MediaWiki& mediawiki, QObject* const parent = 0);
+    explicit Parse(MediaWiki& mediawiki, QObject* const parent = nullptr);
     virtual ~Parse();
 
     void setText(const QString& param);
