@@ -34,7 +34,7 @@ generate_export_header(KF5MediaWiki BASE_NAME MediaWiki)
 target_include_directories(KF5MediaWiki INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/MediaWiki>")
 
 target_link_libraries(KF5MediaWiki
-    PRIVATE
+    PUBLIC
         Qt5::Core
         Qt5::Network
         KF5::CoreAddons
@@ -84,7 +84,7 @@ include(ECMGeneratePriFile)
 ecm_generate_pri_file(
     BASE_NAME MediaWiki
     LIB_NAME KF5MediaWiki
-    DEPS "core network"
+    DEPS "core network KCoreAddons"
     FILENAME_VAR PRI_FILENAME
 )
 
