@@ -62,7 +62,7 @@ public:
     /**
      * @brief Destroys the UserGroups job.
      */
-    virtual ~QuerySiteinfoUsergroups();
+    ~QuerySiteinfoUsergroups() override;
 
     /**
      * @brief If true number of users of each user group is included
@@ -73,7 +73,7 @@ public:
     /**
      * @brief Starts the job asynchronously.
      */
-    void start() Q_DECL_OVERRIDE;
+    void start() override;
 
 Q_SIGNALS:
 

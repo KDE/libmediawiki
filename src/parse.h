@@ -75,7 +75,7 @@ public:
     };
 
     explicit Parse(MediaWiki& mediawiki, QObject* const parent = nullptr);
-    virtual ~Parse();
+    ~Parse() override;
 
     void setText(const QString& param);
 
@@ -85,7 +85,7 @@ public:
 
     void setUseLang(const QString& param);
 
-    void start() Q_DECL_OVERRIDE;
+    void start() override;
 
     Q_SIGNALS:
 

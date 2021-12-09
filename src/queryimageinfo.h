@@ -89,7 +89,7 @@ public:
     /**
      * @brief Destructs a query image info job.
      */
-    virtual ~QueryImageinfo();
+    ~QueryImageinfo() override;
 
     /**
      * @brief Set the title of the image requested.
@@ -148,7 +148,7 @@ public:
     /**
      * @brief Starts the job asynchronously.
      */
-    void start() Q_DECL_OVERRIDE;
+    void start() override;
 
 Q_SIGNALS:
 

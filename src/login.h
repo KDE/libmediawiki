@@ -125,12 +125,12 @@ public:
     /**
      * @brief Destroys the Login job.
      */
-    virtual ~Login();
+    ~Login() override;
 
     /**
      * @brief Starts the job asynchronously.
      */
-    void start() Q_DECL_OVERRIDE;
+    void start() override;
 
 private Q_SLOTS:
 

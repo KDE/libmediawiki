@@ -173,12 +173,12 @@ public:
     /**
      * @brief Destroys the Edit job.
      */
-    virtual ~Edit();
+    ~Edit() override;
 
     /**
      * @brief Starts the job asynchronously.
      */
-    void start() Q_DECL_OVERRIDE;
+    void start() override;
 
     /**
      * @brief Specify how the watchlist is affected by this edit.

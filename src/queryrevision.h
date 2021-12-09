@@ -145,12 +145,12 @@ public:
     /**
      * @brief Destroys the QueryRevision job.
      */
-    virtual ~QueryRevision();
+    ~QueryRevision() override;
 
     /**
      * @brief Starts the job asynchronously.
      */
-    void start() Q_DECL_OVERRIDE;
+    void start() override;
 
     /**
      * @brief Set the page id.
