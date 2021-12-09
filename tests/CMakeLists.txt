@@ -13,7 +13,7 @@ macro(mediawiki_executable_tests)
         add_executable(${_testname} ${_testname}.cpp libmediawikitest/fakeserver.cpp)
         target_link_libraries(${_testname} Qt5::Core Qt5::Test Qt5::Network KF5::MediaWiki KF5::CoreAddons)
         ecm_mark_as_test(${_testname})
-        add_test(libmediawiki-${_testname} ${_testname})
+        add_test(NAME libmediawiki-${_testname} COMMAND ${_testname})
     endforeach(_testname)
 endmacro()
 
