@@ -23,8 +23,8 @@
  *
  * ============================================================ */
 
-#include <QtCore/QObject>
-#include <QtTest/QTest>
+#include <QObject>
+#include <QTest>
 
 #include "libmediawikitest/fakeserver.h"
 

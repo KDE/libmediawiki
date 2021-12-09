@@ -27,7 +27,7 @@
 
 // Qt includes
 
-#include <QtWidgets/QApplication>
+#include <QApplication>
 
 // Local includes
 

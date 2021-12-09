@@ -26,14 +26,14 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <QtCore/QList>
-#include <QtCore/QMutex>
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QThread>
-#include <QtNetwork/QTcpServer>
-#include <QtNetwork/QTcpSocket>
+#include <QList>
+#include <QMutex>
+#include <QObject>
+#include <QString>
+#include <QStringList>
+#include <QThread>
+#include <QTcpServer>
+#include <QTcpSocket>
 
 class FakeServer : QThread
 {

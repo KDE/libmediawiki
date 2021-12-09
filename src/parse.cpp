@@ -32,13 +32,13 @@
 
 // Qt includes
 
-#include <QtCore/QTimer>
-#include <QtCore/QUrl>
-#include <QtCore/QUrlQuery>
-#include <QtCore/QXmlStreamReader>
+#include <QTimer>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QXmlStreamReader>
 
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 
 // Local includes
 

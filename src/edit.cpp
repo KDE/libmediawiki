@@ -32,17 +32,17 @@
 
 // Qt includes
 
-#include <QtCore/QTimer>
-#include <QtCore/QUrl>
-#include <QtCore/QUrlQuery>
-#include <QtCore/QXmlStreamReader>
-#include <QtCore/QCryptographicHash>
-#include <QtCore/QStringList>
+#include <QTimer>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QXmlStreamReader>
+#include <QCryptographicHash>
+#include <QStringList>
 
-#include <QtNetwork/QNetworkCookie>
-#include <QtNetwork/QNetworkCookieJar>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
+#include <QNetworkCookie>
+#include <QNetworkCookieJar>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 
 // Local includes
 

@@ -32,9 +32,9 @@
 
 // Qt includes
 
-#include <QtCore/QDateTime>
-#include <QtCore/QList>
-#include <QtCore/QString>
+#include <QDateTime>
+#include <QList>
+#include <QString>
 
 // Local includes
 

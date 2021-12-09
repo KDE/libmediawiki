@@ -32,8 +32,8 @@
 
 // Qt includes
 
-#include <QtCore/QList>
-#include <QtCore/QString>
+#include <QList>
+#include <QString>
 
 // Local includes
 

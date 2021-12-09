@@ -29,17 +29,17 @@
 
 // Qt includes
 
-#include <QtCore/QFile>
-#include <QtCore/QStringList>
-#include <QtCore/QTimer>
-#include <QtCore/QUrl>
-#include <QtCore/QUrlQuery>
-#include <QtCore/QXmlStreamReader>
+#include <QFile>
+#include <QStringList>
+#include <QTimer>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QXmlStreamReader>
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkCookie>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
+#include <QNetworkAccessManager>
+#include <QNetworkCookie>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 
 // Local includes
 #include "job_p.h"

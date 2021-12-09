@@ -26,10 +26,10 @@
 #ifndef TEST_UPLOAD_H
 #define TEST_UPLOAD_H
 
-#include <QtCore/QObject>
-#include <QtTest/QtTest>
+#include <QObject>
+#include <QtTest>
 
-#include <KCoreAddons/KJob>
+#include <KJob>
 
 #include "mediawiki.h"
 #include "upload.h"

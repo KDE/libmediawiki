@@ -28,9 +28,9 @@
 #ifndef MEDIAWIKIJOB_H
 #define MEDIAWIKIJOB_H
 
-// KDE includes
+// KF includes
 
-#include <KCoreAddons/KJob>
+#include <KJob>
 
 // Local includes
 

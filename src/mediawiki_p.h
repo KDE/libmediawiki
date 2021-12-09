@@ -30,9 +30,9 @@
 
 // Qt includes
 
-#include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtNetwork/QNetworkAccessManager>
+#include <QString>
+#include <QUrl>
+#include <QNetworkAccessManager>
 
 namespace mediawiki
 {

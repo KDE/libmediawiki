@@ -25,7 +25,7 @@
  *
  * ============================================================ */
 
-#include <QtCore/QString>
+#include <QString>
 
 #include "mediawiki.h"
 #include "mediawiki_p.h"

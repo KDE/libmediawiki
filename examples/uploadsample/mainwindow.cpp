@@ -28,8 +28,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QtCore/QFile>
-#include <QtWidgets/QFileDialog>
+#include <QFile>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),

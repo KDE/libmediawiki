@@ -25,10 +25,10 @@
  *
  * ============================================================ */
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtTest/QtTest>
+#include <QObject>
+#include <QString>
+#include <QUrl>
+#include <QtTest>
 
 #include "mediawiki.h"
 

@@ -34,11 +34,11 @@
 
 // Qt includes
 
-#include <QtCore/QDateTime>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtCore/QVariant>
-#include <QtNetwork/QNetworkCookieJar>
+#include <QDateTime>
+#include <QString>
+#include <QUrl>
+#include <QVariant>
+#include <QNetworkCookieJar>
 
 // Local includes
 

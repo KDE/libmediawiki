@@ -30,10 +30,10 @@
 
 // Qt includes
 
-#include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkCookieJar>
+#include <QString>
+#include <QUrl>
+#include <QNetworkAccessManager>
+#include <QNetworkCookieJar>
 
 // Local includes
 

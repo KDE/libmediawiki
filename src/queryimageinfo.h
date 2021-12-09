@@ -30,7 +30,7 @@
 
 // Qt includes
 
-#include <QtCore/QList>
+#include <QList>
 
 // Local includes
 

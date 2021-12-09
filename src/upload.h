@@ -30,11 +30,11 @@
 
 // Qt includes
 
-#include <QtCore/QIODevice>
-#include <QtCore/QString>
-#include <QtCore/QDateTime>
-#include <QtNetwork/QNetworkCookieJar>
-#include <QtCore/QUrl>
+#include <QIODevice>
+#include <QString>
+#include <QDateTime>
+#include <QNetworkCookieJar>
+#include <QUrl>
 
 // Local includes
 

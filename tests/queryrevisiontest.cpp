@@ -27,16 +27,16 @@
  *
  * ============================================================ */
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtTest/QTest>
+#include <QList>
+#include <QMap>
+#include <QObject>
+#include <QString>
+#include <QUrl>
+#include <QTest>
 #include <QFile>
 #include <QTextStream>
 
-#include <KCoreAddons/KJob>
+#include <KJob>
 
 #include "libmediawikitest/fakeserver.h"
 

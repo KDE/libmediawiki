@@ -32,8 +32,8 @@
 
 // Qt includes
 
-#include <QtCore/QString>
-#include <QtNetwork/QNetworkCookieJar>
+#include <QString>
+#include <QNetworkCookieJar>
 
 // Local includes
 

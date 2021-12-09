@@ -27,7 +27,7 @@
 
 #include <iostream>
 
-#include <QtCore/QFile>
+#include <QFile>
 
 FakeServer::FakeServer(QObject* const parent)
 :  QThread( parent )

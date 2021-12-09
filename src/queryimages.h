@@ -30,9 +30,9 @@
 #ifndef MEDIAWIKI_QUERYIMAGES_H
 #define MEDIAWIKI_QUERYIMAGES_H
 
-// KDE includes
+// KF includes
 
-#include <kjob.h>
+#include <KJob>
 
 // Local includes
 

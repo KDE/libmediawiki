@@ -32,7 +32,7 @@
 
 // Qt includes
 
-#include <QtCore/QString>
+#include <QString>
 
 // Local includes
 

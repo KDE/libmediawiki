@@ -29,7 +29,7 @@
 
 // Qt includes
 
-#include <QtNetwork/QNetworkReply>
+#include <QNetworkReply>
 
 // Local include
 

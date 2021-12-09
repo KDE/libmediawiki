@@ -28,8 +28,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMessageBox>
+#include <QMainWindow>
+#include <QMessageBox>
 
 #include <MediaWiki/Upload>
 #include <MediaWiki/MediaWiki>

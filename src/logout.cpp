@@ -30,15 +30,15 @@
 
 // Qt includes
 
-#include <QtCore/QDateTime>
-#include <QtCore/QTimer>
-#include <QtCore/QUrl>
-#include <QtCore/QUrlQuery>
-#include <QtCore/QXmlStreamReader>
+#include <QDateTime>
+#include <QTimer>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QXmlStreamReader>
 
-#include <QtNetwork/QNetworkCookie>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
+#include <QNetworkCookie>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 
 // Local includes
 

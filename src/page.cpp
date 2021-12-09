@@ -33,7 +33,7 @@
 
 // Qt includes
 
-#include <QtCore/QUrl>
+#include <QUrl>
 
 namespace mediawiki
 {

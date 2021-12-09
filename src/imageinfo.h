@@ -30,11 +30,11 @@
 
 // Qt includes
 
-#include <QtCore/QDateTime>
-#include <QtCore/QHash>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtCore/QVariant>
+#include <QDateTime>
+#include <QHash>
+#include <QString>
+#include <QUrl>
+#include <QVariant>
 
 // Local includes
 
