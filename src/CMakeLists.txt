@@ -1,4 +1,12 @@
-set(mediawiki_SRCS
+add_library(KF5MediaWiki)
+add_library(KF5::MediaWiki ALIAS KF5MediaWiki)
+set_target_properties(KF5MediaWiki
+    PROPERTIES VERSION ${MEDIAWIKI_VERSION}
+    SOVERSION ${MEDIAWIKI_SOVERSION}
+    EXPORT_NAME "MediaWiki"
+)
+
+target_sources(KF5MediaWiki PRIVATE
     image.cpp
     imageinfo.cpp
     mediawiki.cpp
@@ -21,10 +29,7 @@ set(mediawiki_SRCS
     upload.cpp
 )
 
-add_library(KF5MediaWiki ${mediawiki_SRCS})
 generate_export_header(KF5MediaWiki BASE_NAME MediaWiki)
-
-add_library(KF5::MediaWiki ALIAS KF5MediaWiki)
 
 target_include_directories(KF5MediaWiki INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/MediaWiki>")
 
@@ -33,12 +38,6 @@ target_link_libraries(KF5MediaWiki
         Qt5::Core
         Qt5::Network
         KF5::CoreAddons
-)
-
-set_target_properties(KF5MediaWiki
-    PROPERTIES VERSION ${MEDIAWIKI_VERSION}
-    SOVERSION ${MEDIAWIKI_SOVERSION}
-    EXPORT_NAME "MediaWiki"
 )
 
 ecm_generate_headers(MediaWiki_CamelCase_HEADERS
