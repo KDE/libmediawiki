@@ -4,13 +4,13 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.16.0)
 
 project(UploadSample)
 
-find_package(Qt5 5.2.0 NO_MODULE REQUIRED Core Network Widgets)
-find_package(KF5MediaWiki ${KF5_VERSION} REQUIRED)
-find_package(KF5CoreAddons ${KF5_VERSION} REQUIRED NO_MODULE)
+find_package(Qt5 5.15.0 NO_MODULE REQUIRED Core Network Widgets)
+find_package(KF5MediaWiki REQUIRED)
+find_package(KF5CoreAddons REQUIRED NO_MODULE)
 
 set(CMAKE_AUTOMOC ON)
 

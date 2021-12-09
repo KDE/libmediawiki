@@ -36,7 +36,7 @@ target_link_libraries(KF5MediaWiki
 )
 
 set_target_properties(KF5MediaWiki
-    PROPERTIES VERSION ${MEDIAWIKI_VERSION_STRING}
+    PROPERTIES VERSION ${MEDIAWIKI_VERSION}
     SOVERSION ${MEDIAWIKI_SOVERSION}
     EXPORT_NAME "MediaWiki"
 )

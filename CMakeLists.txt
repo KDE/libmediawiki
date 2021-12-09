@@ -4,37 +4,40 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-project(MediaWiki)
-
-message(STATUS "----------------------------------------------------------------------------------")
-message(STATUS "Starting CMake configuration for: ${PROJECT_NAME}")
-
-set(CMAKE_MIN_VERSION   "2.8.12")
-set(ECM_MIN_VERSION     "1.5.0")
-set(KF5_VERSION         "5.5.0")
-set(REQUIRED_QT_VERSION "5.2.0")
+cmake_minimum_required(VERSION 3.16.0)
 
 # Used to set library's SONAME, change first digit on API/ABI break
 set(LIBMEDIAWIKI_LIBVERSION         "5.37.0")
 
-cmake_minimum_required(VERSION ${CMAKE_MIN_VERSION})
+project(MediaWiki VERSION ${LIBMEDIAWIKI_LIBVERSION})
+
+message(STATUS "----------------------------------------------------------------------------------")
+message(STATUS "Starting CMake configuration for: ${PROJECT_NAME}")
+
+set(KF_MIN_VERSION "5.85.0")
+set(QT_MIN_VERSION "5.15.0")
 
 ############## ECM setup #################################################################################################################
 
-find_package(ECM ${ECM_MIN_VERSION} CONFIG REQUIRED)
+find_package(ECM ${KF_MIN_VERSION} CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
 
 include(ECMGenerateHeaders)
 include(ECMGeneratePriFile)
 include(ECMSetupVersion)
 include(ECMMarkNonGuiExecutable)
 include(ECMOptionalAddSubdirectory)
-include(KDEInstallDirs)
-include(KDECMakeSettings)
-include(KDEFrameworkCompilerSettings)
-include(ECMPackageConfigHelpers)
+include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 include(FeatureSummary)
+
+# Required Qt5 components to build this framework
+find_package(Qt5 ${QT_MIN_VERSION} NO_MODULE REQUIRED Core Network)
+find_package(KF5CoreAddons ${KF_MIN_VERSION} REQUIRED)
 
 ecm_setup_version(${LIBMEDIAWIKI_LIBVERSION}
     VARIABLE_PREFIX MEDIAWIKI
@@ -42,9 +45,11 @@ ecm_setup_version(${LIBMEDIAWIKI_LIBVERSION}
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5MediaWikiConfigVersion.cmake"
 )
 
-# Required Qt5 components to build this framework
-find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
-find_package(KF5CoreAddons ${KF5_VERSION} REQUIRED)
+# added with KDE_COMPILERSETTINGS_LEVEL 5.85.0
+remove_definitions(
+    -DQT_NO_KEYWORDS
+    -DQT_NO_FOREACH
+)
 
 # Subdirectories
 add_subdirectory(src)
@@ -54,7 +59,7 @@ add_subdirectory(tests)
 # Create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5MediaWiki")
 
-ecm_configure_package_config_file(
+configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/KF5MediaWikiConfig.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/KF5MediaWikiConfig.cmake"
     INSTALL_DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
