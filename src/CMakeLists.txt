@@ -31,7 +31,7 @@ target_sources(KF5MediaWiki PRIVATE
 
 generate_export_header(KF5MediaWiki BASE_NAME MediaWiki)
 
-target_include_directories(KF5MediaWiki INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/MediaWiki>")
+target_include_directories(KF5MediaWiki INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/MediaWiki>")
 
 target_link_libraries(KF5MediaWiki
     PUBLIC
@@ -70,13 +70,13 @@ ecm_generate_headers(MediaWiki_CamelCase_HEADERS
 # Install files
 install(TARGETS KF5MediaWiki
         EXPORT KF5MediaWikiTargets
-        ${INSTALL_TARGETS_DEFAULT_ARGS})
+        ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
             ${CMAKE_CURRENT_BINARY_DIR}/mediawiki_export.h
             ${MediaWiki_HEADERS}
             ${MediaWiki_CamelCase_HEADERS}
-        DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/MediaWiki
+        DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/MediaWiki
         COMPONENT Devel)
 
 include(ECMGeneratePriFile)
