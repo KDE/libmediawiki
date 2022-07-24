@@ -35,8 +35,8 @@ target_include_directories(KF5MediaWiki INTERFACE "$<INSTALL_INTERFACE:${KDE_INS
 
 target_link_libraries(KF5MediaWiki
     PUBLIC
-        Qt5::Core
-        Qt5::Network
+        Qt${QT_MAJOR_VERSION}::Core
+        Qt${QT_MAJOR_VERSION}::Network
         KF5::CoreAddons
 )
 

@@ -35,8 +35,8 @@ include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 include(FeatureSummary)
 
-# Required Qt5 components to build this framework
-find_package(Qt5 ${QT_MIN_VERSION} NO_MODULE REQUIRED Core Network)
+# Required Qt components to build this framework
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} NO_MODULE REQUIRED Core Network)
 find_package(KF5CoreAddons ${KF_MIN_VERSION} REQUIRED)
 
 ecm_setup_version(${LIBMEDIAWIKI_LIBVERSION}
@@ -77,7 +77,7 @@ install(EXPORT KF5MediaWikiTargets
         NAMESPACE KF5::)
 
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mediawiki_version.h"
-        DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF5}"
+        DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}"
         COMPONENT Devel)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

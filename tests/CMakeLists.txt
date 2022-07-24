@@ -4,14 +4,14 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Test)
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED Test)
 
 include(ECMMarkAsTest)
 
 macro(mediawiki_executable_tests)
     foreach(_testname ${ARGN})
         add_executable(${_testname} ${_testname}.cpp libmediawikitest/fakeserver.cpp)
-        target_link_libraries(${_testname} Qt5::Core Qt5::Test Qt5::Network KF5::MediaWiki KF5::CoreAddons)
+        target_link_libraries(${_testname} Qt::Core Qt::Test Qt::Network KF5::MediaWiki KF5::CoreAddons)
         ecm_mark_as_test(${_testname})
         add_test(NAME libmediawiki-${_testname} COMMAND ${_testname})
     endforeach(_testname)

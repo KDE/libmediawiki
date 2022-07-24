@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.16.0)
 
 project(UploadSample)
 
-find_package(Qt5 5.15.0 NO_MODULE REQUIRED Core Network Widgets)
+find_package(Qt${QT_MAJOR_VERSION} 5.15.0 NO_MODULE REQUIRED Core Network Widgets)
 find_package(KF5MediaWiki REQUIRED)
 find_package(KF5CoreAddons REQUIRED NO_MODULE)
 
@@ -22,9 +22,9 @@ add_executable(
 
 target_link_libraries(UploadSample
     PRIVATE
-        Qt5::Core
-        Qt5::Network
-        Qt5::Widgets
+        Qt::Core
+        Qt::Network
+        Qt::Widgets
         KF5::MediaWiki
         KF5::CoreAddons
 )
