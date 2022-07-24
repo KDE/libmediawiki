@@ -39,6 +39,10 @@ include(FeatureSummary)
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} NO_MODULE REQUIRED Core Network)
 find_package(KF5CoreAddons ${KF_MIN_VERSION} REQUIRED)
 
+if (QT_MAJOR_VERSION EQUAL "6")
+    find_package(Qt6Core5Compat ${QT_MIN_VERSION} REQUIRED)
+endif()
+
 ecm_setup_version(${LIBMEDIAWIKI_LIBVERSION}
     VARIABLE_PREFIX MEDIAWIKI
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/mediawiki_version.h"

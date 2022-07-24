@@ -40,6 +40,10 @@ target_link_libraries(KF5MediaWiki
         KF5::CoreAddons
 )
 
+if (QT_MAJOR_VERSION EQUAL "6")
+    target_link_libraries(KF5MediaWiki PRIVATE Qt6::Core5Compat)
+endif()
+
 ecm_generate_headers(MediaWiki_CamelCase_HEADERS
 
                      HEADER_NAMES
