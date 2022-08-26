@@ -7,7 +7,7 @@
 cmake_minimum_required(VERSION 3.16.0)
 
 # Used to set library's SONAME, change first digit on API/ABI break
-set(LIBMEDIAWIKI_LIBVERSION         "5.37.0")
+set(LIBMEDIAWIKI_LIBVERSION         "5.38.0")
 
 project(MediaWiki VERSION ${LIBMEDIAWIKI_LIBVERSION})
 
